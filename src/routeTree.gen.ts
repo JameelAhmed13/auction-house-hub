@@ -9,38 +9,395 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WhyChooseUsRouteImport } from './routes/why-choose-us'
+import { Route as UpcomingAuctionsRouteImport } from './routes/upcoming-auctions'
+import { Route as TodaysAuctionsRouteImport } from './routes/todays-auctions'
+import { Route as TermsAndConditionsRouteImport } from './routes/terms-and-conditions'
+import { Route as SoldVehiclesRouteImport } from './routes/sold-vehicles'
+import { Route as SavedVehiclesRouteImport } from './routes/saved-vehicles'
+import { Route as RejectedVehiclesRouteImport } from './routes/rejected-vehicles'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
+import { Route as PendingVehiclesRouteImport } from './routes/pending-vehicles'
+import { Route as OnlineJoinedAuctionsRouteImport } from './routes/online-joined-auctions'
+import { Route as MaintenanceRouteImport } from './routes/maintenance'
+import { Route as InventoryRouteImport } from './routes/inventory'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as ContactUsRouteImport } from './routes/contact-us'
+import { Route as CanceledVehiclesRouteImport } from './routes/canceled-vehicles'
+import { Route as ApprovedVehiclesRouteImport } from './routes/approved-vehicles'
+import { Route as AboutUsRouteImport } from './routes/about-us'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as VehicleDetailsIdRouteImport } from './routes/vehicle-details.$id'
 
+const WhyChooseUsRoute = WhyChooseUsRouteImport.update({
+  id: '/why-choose-us',
+  path: '/why-choose-us',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UpcomingAuctionsRoute = UpcomingAuctionsRouteImport.update({
+  id: '/upcoming-auctions',
+  path: '/upcoming-auctions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TodaysAuctionsRoute = TodaysAuctionsRouteImport.update({
+  id: '/todays-auctions',
+  path: '/todays-auctions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsAndConditionsRoute = TermsAndConditionsRouteImport.update({
+  id: '/terms-and-conditions',
+  path: '/terms-and-conditions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SoldVehiclesRoute = SoldVehiclesRouteImport.update({
+  id: '/sold-vehicles',
+  path: '/sold-vehicles',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SavedVehiclesRoute = SavedVehiclesRouteImport.update({
+  id: '/saved-vehicles',
+  path: '/saved-vehicles',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RejectedVehiclesRoute = RejectedVehiclesRouteImport.update({
+  id: '/rejected-vehicles',
+  path: '/rejected-vehicles',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PendingVehiclesRoute = PendingVehiclesRouteImport.update({
+  id: '/pending-vehicles',
+  path: '/pending-vehicles',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnlineJoinedAuctionsRoute = OnlineJoinedAuctionsRouteImport.update({
+  id: '/online-joined-auctions',
+  path: '/online-joined-auctions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MaintenanceRoute = MaintenanceRouteImport.update({
+  id: '/maintenance',
+  path: '/maintenance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InventoryRoute = InventoryRouteImport.update({
+  id: '/inventory',
+  path: '/inventory',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactUsRoute = ContactUsRouteImport.update({
+  id: '/contact-us',
+  path: '/contact-us',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CanceledVehiclesRoute = CanceledVehiclesRouteImport.update({
+  id: '/canceled-vehicles',
+  path: '/canceled-vehicles',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApprovedVehiclesRoute = ApprovedVehiclesRouteImport.update({
+  id: '/approved-vehicles',
+  path: '/approved-vehicles',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutUsRoute = AboutUsRouteImport.update({
+  id: '/about-us',
+  path: '/about-us',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const VehicleDetailsIdRoute = VehicleDetailsIdRouteImport.update({
+  id: '/vehicle-details/$id',
+  path: '/vehicle-details/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about-us': typeof AboutUsRoute
+  '/approved-vehicles': typeof ApprovedVehiclesRoute
+  '/canceled-vehicles': typeof CanceledVehiclesRoute
+  '/contact-us': typeof ContactUsRoute
+  '/dashboard': typeof DashboardRoute
+  '/inventory': typeof InventoryRoute
+  '/maintenance': typeof MaintenanceRoute
+  '/online-joined-auctions': typeof OnlineJoinedAuctionsRoute
+  '/pending-vehicles': typeof PendingVehiclesRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/rejected-vehicles': typeof RejectedVehiclesRoute
+  '/saved-vehicles': typeof SavedVehiclesRoute
+  '/sold-vehicles': typeof SoldVehiclesRoute
+  '/terms-and-conditions': typeof TermsAndConditionsRoute
+  '/todays-auctions': typeof TodaysAuctionsRoute
+  '/upcoming-auctions': typeof UpcomingAuctionsRoute
+  '/why-choose-us': typeof WhyChooseUsRoute
+  '/vehicle-details/$id': typeof VehicleDetailsIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about-us': typeof AboutUsRoute
+  '/approved-vehicles': typeof ApprovedVehiclesRoute
+  '/canceled-vehicles': typeof CanceledVehiclesRoute
+  '/contact-us': typeof ContactUsRoute
+  '/dashboard': typeof DashboardRoute
+  '/inventory': typeof InventoryRoute
+  '/maintenance': typeof MaintenanceRoute
+  '/online-joined-auctions': typeof OnlineJoinedAuctionsRoute
+  '/pending-vehicles': typeof PendingVehiclesRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/rejected-vehicles': typeof RejectedVehiclesRoute
+  '/saved-vehicles': typeof SavedVehiclesRoute
+  '/sold-vehicles': typeof SoldVehiclesRoute
+  '/terms-and-conditions': typeof TermsAndConditionsRoute
+  '/todays-auctions': typeof TodaysAuctionsRoute
+  '/upcoming-auctions': typeof UpcomingAuctionsRoute
+  '/why-choose-us': typeof WhyChooseUsRoute
+  '/vehicle-details/$id': typeof VehicleDetailsIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about-us': typeof AboutUsRoute
+  '/approved-vehicles': typeof ApprovedVehiclesRoute
+  '/canceled-vehicles': typeof CanceledVehiclesRoute
+  '/contact-us': typeof ContactUsRoute
+  '/dashboard': typeof DashboardRoute
+  '/inventory': typeof InventoryRoute
+  '/maintenance': typeof MaintenanceRoute
+  '/online-joined-auctions': typeof OnlineJoinedAuctionsRoute
+  '/pending-vehicles': typeof PendingVehiclesRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/rejected-vehicles': typeof RejectedVehiclesRoute
+  '/saved-vehicles': typeof SavedVehiclesRoute
+  '/sold-vehicles': typeof SoldVehiclesRoute
+  '/terms-and-conditions': typeof TermsAndConditionsRoute
+  '/todays-auctions': typeof TodaysAuctionsRoute
+  '/upcoming-auctions': typeof UpcomingAuctionsRoute
+  '/why-choose-us': typeof WhyChooseUsRoute
+  '/vehicle-details/$id': typeof VehicleDetailsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about-us'
+    | '/approved-vehicles'
+    | '/canceled-vehicles'
+    | '/contact-us'
+    | '/dashboard'
+    | '/inventory'
+    | '/maintenance'
+    | '/online-joined-auctions'
+    | '/pending-vehicles'
+    | '/privacy-policy'
+    | '/rejected-vehicles'
+    | '/saved-vehicles'
+    | '/sold-vehicles'
+    | '/terms-and-conditions'
+    | '/todays-auctions'
+    | '/upcoming-auctions'
+    | '/why-choose-us'
+    | '/vehicle-details/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about-us'
+    | '/approved-vehicles'
+    | '/canceled-vehicles'
+    | '/contact-us'
+    | '/dashboard'
+    | '/inventory'
+    | '/maintenance'
+    | '/online-joined-auctions'
+    | '/pending-vehicles'
+    | '/privacy-policy'
+    | '/rejected-vehicles'
+    | '/saved-vehicles'
+    | '/sold-vehicles'
+    | '/terms-and-conditions'
+    | '/todays-auctions'
+    | '/upcoming-auctions'
+    | '/why-choose-us'
+    | '/vehicle-details/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/about-us'
+    | '/approved-vehicles'
+    | '/canceled-vehicles'
+    | '/contact-us'
+    | '/dashboard'
+    | '/inventory'
+    | '/maintenance'
+    | '/online-joined-auctions'
+    | '/pending-vehicles'
+    | '/privacy-policy'
+    | '/rejected-vehicles'
+    | '/saved-vehicles'
+    | '/sold-vehicles'
+    | '/terms-and-conditions'
+    | '/todays-auctions'
+    | '/upcoming-auctions'
+    | '/why-choose-us'
+    | '/vehicle-details/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutUsRoute: typeof AboutUsRoute
+  ApprovedVehiclesRoute: typeof ApprovedVehiclesRoute
+  CanceledVehiclesRoute: typeof CanceledVehiclesRoute
+  ContactUsRoute: typeof ContactUsRoute
+  DashboardRoute: typeof DashboardRoute
+  InventoryRoute: typeof InventoryRoute
+  MaintenanceRoute: typeof MaintenanceRoute
+  OnlineJoinedAuctionsRoute: typeof OnlineJoinedAuctionsRoute
+  PendingVehiclesRoute: typeof PendingVehiclesRoute
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
+  RejectedVehiclesRoute: typeof RejectedVehiclesRoute
+  SavedVehiclesRoute: typeof SavedVehiclesRoute
+  SoldVehiclesRoute: typeof SoldVehiclesRoute
+  TermsAndConditionsRoute: typeof TermsAndConditionsRoute
+  TodaysAuctionsRoute: typeof TodaysAuctionsRoute
+  UpcomingAuctionsRoute: typeof UpcomingAuctionsRoute
+  WhyChooseUsRoute: typeof WhyChooseUsRoute
+  VehicleDetailsIdRoute: typeof VehicleDetailsIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/why-choose-us': {
+      id: '/why-choose-us'
+      path: '/why-choose-us'
+      fullPath: '/why-choose-us'
+      preLoaderRoute: typeof WhyChooseUsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/upcoming-auctions': {
+      id: '/upcoming-auctions'
+      path: '/upcoming-auctions'
+      fullPath: '/upcoming-auctions'
+      preLoaderRoute: typeof UpcomingAuctionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/todays-auctions': {
+      id: '/todays-auctions'
+      path: '/todays-auctions'
+      fullPath: '/todays-auctions'
+      preLoaderRoute: typeof TodaysAuctionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms-and-conditions': {
+      id: '/terms-and-conditions'
+      path: '/terms-and-conditions'
+      fullPath: '/terms-and-conditions'
+      preLoaderRoute: typeof TermsAndConditionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sold-vehicles': {
+      id: '/sold-vehicles'
+      path: '/sold-vehicles'
+      fullPath: '/sold-vehicles'
+      preLoaderRoute: typeof SoldVehiclesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/saved-vehicles': {
+      id: '/saved-vehicles'
+      path: '/saved-vehicles'
+      fullPath: '/saved-vehicles'
+      preLoaderRoute: typeof SavedVehiclesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rejected-vehicles': {
+      id: '/rejected-vehicles'
+      path: '/rejected-vehicles'
+      fullPath: '/rejected-vehicles'
+      preLoaderRoute: typeof RejectedVehiclesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pending-vehicles': {
+      id: '/pending-vehicles'
+      path: '/pending-vehicles'
+      fullPath: '/pending-vehicles'
+      preLoaderRoute: typeof PendingVehiclesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/online-joined-auctions': {
+      id: '/online-joined-auctions'
+      path: '/online-joined-auctions'
+      fullPath: '/online-joined-auctions'
+      preLoaderRoute: typeof OnlineJoinedAuctionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/maintenance': {
+      id: '/maintenance'
+      path: '/maintenance'
+      fullPath: '/maintenance'
+      preLoaderRoute: typeof MaintenanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inventory': {
+      id: '/inventory'
+      path: '/inventory'
+      fullPath: '/inventory'
+      preLoaderRoute: typeof InventoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact-us': {
+      id: '/contact-us'
+      path: '/contact-us'
+      fullPath: '/contact-us'
+      preLoaderRoute: typeof ContactUsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/canceled-vehicles': {
+      id: '/canceled-vehicles'
+      path: '/canceled-vehicles'
+      fullPath: '/canceled-vehicles'
+      preLoaderRoute: typeof CanceledVehiclesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/approved-vehicles': {
+      id: '/approved-vehicles'
+      path: '/approved-vehicles'
+      fullPath: '/approved-vehicles'
+      preLoaderRoute: typeof ApprovedVehiclesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about-us': {
+      id: '/about-us'
+      path: '/about-us'
+      fullPath: '/about-us'
+      preLoaderRoute: typeof AboutUsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,12 +405,47 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/vehicle-details/$id': {
+      id: '/vehicle-details/$id'
+      path: '/vehicle-details/$id'
+      fullPath: '/vehicle-details/$id'
+      preLoaderRoute: typeof VehicleDetailsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutUsRoute: AboutUsRoute,
+  ApprovedVehiclesRoute: ApprovedVehiclesRoute,
+  CanceledVehiclesRoute: CanceledVehiclesRoute,
+  ContactUsRoute: ContactUsRoute,
+  DashboardRoute: DashboardRoute,
+  InventoryRoute: InventoryRoute,
+  MaintenanceRoute: MaintenanceRoute,
+  OnlineJoinedAuctionsRoute: OnlineJoinedAuctionsRoute,
+  PendingVehiclesRoute: PendingVehiclesRoute,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
+  RejectedVehiclesRoute: RejectedVehiclesRoute,
+  SavedVehiclesRoute: SavedVehiclesRoute,
+  SoldVehiclesRoute: SoldVehiclesRoute,
+  TermsAndConditionsRoute: TermsAndConditionsRoute,
+  TodaysAuctionsRoute: TodaysAuctionsRoute,
+  UpcomingAuctionsRoute: UpcomingAuctionsRoute,
+  WhyChooseUsRoute: WhyChooseUsRoute,
+  VehicleDetailsIdRoute: VehicleDetailsIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
