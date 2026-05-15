@@ -9,38 +9,795 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WhyChooseUsRouteImport } from './routes/why-choose-us'
+import { Route as VerifyOtpRouteImport } from './routes/verify-otp'
+import { Route as UpcomingAuctionsRouteImport } from './routes/upcoming-auctions'
+import { Route as TodaysAuctionsRouteImport } from './routes/todays-auctions'
+import { Route as TermsAndConditionsRouteImport } from './routes/terms-and-conditions'
+import { Route as SoldVehiclesRouteImport } from './routes/sold-vehicles'
+import { Route as SettledInvoicesRouteImport } from './routes/settled-invoices'
+import { Route as SelectSellerTypeRouteImport } from './routes/select-seller-type'
+import { Route as SelectRoleRouteImport } from './routes/select-role'
+import { Route as SavedVehiclesRouteImport } from './routes/saved-vehicles'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as RejectedVehiclesRouteImport } from './routes/rejected-vehicles'
+import { Route as RegisterOrganizationRouteImport } from './routes/register-organization'
+import { Route as RegisterRouteImport } from './routes/register'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
+import { Route as PendingVehiclesRouteImport } from './routes/pending-vehicles'
+import { Route as PendingInvoicesRouteImport } from './routes/pending-invoices'
+import { Route as PaidPaymentsRouteImport } from './routes/paid-payments'
+import { Route as OnlineJoinedAuctionsRouteImport } from './routes/online-joined-auctions'
+import { Route as OffersWonRouteImport } from './routes/offers-won'
+import { Route as OffersLostRouteImport } from './routes/offers-lost'
+import { Route as OffersExpiredRouteImport } from './routes/offers-expired'
+import { Route as MyOffersRouteImport } from './routes/my-offers'
+import { Route as MaintenanceRouteImport } from './routes/maintenance'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as InventoryRouteImport } from './routes/inventory'
+import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
+import { Route as DuePaymentsRouteImport } from './routes/due-payments'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as CurrentOffersRouteImport } from './routes/current-offers'
+import { Route as CurrentBidsRouteImport } from './routes/current-bids'
+import { Route as ContactUsRouteImport } from './routes/contact-us'
+import { Route as CanceledVehiclesRouteImport } from './routes/canceled-vehicles'
+import { Route as BidsWonRouteImport } from './routes/bids-won'
+import { Route as BidsLostRouteImport } from './routes/bids-lost'
+import { Route as ApprovedVehiclesRouteImport } from './routes/approved-vehicles'
+import { Route as AboutUsRouteImport } from './routes/about-us'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as VehicleDetailsIdRouteImport } from './routes/vehicle-details.$id'
 
+const WhyChooseUsRoute = WhyChooseUsRouteImport.update({
+  id: '/why-choose-us',
+  path: '/why-choose-us',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VerifyOtpRoute = VerifyOtpRouteImport.update({
+  id: '/verify-otp',
+  path: '/verify-otp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UpcomingAuctionsRoute = UpcomingAuctionsRouteImport.update({
+  id: '/upcoming-auctions',
+  path: '/upcoming-auctions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TodaysAuctionsRoute = TodaysAuctionsRouteImport.update({
+  id: '/todays-auctions',
+  path: '/todays-auctions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsAndConditionsRoute = TermsAndConditionsRouteImport.update({
+  id: '/terms-and-conditions',
+  path: '/terms-and-conditions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SoldVehiclesRoute = SoldVehiclesRouteImport.update({
+  id: '/sold-vehicles',
+  path: '/sold-vehicles',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettledInvoicesRoute = SettledInvoicesRouteImport.update({
+  id: '/settled-invoices',
+  path: '/settled-invoices',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SelectSellerTypeRoute = SelectSellerTypeRouteImport.update({
+  id: '/select-seller-type',
+  path: '/select-seller-type',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SelectRoleRoute = SelectRoleRouteImport.update({
+  id: '/select-role',
+  path: '/select-role',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SavedVehiclesRoute = SavedVehiclesRouteImport.update({
+  id: '/saved-vehicles',
+  path: '/saved-vehicles',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RejectedVehiclesRoute = RejectedVehiclesRouteImport.update({
+  id: '/rejected-vehicles',
+  path: '/rejected-vehicles',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterOrganizationRoute = RegisterOrganizationRouteImport.update({
+  id: '/register-organization',
+  path: '/register-organization',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PendingVehiclesRoute = PendingVehiclesRouteImport.update({
+  id: '/pending-vehicles',
+  path: '/pending-vehicles',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PendingInvoicesRoute = PendingInvoicesRouteImport.update({
+  id: '/pending-invoices',
+  path: '/pending-invoices',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PaidPaymentsRoute = PaidPaymentsRouteImport.update({
+  id: '/paid-payments',
+  path: '/paid-payments',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnlineJoinedAuctionsRoute = OnlineJoinedAuctionsRouteImport.update({
+  id: '/online-joined-auctions',
+  path: '/online-joined-auctions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OffersWonRoute = OffersWonRouteImport.update({
+  id: '/offers-won',
+  path: '/offers-won',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OffersLostRoute = OffersLostRouteImport.update({
+  id: '/offers-lost',
+  path: '/offers-lost',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OffersExpiredRoute = OffersExpiredRouteImport.update({
+  id: '/offers-expired',
+  path: '/offers-expired',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MyOffersRoute = MyOffersRouteImport.update({
+  id: '/my-offers',
+  path: '/my-offers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MaintenanceRoute = MaintenanceRouteImport.update({
+  id: '/maintenance',
+  path: '/maintenance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InventoryRoute = InventoryRouteImport.update({
+  id: '/inventory',
+  path: '/inventory',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DuePaymentsRoute = DuePaymentsRouteImport.update({
+  id: '/due-payments',
+  path: '/due-payments',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CurrentOffersRoute = CurrentOffersRouteImport.update({
+  id: '/current-offers',
+  path: '/current-offers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CurrentBidsRoute = CurrentBidsRouteImport.update({
+  id: '/current-bids',
+  path: '/current-bids',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactUsRoute = ContactUsRouteImport.update({
+  id: '/contact-us',
+  path: '/contact-us',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CanceledVehiclesRoute = CanceledVehiclesRouteImport.update({
+  id: '/canceled-vehicles',
+  path: '/canceled-vehicles',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BidsWonRoute = BidsWonRouteImport.update({
+  id: '/bids-won',
+  path: '/bids-won',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BidsLostRoute = BidsLostRouteImport.update({
+  id: '/bids-lost',
+  path: '/bids-lost',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApprovedVehiclesRoute = ApprovedVehiclesRouteImport.update({
+  id: '/approved-vehicles',
+  path: '/approved-vehicles',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutUsRoute = AboutUsRouteImport.update({
+  id: '/about-us',
+  path: '/about-us',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const VehicleDetailsIdRoute = VehicleDetailsIdRouteImport.update({
+  id: '/vehicle-details/$id',
+  path: '/vehicle-details/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about-us': typeof AboutUsRoute
+  '/approved-vehicles': typeof ApprovedVehiclesRoute
+  '/bids-lost': typeof BidsLostRoute
+  '/bids-won': typeof BidsWonRoute
+  '/canceled-vehicles': typeof CanceledVehiclesRoute
+  '/contact-us': typeof ContactUsRoute
+  '/current-bids': typeof CurrentBidsRoute
+  '/current-offers': typeof CurrentOffersRoute
+  '/dashboard': typeof DashboardRoute
+  '/due-payments': typeof DuePaymentsRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/inventory': typeof InventoryRoute
+  '/login': typeof LoginRoute
+  '/maintenance': typeof MaintenanceRoute
+  '/my-offers': typeof MyOffersRoute
+  '/offers-expired': typeof OffersExpiredRoute
+  '/offers-lost': typeof OffersLostRoute
+  '/offers-won': typeof OffersWonRoute
+  '/online-joined-auctions': typeof OnlineJoinedAuctionsRoute
+  '/paid-payments': typeof PaidPaymentsRoute
+  '/pending-invoices': typeof PendingInvoicesRoute
+  '/pending-vehicles': typeof PendingVehiclesRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/register': typeof RegisterRoute
+  '/register-organization': typeof RegisterOrganizationRoute
+  '/rejected-vehicles': typeof RejectedVehiclesRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/saved-vehicles': typeof SavedVehiclesRoute
+  '/select-role': typeof SelectRoleRoute
+  '/select-seller-type': typeof SelectSellerTypeRoute
+  '/settled-invoices': typeof SettledInvoicesRoute
+  '/sold-vehicles': typeof SoldVehiclesRoute
+  '/terms-and-conditions': typeof TermsAndConditionsRoute
+  '/todays-auctions': typeof TodaysAuctionsRoute
+  '/upcoming-auctions': typeof UpcomingAuctionsRoute
+  '/verify-otp': typeof VerifyOtpRoute
+  '/why-choose-us': typeof WhyChooseUsRoute
+  '/vehicle-details/$id': typeof VehicleDetailsIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about-us': typeof AboutUsRoute
+  '/approved-vehicles': typeof ApprovedVehiclesRoute
+  '/bids-lost': typeof BidsLostRoute
+  '/bids-won': typeof BidsWonRoute
+  '/canceled-vehicles': typeof CanceledVehiclesRoute
+  '/contact-us': typeof ContactUsRoute
+  '/current-bids': typeof CurrentBidsRoute
+  '/current-offers': typeof CurrentOffersRoute
+  '/dashboard': typeof DashboardRoute
+  '/due-payments': typeof DuePaymentsRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/inventory': typeof InventoryRoute
+  '/login': typeof LoginRoute
+  '/maintenance': typeof MaintenanceRoute
+  '/my-offers': typeof MyOffersRoute
+  '/offers-expired': typeof OffersExpiredRoute
+  '/offers-lost': typeof OffersLostRoute
+  '/offers-won': typeof OffersWonRoute
+  '/online-joined-auctions': typeof OnlineJoinedAuctionsRoute
+  '/paid-payments': typeof PaidPaymentsRoute
+  '/pending-invoices': typeof PendingInvoicesRoute
+  '/pending-vehicles': typeof PendingVehiclesRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/register': typeof RegisterRoute
+  '/register-organization': typeof RegisterOrganizationRoute
+  '/rejected-vehicles': typeof RejectedVehiclesRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/saved-vehicles': typeof SavedVehiclesRoute
+  '/select-role': typeof SelectRoleRoute
+  '/select-seller-type': typeof SelectSellerTypeRoute
+  '/settled-invoices': typeof SettledInvoicesRoute
+  '/sold-vehicles': typeof SoldVehiclesRoute
+  '/terms-and-conditions': typeof TermsAndConditionsRoute
+  '/todays-auctions': typeof TodaysAuctionsRoute
+  '/upcoming-auctions': typeof UpcomingAuctionsRoute
+  '/verify-otp': typeof VerifyOtpRoute
+  '/why-choose-us': typeof WhyChooseUsRoute
+  '/vehicle-details/$id': typeof VehicleDetailsIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about-us': typeof AboutUsRoute
+  '/approved-vehicles': typeof ApprovedVehiclesRoute
+  '/bids-lost': typeof BidsLostRoute
+  '/bids-won': typeof BidsWonRoute
+  '/canceled-vehicles': typeof CanceledVehiclesRoute
+  '/contact-us': typeof ContactUsRoute
+  '/current-bids': typeof CurrentBidsRoute
+  '/current-offers': typeof CurrentOffersRoute
+  '/dashboard': typeof DashboardRoute
+  '/due-payments': typeof DuePaymentsRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/inventory': typeof InventoryRoute
+  '/login': typeof LoginRoute
+  '/maintenance': typeof MaintenanceRoute
+  '/my-offers': typeof MyOffersRoute
+  '/offers-expired': typeof OffersExpiredRoute
+  '/offers-lost': typeof OffersLostRoute
+  '/offers-won': typeof OffersWonRoute
+  '/online-joined-auctions': typeof OnlineJoinedAuctionsRoute
+  '/paid-payments': typeof PaidPaymentsRoute
+  '/pending-invoices': typeof PendingInvoicesRoute
+  '/pending-vehicles': typeof PendingVehiclesRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/register': typeof RegisterRoute
+  '/register-organization': typeof RegisterOrganizationRoute
+  '/rejected-vehicles': typeof RejectedVehiclesRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/saved-vehicles': typeof SavedVehiclesRoute
+  '/select-role': typeof SelectRoleRoute
+  '/select-seller-type': typeof SelectSellerTypeRoute
+  '/settled-invoices': typeof SettledInvoicesRoute
+  '/sold-vehicles': typeof SoldVehiclesRoute
+  '/terms-and-conditions': typeof TermsAndConditionsRoute
+  '/todays-auctions': typeof TodaysAuctionsRoute
+  '/upcoming-auctions': typeof UpcomingAuctionsRoute
+  '/verify-otp': typeof VerifyOtpRoute
+  '/why-choose-us': typeof WhyChooseUsRoute
+  '/vehicle-details/$id': typeof VehicleDetailsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about-us'
+    | '/approved-vehicles'
+    | '/bids-lost'
+    | '/bids-won'
+    | '/canceled-vehicles'
+    | '/contact-us'
+    | '/current-bids'
+    | '/current-offers'
+    | '/dashboard'
+    | '/due-payments'
+    | '/forgot-password'
+    | '/inventory'
+    | '/login'
+    | '/maintenance'
+    | '/my-offers'
+    | '/offers-expired'
+    | '/offers-lost'
+    | '/offers-won'
+    | '/online-joined-auctions'
+    | '/paid-payments'
+    | '/pending-invoices'
+    | '/pending-vehicles'
+    | '/privacy-policy'
+    | '/register'
+    | '/register-organization'
+    | '/rejected-vehicles'
+    | '/reset-password'
+    | '/saved-vehicles'
+    | '/select-role'
+    | '/select-seller-type'
+    | '/settled-invoices'
+    | '/sold-vehicles'
+    | '/terms-and-conditions'
+    | '/todays-auctions'
+    | '/upcoming-auctions'
+    | '/verify-otp'
+    | '/why-choose-us'
+    | '/vehicle-details/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about-us'
+    | '/approved-vehicles'
+    | '/bids-lost'
+    | '/bids-won'
+    | '/canceled-vehicles'
+    | '/contact-us'
+    | '/current-bids'
+    | '/current-offers'
+    | '/dashboard'
+    | '/due-payments'
+    | '/forgot-password'
+    | '/inventory'
+    | '/login'
+    | '/maintenance'
+    | '/my-offers'
+    | '/offers-expired'
+    | '/offers-lost'
+    | '/offers-won'
+    | '/online-joined-auctions'
+    | '/paid-payments'
+    | '/pending-invoices'
+    | '/pending-vehicles'
+    | '/privacy-policy'
+    | '/register'
+    | '/register-organization'
+    | '/rejected-vehicles'
+    | '/reset-password'
+    | '/saved-vehicles'
+    | '/select-role'
+    | '/select-seller-type'
+    | '/settled-invoices'
+    | '/sold-vehicles'
+    | '/terms-and-conditions'
+    | '/todays-auctions'
+    | '/upcoming-auctions'
+    | '/verify-otp'
+    | '/why-choose-us'
+    | '/vehicle-details/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/about-us'
+    | '/approved-vehicles'
+    | '/bids-lost'
+    | '/bids-won'
+    | '/canceled-vehicles'
+    | '/contact-us'
+    | '/current-bids'
+    | '/current-offers'
+    | '/dashboard'
+    | '/due-payments'
+    | '/forgot-password'
+    | '/inventory'
+    | '/login'
+    | '/maintenance'
+    | '/my-offers'
+    | '/offers-expired'
+    | '/offers-lost'
+    | '/offers-won'
+    | '/online-joined-auctions'
+    | '/paid-payments'
+    | '/pending-invoices'
+    | '/pending-vehicles'
+    | '/privacy-policy'
+    | '/register'
+    | '/register-organization'
+    | '/rejected-vehicles'
+    | '/reset-password'
+    | '/saved-vehicles'
+    | '/select-role'
+    | '/select-seller-type'
+    | '/settled-invoices'
+    | '/sold-vehicles'
+    | '/terms-and-conditions'
+    | '/todays-auctions'
+    | '/upcoming-auctions'
+    | '/verify-otp'
+    | '/why-choose-us'
+    | '/vehicle-details/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutUsRoute: typeof AboutUsRoute
+  ApprovedVehiclesRoute: typeof ApprovedVehiclesRoute
+  BidsLostRoute: typeof BidsLostRoute
+  BidsWonRoute: typeof BidsWonRoute
+  CanceledVehiclesRoute: typeof CanceledVehiclesRoute
+  ContactUsRoute: typeof ContactUsRoute
+  CurrentBidsRoute: typeof CurrentBidsRoute
+  CurrentOffersRoute: typeof CurrentOffersRoute
+  DashboardRoute: typeof DashboardRoute
+  DuePaymentsRoute: typeof DuePaymentsRoute
+  ForgotPasswordRoute: typeof ForgotPasswordRoute
+  InventoryRoute: typeof InventoryRoute
+  LoginRoute: typeof LoginRoute
+  MaintenanceRoute: typeof MaintenanceRoute
+  MyOffersRoute: typeof MyOffersRoute
+  OffersExpiredRoute: typeof OffersExpiredRoute
+  OffersLostRoute: typeof OffersLostRoute
+  OffersWonRoute: typeof OffersWonRoute
+  OnlineJoinedAuctionsRoute: typeof OnlineJoinedAuctionsRoute
+  PaidPaymentsRoute: typeof PaidPaymentsRoute
+  PendingInvoicesRoute: typeof PendingInvoicesRoute
+  PendingVehiclesRoute: typeof PendingVehiclesRoute
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
+  RegisterRoute: typeof RegisterRoute
+  RegisterOrganizationRoute: typeof RegisterOrganizationRoute
+  RejectedVehiclesRoute: typeof RejectedVehiclesRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
+  SavedVehiclesRoute: typeof SavedVehiclesRoute
+  SelectRoleRoute: typeof SelectRoleRoute
+  SelectSellerTypeRoute: typeof SelectSellerTypeRoute
+  SettledInvoicesRoute: typeof SettledInvoicesRoute
+  SoldVehiclesRoute: typeof SoldVehiclesRoute
+  TermsAndConditionsRoute: typeof TermsAndConditionsRoute
+  TodaysAuctionsRoute: typeof TodaysAuctionsRoute
+  UpcomingAuctionsRoute: typeof UpcomingAuctionsRoute
+  VerifyOtpRoute: typeof VerifyOtpRoute
+  WhyChooseUsRoute: typeof WhyChooseUsRoute
+  VehicleDetailsIdRoute: typeof VehicleDetailsIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/why-choose-us': {
+      id: '/why-choose-us'
+      path: '/why-choose-us'
+      fullPath: '/why-choose-us'
+      preLoaderRoute: typeof WhyChooseUsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/verify-otp': {
+      id: '/verify-otp'
+      path: '/verify-otp'
+      fullPath: '/verify-otp'
+      preLoaderRoute: typeof VerifyOtpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/upcoming-auctions': {
+      id: '/upcoming-auctions'
+      path: '/upcoming-auctions'
+      fullPath: '/upcoming-auctions'
+      preLoaderRoute: typeof UpcomingAuctionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/todays-auctions': {
+      id: '/todays-auctions'
+      path: '/todays-auctions'
+      fullPath: '/todays-auctions'
+      preLoaderRoute: typeof TodaysAuctionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms-and-conditions': {
+      id: '/terms-and-conditions'
+      path: '/terms-and-conditions'
+      fullPath: '/terms-and-conditions'
+      preLoaderRoute: typeof TermsAndConditionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sold-vehicles': {
+      id: '/sold-vehicles'
+      path: '/sold-vehicles'
+      fullPath: '/sold-vehicles'
+      preLoaderRoute: typeof SoldVehiclesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settled-invoices': {
+      id: '/settled-invoices'
+      path: '/settled-invoices'
+      fullPath: '/settled-invoices'
+      preLoaderRoute: typeof SettledInvoicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/select-seller-type': {
+      id: '/select-seller-type'
+      path: '/select-seller-type'
+      fullPath: '/select-seller-type'
+      preLoaderRoute: typeof SelectSellerTypeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/select-role': {
+      id: '/select-role'
+      path: '/select-role'
+      fullPath: '/select-role'
+      preLoaderRoute: typeof SelectRoleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/saved-vehicles': {
+      id: '/saved-vehicles'
+      path: '/saved-vehicles'
+      fullPath: '/saved-vehicles'
+      preLoaderRoute: typeof SavedVehiclesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rejected-vehicles': {
+      id: '/rejected-vehicles'
+      path: '/rejected-vehicles'
+      fullPath: '/rejected-vehicles'
+      preLoaderRoute: typeof RejectedVehiclesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register-organization': {
+      id: '/register-organization'
+      path: '/register-organization'
+      fullPath: '/register-organization'
+      preLoaderRoute: typeof RegisterOrganizationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pending-vehicles': {
+      id: '/pending-vehicles'
+      path: '/pending-vehicles'
+      fullPath: '/pending-vehicles'
+      preLoaderRoute: typeof PendingVehiclesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pending-invoices': {
+      id: '/pending-invoices'
+      path: '/pending-invoices'
+      fullPath: '/pending-invoices'
+      preLoaderRoute: typeof PendingInvoicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/paid-payments': {
+      id: '/paid-payments'
+      path: '/paid-payments'
+      fullPath: '/paid-payments'
+      preLoaderRoute: typeof PaidPaymentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/online-joined-auctions': {
+      id: '/online-joined-auctions'
+      path: '/online-joined-auctions'
+      fullPath: '/online-joined-auctions'
+      preLoaderRoute: typeof OnlineJoinedAuctionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/offers-won': {
+      id: '/offers-won'
+      path: '/offers-won'
+      fullPath: '/offers-won'
+      preLoaderRoute: typeof OffersWonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/offers-lost': {
+      id: '/offers-lost'
+      path: '/offers-lost'
+      fullPath: '/offers-lost'
+      preLoaderRoute: typeof OffersLostRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/offers-expired': {
+      id: '/offers-expired'
+      path: '/offers-expired'
+      fullPath: '/offers-expired'
+      preLoaderRoute: typeof OffersExpiredRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/my-offers': {
+      id: '/my-offers'
+      path: '/my-offers'
+      fullPath: '/my-offers'
+      preLoaderRoute: typeof MyOffersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/maintenance': {
+      id: '/maintenance'
+      path: '/maintenance'
+      fullPath: '/maintenance'
+      preLoaderRoute: typeof MaintenanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inventory': {
+      id: '/inventory'
+      path: '/inventory'
+      fullPath: '/inventory'
+      preLoaderRoute: typeof InventoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/due-payments': {
+      id: '/due-payments'
+      path: '/due-payments'
+      fullPath: '/due-payments'
+      preLoaderRoute: typeof DuePaymentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/current-offers': {
+      id: '/current-offers'
+      path: '/current-offers'
+      fullPath: '/current-offers'
+      preLoaderRoute: typeof CurrentOffersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/current-bids': {
+      id: '/current-bids'
+      path: '/current-bids'
+      fullPath: '/current-bids'
+      preLoaderRoute: typeof CurrentBidsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact-us': {
+      id: '/contact-us'
+      path: '/contact-us'
+      fullPath: '/contact-us'
+      preLoaderRoute: typeof ContactUsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/canceled-vehicles': {
+      id: '/canceled-vehicles'
+      path: '/canceled-vehicles'
+      fullPath: '/canceled-vehicles'
+      preLoaderRoute: typeof CanceledVehiclesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bids-won': {
+      id: '/bids-won'
+      path: '/bids-won'
+      fullPath: '/bids-won'
+      preLoaderRoute: typeof BidsWonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bids-lost': {
+      id: '/bids-lost'
+      path: '/bids-lost'
+      fullPath: '/bids-lost'
+      preLoaderRoute: typeof BidsLostRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/approved-vehicles': {
+      id: '/approved-vehicles'
+      path: '/approved-vehicles'
+      fullPath: '/approved-vehicles'
+      preLoaderRoute: typeof ApprovedVehiclesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about-us': {
+      id: '/about-us'
+      path: '/about-us'
+      fullPath: '/about-us'
+      preLoaderRoute: typeof AboutUsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +805,57 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/vehicle-details/$id': {
+      id: '/vehicle-details/$id'
+      path: '/vehicle-details/$id'
+      fullPath: '/vehicle-details/$id'
+      preLoaderRoute: typeof VehicleDetailsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutUsRoute: AboutUsRoute,
+  ApprovedVehiclesRoute: ApprovedVehiclesRoute,
+  BidsLostRoute: BidsLostRoute,
+  BidsWonRoute: BidsWonRoute,
+  CanceledVehiclesRoute: CanceledVehiclesRoute,
+  ContactUsRoute: ContactUsRoute,
+  CurrentBidsRoute: CurrentBidsRoute,
+  CurrentOffersRoute: CurrentOffersRoute,
+  DashboardRoute: DashboardRoute,
+  DuePaymentsRoute: DuePaymentsRoute,
+  ForgotPasswordRoute: ForgotPasswordRoute,
+  InventoryRoute: InventoryRoute,
+  LoginRoute: LoginRoute,
+  MaintenanceRoute: MaintenanceRoute,
+  MyOffersRoute: MyOffersRoute,
+  OffersExpiredRoute: OffersExpiredRoute,
+  OffersLostRoute: OffersLostRoute,
+  OffersWonRoute: OffersWonRoute,
+  OnlineJoinedAuctionsRoute: OnlineJoinedAuctionsRoute,
+  PaidPaymentsRoute: PaidPaymentsRoute,
+  PendingInvoicesRoute: PendingInvoicesRoute,
+  PendingVehiclesRoute: PendingVehiclesRoute,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
+  RegisterRoute: RegisterRoute,
+  RegisterOrganizationRoute: RegisterOrganizationRoute,
+  RejectedVehiclesRoute: RejectedVehiclesRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
+  SavedVehiclesRoute: SavedVehiclesRoute,
+  SelectRoleRoute: SelectRoleRoute,
+  SelectSellerTypeRoute: SelectSellerTypeRoute,
+  SettledInvoicesRoute: SettledInvoicesRoute,
+  SoldVehiclesRoute: SoldVehiclesRoute,
+  TermsAndConditionsRoute: TermsAndConditionsRoute,
+  TodaysAuctionsRoute: TodaysAuctionsRoute,
+  UpcomingAuctionsRoute: UpcomingAuctionsRoute,
+  VerifyOtpRoute: VerifyOtpRoute,
+  WhyChooseUsRoute: WhyChooseUsRoute,
+  VehicleDetailsIdRoute: VehicleDetailsIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
