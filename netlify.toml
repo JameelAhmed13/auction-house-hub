@@ -7,8 +7,8 @@
   # The build command — runs `vite build`
   command = "npm run build"
 
-  # Where the build output lives (Vite outputs the client bundle here)
-  publish = "dist/client"
+  # Where the build output lives (vanilla Vite SPA output)
+  publish = "dist"
 
 [build.environment]
   # Pin Node version so Netlify uses a compatible runtime
