@@ -1,307 +1,976 @@
-// Centralized dummy data for the BK Cars Auctions portal.
+// E-Auction Balochistan Data Models & Sample Data
 
-export type VehicleStatus =
-  | "live"
-  | "upcoming"
-  | "pending"
-  | "approved"
-  | "rejected"
-  | "sold"
-  | "cancelled";
+/* ========== TYPES ========== */
 
-export interface Vehicle {
+export type VehicleCategory = "Motor Cycle" | "Motor Car" | "Commercial";
+export type VanityCategory = "Gold" | "Platinum";
+export type ApplicationStatus = "pending" | "approved" | "rejected" | "withdrawn";
+export type AdvanceNumberStatus = "active" | "expired" | "used";
+export type AuctionStatus = "upcoming" | "live" | "completed" | "ended";
+export type AuctionType = "live" | "online";
+export type PaymentStatus = "pending" | "paid" | "overdue" | "refunded";
+export type UserRole = "admin" | "user" | "buyer" | "viewer";
+export type UserStatus = "active" | "suspended" | "pending";
+
+/* ========== USER & ROLE TYPES ========== */
+
+export interface UserAccount {
   id: string;
-  title: string;
-  make: string;
-  model: string;
-  year: number;
-  mileage: number;
-  vin: string;
-  bodyType: string;
-  fuel: string;
-  transmission: string;
-  color: string;
-  location: string;
-  image: string;
-  images: string[];
+  firstName: string;
+  lastName: string;
+  cnic: string;
+  email: string;
+  phone: string;
+  role: UserRole;
+  status: UserStatus;
+  registeredAt: string;
+  lastLogin?: string;
+  totalBids?: number;
+  totalWins?: number;
+}
+
+export interface Role {
+  id: string;
+  name: string;
+  description: string;
+  permissions: string[];
+  userCount: number;
+  createdAt: string;
+}
+
+export interface Member {
+  id: string;
+  userId: string;
+  firstName: string;
+  lastName: string;
+  cnic: string;
+  email: string;
+  phone: string;
+  district: string;
+  memberSince: string;
+  totalApplications: number;
+  status: UserStatus;
+}
+
+/* ========== AUCTION TYPES ========== */
+
+export interface NumberPlate {
+  id: string;
+  plateNumber: string;
+  category: VehicleCategory | VanityCategory;
   reservePrice: number;
+  openingBid: number;
   currentBid: number;
-  startingBid: number;
-  bidsCount: number;
-  watching: number;
-  endsAt: string;
-  status: VehicleStatus;
-  laneId?: string;
+  yourBid?: number;
+  bidCount: number;
+  highestBidderId?: string;
+  // Anonymous code for transparency, e.g., "BID-A4F2"
+  highestBidderCode?: string;
+  status: "available" | "in-auction" | "sold" | "reserved";
   auctionId?: string;
-  seller: { name: string; rating: number; type: "individual" | "organization" };
-  damage?: string;
-  features: string[];
+  description?: string;
 }
 
-const COVERS = [
-  "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=70",
-  "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1200&q=70",
-  "https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=1200&q=70",
-  "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=70",
-  "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&w=1200&q=70",
-  "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=1200&q=70",
-  "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?auto=format&fit=crop&w=1200&q=70",
-  "https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&w=1200&q=70",
-  "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1200&q=70",
-  "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1200&q=70",
-];
+export type PlateMode = "single" | "multi";
 
-const MAKES = [
-  ["Toyota", "Camry SE"],
-  ["BMW", "M340i xDrive"],
-  ["Mercedes", "C-Class AMG"],
-  ["Audi", "A6 Quattro"],
-  ["Lexus", "RX 350 F-Sport"],
-  ["Porsche", "Cayenne Turbo"],
-  ["Range Rover", "Sport HSE"],
-  ["Tesla", "Model 3 LR"],
-  ["Ford", "F-150 Raptor"],
-  ["Nissan", "GT-R Premium"],
-  ["Honda", "Civic Type R"],
-  ["Hyundai", "Sonata Turbo"],
-];
-
-const LOCATIONS = ["Dubai", "Abu Dhabi", "Sharjah", "Riyadh", "Doha", "Muscat"];
-const FUELS = ["Petrol", "Diesel", "Hybrid", "Electric"];
-const TRANS = ["Automatic", "Manual", "DCT"];
-const COLORS = ["Obsidian", "Pearl White", "Racing Red", "Midnight Blue", "Gunmetal", "Champagne"];
-const BODY = ["Sedan", "SUV", "Coupe", "Pickup", "Hatchback"];
-
-function rand<T>(arr: T[], i: number): T {
-  return arr[i % arr.length];
-}
-function num(seed: number, min: number, max: number) {
-  const x = Math.sin(seed) * 10000;
-  const r = x - Math.floor(x);
-  return Math.floor(min + r * (max - min));
-}
-
-function makeVehicle(i: number, status: VehicleStatus): Vehicle {
-  const [make, model] = rand(MAKES, i);
-  const year = 2018 + (i % 7);
-  const cover = rand(COVERS, i);
-  const reserve = num(i + 1, 18000, 95000);
-  const current = reserve - num(i + 7, 2000, 6000);
-  return {
-    id: `veh-${status}-${i + 1}`,
-    title: `${year} ${make} ${model}`,
-    make,
-    model,
-    year,
-    mileage: num(i + 3, 8000, 110000),
-    vin: `WBA${(100000 + i * 13).toString().padStart(14, "0")}`,
-    bodyType: rand(BODY, i + 2),
-    fuel: rand(FUELS, i + 1),
-    transmission: rand(TRANS, i),
-    color: rand(COLORS, i + 4),
-    location: rand(LOCATIONS, i + 5),
-    image: cover,
-    images: [cover, rand(COVERS, i + 1), rand(COVERS, i + 2), rand(COVERS, i + 3)],
-    reservePrice: reserve,
-    currentBid: current,
-    startingBid: reserve - num(i + 9, 6000, 12000),
-    bidsCount: num(i + 11, 3, 48),
-    watching: num(i + 13, 5, 220),
-    endsAt: new Date(Date.now() + (i + 1) * 1000 * 60 * 37).toISOString(),
-    status,
-    laneId: status === "live" ? `LANE-${(i % 4) + 1}` : undefined,
-    auctionId: `auc-${(i % 6) + 1}`,
-    seller: {
-      name: i % 3 === 0 ? "Premium Motors LLC" : "Khalid Al Mansoori",
-      rating: 4 + (i % 10) / 10,
-      type: i % 3 === 0 ? "organization" : "individual",
-    },
-    damage: i % 4 === 0 ? "Minor cosmetic" : undefined,
-    features: ["Sunroof", "Leather", "Navigation", "Apple CarPlay", "360° Camera"].slice(0, 3 + (i % 3)),
-  };
-}
-
-export const vehiclesByStatus: Record<VehicleStatus, Vehicle[]> = {
-  live: Array.from({ length: 12 }, (_, i) => makeVehicle(i, "live")),
-  upcoming: Array.from({ length: 10 }, (_, i) => makeVehicle(i + 20, "upcoming")),
-  pending: Array.from({ length: 6 }, (_, i) => makeVehicle(i + 40, "pending")),
-  approved: Array.from({ length: 8 }, (_, i) => makeVehicle(i + 50, "approved")),
-  rejected: Array.from({ length: 4 }, (_, i) => makeVehicle(i + 60, "rejected")),
-  sold: Array.from({ length: 9 }, (_, i) => makeVehicle(i + 70, "sold")),
-  cancelled: Array.from({ length: 3 }, (_, i) => makeVehicle(i + 80, "cancelled")),
-};
-
-export const allVehicles = Object.values(vehiclesByStatus).flat();
-
-export function findVehicle(id: string) {
-  return allVehicles.find((v) => v.id === id) ?? allVehicles[0];
-}
-
-// ---------- Bids ----------
-export interface BidRecord {
-  id: string;
-  vehicle: Vehicle;
-  yourBid: number;
-  highestBid: number;
-  status: "winning" | "outbid" | "won" | "lost";
-  placedAt: string;
-}
-export const myBids: BidRecord[] = allVehicles.slice(0, 18).map((v, i) => ({
-  id: `bid-${i + 1}`,
-  vehicle: v,
-  yourBid: v.currentBid - 500 + i * 120,
-  highestBid: v.currentBid,
-  status: (["winning", "outbid", "won", "lost"] as const)[i % 4],
-  placedAt: new Date(Date.now() - i * 36e5).toISOString(),
-}));
-
-// ---------- Offers ----------
-export interface OfferRecord {
-  id: string;
-  vehicle: Vehicle;
-  amount: number;
-  status: "pending" | "accepted" | "rejected" | "expired";
-  expiresAt: string;
-}
-export const myOffers: OfferRecord[] = allVehicles.slice(5, 25).map((v, i) => ({
-  id: `off-${i + 1}`,
-  vehicle: v,
-  amount: v.currentBid - 1500,
-  status: (["pending", "accepted", "rejected", "expired"] as const)[i % 4],
-  expiresAt: new Date(Date.now() + i * 86e5).toISOString(),
-}));
-
-// ---------- Invoices / Payments ----------
-export interface Invoice {
-  id: string;
-  vehicle: Vehicle;
-  amount: number;
-  dueAt: string;
-  status: "due" | "paid" | "pending" | "settled" | "refund";
-  type: "buyer-payment" | "deposit" | "refund" | "settlement";
-}
-export const invoices: Invoice[] = allVehicles.slice(0, 16).map((v, i) => ({
-  id: `inv-${1000 + i}`,
-  vehicle: v,
-  amount: v.currentBid + 1200,
-  dueAt: new Date(Date.now() + i * 864e5).toISOString(),
-  status: (["due", "paid", "pending", "settled", "refund"] as const)[i % 5],
-  type: (["buyer-payment", "deposit", "refund", "settlement"] as const)[i % 4],
-}));
-
-// ---------- Auctions ----------
 export interface Auction {
   id: string;
-  name: string;
-  date: string;
-  status: "live" | "upcoming";
-  vehiclesCount: number;
-  location: string;
-  cover: string;
-  lanes: number;
+  title: string;
+  description: string;
+  type: AuctionType;
+  status: AuctionStatus;
+  startTime: string; // ISO datetime
+  endTime?: string; // Only for ONLINE auctions. Live auctions end when all plates are sold.
+  plateIds: string[];
+  bidIncrement: number; // Fixed increment range
+  registrationFee: number;
+  totalParticipants: number;
+  createdAt: string;
+  createdBy: string;
+  /** Single-plate auction = 1 plate per auction; Multi = multiple plates */
+  plateMode?: PlateMode;
+  // For live auctions
+  countdownSeconds?: number; // 5 by default
+  bonusCountdownSeconds?: number; // 5 bonus
+  // Live auction progression
+  currentPlateIndex?: number; // Which plate is currently being auctioned
 }
-export const auctions: Auction[] = Array.from({ length: 8 }, (_, i) => ({
-  id: `auc-${i + 1}`,
-  name: ["Dubai Premium Sale", "Sharjah Weekly", "Abu Dhabi Luxury", "Riyadh Express", "Doha Classics"][i % 5] +
-    ` #${i + 1}`,
-  date: new Date(Date.now() + (i - 2) * 864e5).toISOString(),
-  status: i < 3 ? "live" : "upcoming",
-  vehiclesCount: 40 + i * 7,
-  location: rand(LOCATIONS, i),
-  cover: rand(COVERS, i + 5),
-  lanes: 2 + (i % 4),
-}));
 
-// ---------- Locations ----------
-export interface AuctionLocation {
+export interface Bid {
+  id: string;
+  auctionId: string;
+  plateId: string;
+  userId: string;
+  // Anonymous bidder identifier shown publicly (e.g., "BID-A4F2")
+  bidderCode: string;
+  amount: number;
+  timestamp: string;
+  isWinning?: boolean;
+}
+
+/* ========== EXISTING TYPES (kept for backward compat) ========== */
+
+export interface RegistrationMark {
+  id: string;
+  mark: string;
+  category: VehicleCategory;
+  reservePrice: number;
+  currentBid?: number;
+  bidsCount: number;
+  seriesId: string;
+}
+
+export interface AuctionSeries {
   id: string;
   name: string;
-  city: string;
-  country: string;
-  address: string;
-  phone: string;
-  hours: string;
-  cover: string;
-  upcomingCount: number;
+  code: string;
+  category: VehicleCategory;
+  registrationStartDate: string;
+  registrationEndDate: string;
+  auctionStartDate: string;
+  auctionEndDate: string;
+  totalNumbers: number;
+  availableNumbers: number;
+  reauction?: boolean;
+  description?: string;
 }
-export const locations: AuctionLocation[] = LOCATIONS.map((c, i) => ({
-  id: `loc-${i + 1}`,
-  name: `${c} Auction Center`,
-  city: c,
-  country: i < 3 ? "United Arab Emirates" : ["Saudi Arabia", "Qatar", "Oman"][i - 3] ?? "UAE",
-  address: `Plot ${100 + i * 7}, Industrial Area ${i + 1}`,
-  phone: `+971 ${4 + i} ${num(i, 1000, 9999)} ${num(i + 1, 1000, 9999)}`,
-  hours: "Sun – Thu · 8:00 AM – 8:00 PM",
-  cover: rand(COVERS, i + 2),
-  upcomingCount: 3 + i,
-}));
 
-// ---------- Deposit / Pricing Plans ----------
-export interface DepositPlan {
+export interface VanityPlate {
   id: string;
-  name: string;
-  tagline: string;
-  monthly: number;
-  bidLimit: number;
-  features: string[];
-  recommended?: boolean;
+  plateNumber: string;
+  category: VanityCategory;
+  auctionStartDate: string;
+  auctionEndDate: string;
+  reservePrice: number;
+  currentBid?: number;
+  status: AuctionStatus;
 }
-export const depositPlans: DepositPlan[] = [
-  { id: "starter", name: "Starter", tagline: "For occasional buyers", monthly: 99, bidLimit: 5000, features: ["5 active bids", "Basic support", "1 location"] },
-  { id: "pro", name: "Pro Bidder", tagline: "Most popular", monthly: 299, bidLimit: 25000, recommended: true, features: ["25 active bids", "Priority support", "All locations", "Auto-bid"] },
-  { id: "elite", name: "Elite Dealer", tagline: "For volume buyers", monthly: 799, bidLimit: 100000, features: ["Unlimited bids", "Dedicated manager", "Same-day clearance", "API access"] },
-];
 
-// ---------- Notifications ----------
+export interface AdvanceNumber {
+  id: string;
+  registrationNumber: string;
+  category: VehicleCategory;
+  requestedBy: string;
+  approvedDate: string;
+  psid: string;
+  psidExpiry: string;
+  paymentStatus: PaymentStatus;
+  status: AdvanceNumberStatus;
+}
+
+export interface UserApplication {
+  id: string;
+  applicationId: string;
+  type: "standard" | "vanity" | "corporate-vanity" | "advance";
+  category: VehicleCategory | VanityCategory;
+  registrationNumber?: string;
+  seriesName?: string;
+  cnicNumber: string;
+  ntnNumber?: string;
+  companyName?: string;
+  submittedDate: string;
+  status: ApplicationStatus;
+  psid?: string;
+  psidExpiry?: string;
+  paymentStatus: PaymentStatus;
+}
+
+export interface AuctionWinner {
+  id: string;
+  seriesName: string;
+  seriesCode: string;
+  category: VehicleCategory;
+  auctionStartDate: string;
+  auctionEndDate: string;
+  registrationNumber: string;
+  reservePrice: number;
+  highestBid: number;
+  winnerAin: string;
+  winnerName: string;
+}
+
+export interface SeriesSchedule {
+  id: string;
+  seriesCode: string;
+  seriesName: string;
+  category: VehicleCategory;
+  type: "initial" | "reauction";
+  registrationStartDate: string;
+  registrationEndDate: string;
+  auctionStartDate: string;
+  auctionEndDate: string;
+}
+
 export interface AppNotification {
   id: string;
   title: string;
-  body: string;
-  time: string;
+  message: string;
+  type: "application" | "payment" | "auction" | "system";
+  timestamp: string;
   read: boolean;
-  type: "bid" | "offer" | "auction" | "payment" | "system";
 }
+
+/* ========== USERS DATA ========== */
+
+export const users: UserAccount[] = [
+  {
+    id: "u1", firstName: "Admin", lastName: "Super", cnic: "11111-1111111-1",
+    email: "admin@eauction.gov.pk", phone: "+923001111111",
+    role: "admin", status: "active",
+    registeredAt: "2024-01-01", lastLogin: "2026-05-15",
+    totalBids: 0, totalWins: 0,
+  },
+  {
+    id: "u2", firstName: "Muhammad", lastName: "Hassan", cnic: "42301-1234567-1",
+    email: "hassan@example.pk", phone: "+923001234567",
+    role: "buyer", status: "active",
+    registeredAt: "2025-08-15", lastLogin: "2026-05-15",
+    totalBids: 23, totalWins: 5,
+  },
+  {
+    id: "u3", firstName: "Fatima", lastName: "Khan", cnic: "42301-7654321-2",
+    email: "fatima@example.pk", phone: "+923007654321",
+    role: "buyer", status: "active",
+    registeredAt: "2025-09-20", lastLogin: "2026-05-14",
+    totalBids: 18, totalWins: 3,
+  },
+  {
+    id: "u4", firstName: "Ahmed", lastName: "Ali", cnic: "42301-9876543-3",
+    email: "ahmed@example.pk", phone: "+923009876543",
+    role: "buyer", status: "active",
+    registeredAt: "2025-10-10", lastLogin: "2026-05-13",
+    totalBids: 12, totalWins: 2,
+  },
+  {
+    id: "u5", firstName: "Sana", lastName: "Malik", cnic: "42301-1112222-4",
+    email: "sana@example.pk", phone: "+923001112222",
+    role: "buyer", status: "suspended",
+    registeredAt: "2025-11-05", lastLogin: "2026-05-10",
+    totalBids: 5, totalWins: 0,
+  },
+  {
+    id: "u6", firstName: "Bilal", lastName: "Sheikh", cnic: "42301-3334444-5",
+    email: "bilal@example.pk", phone: "+923003334444",
+    role: "user", status: "pending",
+    registeredAt: "2026-05-10",
+    totalBids: 0, totalWins: 0,
+  },
+];
+
+export const roles: Role[] = [
+  {
+    id: "r1", name: "Administrator", description: "Full system access",
+    permissions: ["users.manage", "roles.manage", "auctions.manage", "members.manage", "reports.view"],
+    userCount: 1, createdAt: "2024-01-01",
+  },
+  {
+    id: "r2", name: "Buyer", description: "Can bid on auctions and manage applications",
+    permissions: ["auctions.bid", "applications.create", "applications.view"],
+    userCount: 4, createdAt: "2024-01-01",
+  },
+  {
+    id: "r3", name: "User", description: "Registered user with limited access",
+    permissions: ["auctions.view", "profile.edit"],
+    userCount: 1, createdAt: "2024-01-01",
+  },
+  {
+    id: "r4", name: "Viewer", description: "Read-only access to public auctions",
+    permissions: ["auctions.view"],
+    userCount: 0, createdAt: "2024-01-01",
+  },
+];
+
+export const members: Member[] = users
+  .filter((u) => u.role === "buyer" || u.role === "user")
+  .map((u) => ({
+    id: `m${u.id.replace("u", "")}`,
+    userId: u.id,
+    firstName: u.firstName, lastName: u.lastName,
+    cnic: u.cnic, email: u.email, phone: u.phone,
+    district: ["Quetta", "Khuzdar", "Turbat", "Gwadar"][parseInt(u.id.slice(1)) % 4],
+    memberSince: u.registeredAt,
+    totalApplications: u.totalBids || 0,
+    status: u.status,
+  }));
+
+/* ========== AUCTIONS & PLATES DATA ========== */
+
+const now = new Date();
+const inFuture = (mins: number) => new Date(now.getTime() + mins * 60 * 1000).toISOString();
+const inPast = (mins: number) => new Date(now.getTime() - mins * 60 * 1000).toISOString();
+
+export const numberPlates: NumberPlate[] = [
+  {
+    id: "p1", plateNumber: "AB 0001", category: "Platinum",
+    reservePrice: 500000, openingBid: 500000, currentBid: 750000,
+    yourBid: 700000, bidCount: 12,
+    highestBidderCode: "BID-A4F2",
+    status: "in-auction", auctionId: "a1",
+  },
+  {
+    id: "p2", plateNumber: "AB 7777", category: "Gold",
+    reservePrice: 300000, openingBid: 300000, currentBid: 425000,
+    bidCount: 8, highestBidderCode: "BID-B7K1",
+    status: "in-auction", auctionId: "a1",
+  },
+  {
+    id: "p3", plateNumber: "QT 9999", category: "Platinum",
+    reservePrice: 600000, openingBid: 600000, currentBid: 850000,
+    yourBid: 800000, bidCount: 15,
+    highestBidderCode: "BID-A4F2",
+    status: "in-auction", auctionId: "a2",
+  },
+  {
+    id: "p4", plateNumber: "AB 0786", category: "Gold",
+    reservePrice: 250000, openingBid: 250000, currentBid: 350000,
+    bidCount: 6, highestBidderCode: "BID-C9M3",
+    status: "in-auction", auctionId: "a2",
+  },
+  {
+    id: "p5", plateNumber: "AB 5555", category: "Gold",
+    reservePrice: 200000, openingBid: 200000, currentBid: 200000,
+    bidCount: 0, status: "available", auctionId: "a3",
+  },
+  {
+    id: "p6", plateNumber: "BAL 100", category: "Motor Car",
+    reservePrice: 50000, openingBid: 50000, currentBid: 67500,
+    bidCount: 5, highestBidderCode: "BID-A4F2",
+    status: "in-auction", auctionId: "a3",
+  },
+  {
+    id: "p7", plateNumber: "BAL 200", category: "Motor Car",
+    reservePrice: 40000, openingBid: 40000, currentBid: 40000,
+    bidCount: 0, status: "available", auctionId: "a3",
+  },
+  {
+    id: "p8", plateNumber: "BEL 010", category: "Motor Cycle",
+    reservePrice: 15000, openingBid: 15000, currentBid: 22000,
+    bidCount: 4, highestBidderCode: "BID-B7K1",
+    status: "in-auction", auctionId: "a4",
+  },
+  {
+    id: "p9", plateNumber: "BEL 111", category: "Motor Cycle",
+    reservePrice: 25000, openingBid: 25000, currentBid: 25000,
+    bidCount: 0, status: "available", auctionId: "a4",
+  },
+  {
+    id: "p10", plateNumber: "AB 1111", category: "Platinum",
+    reservePrice: 400000, openingBid: 400000, currentBid: 400000,
+    bidCount: 0, status: "available",
+  },
+  {
+    id: "p11", plateNumber: "AB 0007", category: "Gold",
+    reservePrice: 350000, openingBid: 350000, currentBid: 350000,
+    bidCount: 0, status: "available",
+  },
+  {
+    id: "p12", plateNumber: "QT 0001", category: "Platinum",
+    reservePrice: 550000, openingBid: 550000, currentBid: 550000,
+    bidCount: 0, status: "available",
+  },
+  // Additional plates (p13-p32) — 20 more plates with variety
+  {
+    id: "p13", plateNumber: "AB 0786", category: "Platinum",
+    reservePrice: 1000000, openingBid: 1000000, currentBid: 1450000,
+    bidCount: 22, highestBidderCode: "BID-E2P5",
+    status: "in-auction", auctionId: "sp1",
+  },
+  {
+    id: "p14", plateNumber: "QT 0007", category: "Platinum",
+    reservePrice: 750000, openingBid: 750000, currentBid: 920000,
+    bidCount: 14, highestBidderCode: "BID-F3R6",
+    status: "in-auction", auctionId: "sp2",
+  },
+  {
+    id: "p15", plateNumber: "AB 9999", category: "Platinum",
+    reservePrice: 850000, openingBid: 850000, currentBid: 1100000,
+    bidCount: 18, highestBidderCode: "BID-A4F2",
+    status: "in-auction", auctionId: "sp3",
+  },
+  {
+    id: "p16", plateNumber: "BAL 786", category: "Gold",
+    reservePrice: 200000, openingBid: 200000, currentBid: 285000,
+    bidCount: 7, highestBidderCode: "BID-G7S8",
+    status: "in-auction", auctionId: "sp4",
+  },
+  {
+    id: "p17", plateNumber: "AB 0500", category: "Gold",
+    reservePrice: 175000, openingBid: 175000, currentBid: 175000,
+    bidCount: 0, status: "available", auctionId: "sp5",
+  },
+  {
+    id: "p18", plateNumber: "QT 8888", category: "Gold",
+    reservePrice: 250000, openingBid: 250000, currentBid: 320000,
+    bidCount: 6, highestBidderCode: "BID-H1T2",
+    status: "in-auction", auctionId: "a6",
+  },
+  {
+    id: "p19", plateNumber: "BEL 999", category: "Motor Cycle",
+    reservePrice: 30000, openingBid: 30000, currentBid: 45000,
+    bidCount: 9, highestBidderCode: "BID-J5U7",
+    status: "in-auction", auctionId: "a6",
+  },
+  {
+    id: "p20", plateNumber: "BAL 1000", category: "Motor Car",
+    reservePrice: 80000, openingBid: 80000, currentBid: 105000,
+    bidCount: 5, highestBidderCode: "BID-K9V4",
+    status: "in-auction", auctionId: "a7",
+  },
+  {
+    id: "p21", plateNumber: "BAZ 786", category: "Commercial",
+    reservePrice: 65000, openingBid: 65000, currentBid: 78000,
+    bidCount: 3, highestBidderCode: "BID-L2W6",
+    status: "in-auction", auctionId: "a7",
+  },
+  {
+    id: "p22", plateNumber: "AB 0123", category: "Gold",
+    reservePrice: 400000, openingBid: 400000, currentBid: 400000,
+    bidCount: 0, status: "available", auctionId: "a7",
+  },
+  {
+    id: "p23", plateNumber: "QT 0786", category: "Platinum",
+    reservePrice: 920000, openingBid: 920000, currentBid: 920000,
+    bidCount: 0, status: "available", auctionId: "sp6",
+  },
+  {
+    id: "p24", plateNumber: "AB 0555", category: "Platinum",
+    reservePrice: 880000, openingBid: 880000, currentBid: 880000,
+    bidCount: 0, status: "available", auctionId: "sp7",
+  },
+  {
+    id: "p25", plateNumber: "BAL 5050", category: "Motor Car",
+    reservePrice: 45000, openingBid: 45000, currentBid: 58000,
+    bidCount: 4, highestBidderCode: "BID-A4F2",
+    status: "in-auction", auctionId: "a8",
+  },
+  {
+    id: "p26", plateNumber: "BAL 7070", category: "Motor Car",
+    reservePrice: 55000, openingBid: 55000, currentBid: 55000,
+    bidCount: 0, status: "available", auctionId: "a8",
+  },
+  {
+    id: "p27", plateNumber: "BEL 333", category: "Motor Cycle",
+    reservePrice: 18000, openingBid: 18000, currentBid: 22500,
+    bidCount: 3, highestBidderCode: "BID-M3X1",
+    status: "in-auction", auctionId: "a8",
+  },
+  {
+    id: "p28", plateNumber: "BEL 555", category: "Motor Cycle",
+    reservePrice: 22000, openingBid: 22000, currentBid: 22000,
+    bidCount: 0, status: "available", auctionId: "a8",
+  },
+  {
+    id: "p29", plateNumber: "AB 0250", category: "Gold",
+    reservePrice: 225000, openingBid: 225000, currentBid: 295000,
+    bidCount: 8, highestBidderCode: "BID-N4Y9",
+    status: "in-auction", auctionId: "sp8",
+  },
+  {
+    id: "p30", plateNumber: "QT 6666", category: "Gold",
+    reservePrice: 270000, openingBid: 270000, currentBid: 270000,
+    bidCount: 0, status: "available",
+  },
+  {
+    id: "p31", plateNumber: "AB 0009", category: "Platinum",
+    reservePrice: 1200000, openingBid: 1200000, currentBid: 1200000,
+    bidCount: 0, status: "available",
+  },
+  {
+    id: "p32", plateNumber: "AB 4321", category: "Gold",
+    reservePrice: 180000, openingBid: 180000, currentBid: 180000,
+    bidCount: 0, status: "available",
+  },
+];
+
+export const auctions: Auction[] = [
+  {
+    id: "a1",
+    title: "Premium Platinum & Gold Auction",
+    description: "Live auction for exclusive premium registration numbers",
+    type: "live",
+    status: "live",
+    startTime: inPast(30),
+    plateIds: ["p1", "p2"],
+    bidIncrement: 10000,
+    registrationFee: 5000,
+    totalParticipants: 24,
+    createdAt: "2026-05-10",
+    createdBy: "u1",
+    plateMode: "multi",
+    countdownSeconds: 5,
+    bonusCountdownSeconds: 5,
+    currentPlateIndex: 0,
+  },
+  {
+    id: "a2",
+    title: "Quetta Special Series",
+    description: "Online auction for Quetta special edition plates",
+    type: "online",
+    status: "live",
+    startTime: inPast(120),
+    endTime: inFuture(180),
+    plateIds: ["p3", "p4"],
+    bidIncrement: 5000,
+    registrationFee: 3000,
+    totalParticipants: 18,
+    createdAt: "2026-05-12",
+    createdBy: "u1",
+    plateMode: "multi",
+  },
+  {
+    id: "a3",
+    title: "Motor Car Standard Auction",
+    description: "Standard motor car registration series",
+    type: "online",
+    status: "upcoming",
+    startTime: inFuture(45),
+    endTime: inFuture(360),
+    plateIds: ["p5", "p6", "p7"],
+    bidIncrement: 2000,
+    registrationFee: 1500,
+    totalParticipants: 0,
+    createdAt: "2026-05-14",
+    createdBy: "u1",
+    plateMode: "multi",
+  },
+  {
+    id: "a4",
+    title: "Motor Cycle Auction",
+    description: "Motor cycle registration numbers - Live bidding",
+    type: "live",
+    status: "upcoming",
+    startTime: inFuture(15),
+    plateIds: ["p8", "p9"],
+    bidIncrement: 1000,
+    registrationFee: 1000,
+    totalParticipants: 0,
+    createdAt: "2026-05-14",
+    createdBy: "u1",
+    plateMode: "multi",
+    countdownSeconds: 5,
+    bonusCountdownSeconds: 5,
+    currentPlateIndex: 0,
+  },
+  {
+    id: "a5",
+    title: "Weekend Premium Auction",
+    description: "Special weekend live auction for premium plates",
+    type: "live",
+    status: "upcoming",
+    startTime: inFuture(1440),
+    plateIds: ["p10", "p11", "p12"],
+    bidIncrement: 25000,
+    registrationFee: 10000,
+    totalParticipants: 0,
+    createdAt: "2026-05-14",
+    createdBy: "u1",
+    plateMode: "multi",
+    countdownSeconds: 5,
+    bonusCountdownSeconds: 5,
+    currentPlateIndex: 0,
+  },
+  {
+    id: "a6",
+    title: "Premium Gold Collection",
+    description: "Mixed online auction for premium gold plates",
+    type: "online",
+    status: "live",
+    startTime: inPast(60),
+    endTime: inFuture(240),
+    plateIds: ["p18", "p19"],
+    bidIncrement: 3000,
+    registrationFee: 2000,
+    totalParticipants: 12,
+    createdAt: "2026-05-13",
+    createdBy: "u1",
+    plateMode: "multi",
+  },
+  {
+    id: "a7",
+    title: "Commercial & Mixed Auction",
+    description: "Multi-category online auction",
+    type: "online",
+    status: "live",
+    startTime: inPast(45),
+    endTime: inFuture(180),
+    plateIds: ["p20", "p21", "p22"],
+    bidIncrement: 2500,
+    registrationFee: 1500,
+    totalParticipants: 9,
+    createdAt: "2026-05-14",
+    createdBy: "u1",
+    plateMode: "multi",
+  },
+  {
+    id: "a8",
+    title: "Daily Live Round - Standard Plates",
+    description: "Live sequential auction for standard plates",
+    type: "live",
+    status: "upcoming",
+    startTime: inFuture(30),
+    plateIds: ["p25", "p26", "p27", "p28"],
+    bidIncrement: 1500,
+    registrationFee: 1000,
+    totalParticipants: 0,
+    createdAt: "2026-05-14",
+    createdBy: "u1",
+    plateMode: "multi",
+    countdownSeconds: 5,
+    bonusCountdownSeconds: 5,
+    currentPlateIndex: 0,
+  },
+
+  // ============ SINGLE-PLATE AUCTIONS (Solo) ============
+  {
+    id: "sp1",
+    title: "Solo: AB 0786 — Sacred Number",
+    description: "Exclusive single-plate auction for the iconic AB 0786",
+    type: "online",
+    status: "live",
+    startTime: inPast(180),
+    endTime: inFuture(120),
+    plateIds: ["p13"],
+    bidIncrement: 25000,
+    registrationFee: 10000,
+    totalParticipants: 35,
+    createdAt: "2026-05-10",
+    createdBy: "u1",
+    plateMode: "single",
+  },
+  {
+    id: "sp2",
+    title: "Solo: QT 0007 — Lucky Seven",
+    description: "Single-plate showdown for QT 0007",
+    type: "online",
+    status: "live",
+    startTime: inPast(90),
+    endTime: inFuture(90),
+    plateIds: ["p14"],
+    bidIncrement: 15000,
+    registrationFee: 8000,
+    totalParticipants: 22,
+    createdAt: "2026-05-11",
+    createdBy: "u1",
+    plateMode: "single",
+  },
+  {
+    id: "sp3",
+    title: "Solo Live: AB 9999 — Triple Nine",
+    description: "Live single-plate auction for the lucky AB 9999",
+    type: "live",
+    status: "live",
+    startTime: inPast(15),
+    plateIds: ["p15"],
+    bidIncrement: 20000,
+    registrationFee: 8000,
+    totalParticipants: 18,
+    createdAt: "2026-05-13",
+    createdBy: "u1",
+    plateMode: "single",
+    countdownSeconds: 8,
+    bonusCountdownSeconds: 5,
+    currentPlateIndex: 0,
+  },
+  {
+    id: "sp4",
+    title: "Solo: BAL 786 — Spiritual",
+    description: "Single-plate online auction for the popular 786",
+    type: "online",
+    status: "live",
+    startTime: inPast(30),
+    endTime: inFuture(60),
+    plateIds: ["p16"],
+    bidIncrement: 5000,
+    registrationFee: 2500,
+    totalParticipants: 11,
+    createdAt: "2026-05-14",
+    createdBy: "u1",
+    plateMode: "single",
+  },
+  {
+    id: "sp5",
+    title: "Solo: AB 0500 — Half-Thousand",
+    description: "Single-plate online auction for AB 0500",
+    type: "online",
+    status: "upcoming",
+    startTime: inFuture(120),
+    endTime: inFuture(720),
+    plateIds: ["p17"],
+    bidIncrement: 5000,
+    registrationFee: 2500,
+    totalParticipants: 0,
+    createdAt: "2026-05-14",
+    createdBy: "u1",
+    plateMode: "single",
+  },
+  {
+    id: "sp6",
+    title: "Solo Live: QT 0786 — Quetta Special",
+    description: "Solo live bidding for QT 0786",
+    type: "live",
+    status: "upcoming",
+    startTime: inFuture(60),
+    plateIds: ["p23"],
+    bidIncrement: 25000,
+    registrationFee: 10000,
+    totalParticipants: 0,
+    createdAt: "2026-05-14",
+    createdBy: "u1",
+    plateMode: "single",
+    countdownSeconds: 10,
+    bonusCountdownSeconds: 5,
+    currentPlateIndex: 0,
+  },
+  {
+    id: "sp7",
+    title: "Solo: AB 0555 — Triple Five",
+    description: "Premium single-plate auction for AB 0555",
+    type: "online",
+    status: "upcoming",
+    startTime: inFuture(720),
+    endTime: inFuture(2160),
+    plateIds: ["p24"],
+    bidIncrement: 20000,
+    registrationFee: 10000,
+    totalParticipants: 0,
+    createdAt: "2026-05-14",
+    createdBy: "u1",
+    plateMode: "single",
+  },
+  {
+    id: "sp8",
+    title: "Solo: AB 0250 — Quarter K",
+    description: "Single-plate online auction for AB 0250",
+    type: "online",
+    status: "live",
+    startTime: inPast(20),
+    endTime: inFuture(150),
+    plateIds: ["p29"],
+    bidIncrement: 8000,
+    registrationFee: 3000,
+    totalParticipants: 14,
+    createdAt: "2026-05-14",
+    createdBy: "u1",
+    plateMode: "single",
+  },
+];
+
+export const bids: Bid[] = [
+  { id: "b1", auctionId: "a1", plateId: "p1", userId: "u2", bidderCode: "BID-A4F2", amount: 750000, timestamp: inPast(5), isWinning: true },
+  { id: "b2", auctionId: "a1", plateId: "p1", userId: "u3", bidderCode: "BID-B7K1", amount: 720000, timestamp: inPast(8) },
+  { id: "b3", auctionId: "a1", plateId: "p1", userId: "u2", bidderCode: "BID-A4F2", amount: 700000, timestamp: inPast(12) },
+  { id: "b4", auctionId: "a1", plateId: "p2", userId: "u3", bidderCode: "BID-B7K1", amount: 425000, timestamp: inPast(3), isWinning: true },
+  { id: "b5", auctionId: "a2", plateId: "p3", userId: "u2", bidderCode: "BID-A4F2", amount: 850000, timestamp: inPast(15), isWinning: true },
+  { id: "b6", auctionId: "a1", plateId: "p1", userId: "u4", bidderCode: "BID-C9M3", amount: 680000, timestamp: inPast(18) },
+  { id: "b7", auctionId: "a1", plateId: "p1", userId: "u5", bidderCode: "BID-D5N7", amount: 650000, timestamp: inPast(25) },
+  { id: "b8", auctionId: "a1", plateId: "p1", userId: "u3", bidderCode: "BID-B7K1", amount: 620000, timestamp: inPast(30) },
+];
+
+/* ========== EXISTING DATA ========== */
+
+export const auctionSeries: AuctionSeries[] = [
+  { id: "s1", name: "Motor Car Series", code: "BAL", category: "Motor Car",
+    registrationStartDate: "2026-06-01", registrationEndDate: "2026-06-15",
+    auctionStartDate: "2026-06-16", auctionEndDate: "2026-06-20",
+    totalNumbers: 500, availableNumbers: 487, description: "Premium Motor Car Registration Numbers" },
+  { id: "s2", name: "Motor Cycle Series", code: "BEL", category: "Motor Cycle",
+    registrationStartDate: "2026-05-20", registrationEndDate: "2026-06-05",
+    auctionStartDate: "2026-06-06", auctionEndDate: "2026-06-10",
+    totalNumbers: 300, availableNumbers: 265, reauction: false },
+  { id: "s3", name: "Commercial Vehicle Series", code: "BAZ", category: "Commercial",
+    registrationStartDate: "2026-05-15", registrationEndDate: "2026-05-30",
+    auctionStartDate: "2026-06-01", auctionEndDate: "2026-06-05",
+    totalNumbers: 150, availableNumbers: 134 },
+  { id: "s4", name: "Re-Auction Motor Car", code: "BLN", category: "Motor Car",
+    registrationStartDate: "2026-06-10", registrationEndDate: "2026-06-20",
+    auctionStartDate: "2026-06-21", auctionEndDate: "2026-06-25",
+    totalNumbers: 80, availableNumbers: 78, reauction: true },
+];
+
+export const registrationMarks: RegistrationMark[] = [
+  { id: "rm1", mark: "BAL 001", category: "Motor Car", reservePrice: 15000, bidsCount: 3, seriesId: "s1" },
+  { id: "rm2", mark: "BAL 002", category: "Motor Car", reservePrice: 12000, bidsCount: 5, seriesId: "s1" },
+  { id: "rm3", mark: "BAL 010", category: "Motor Car", reservePrice: 25000, currentBid: 32000, bidsCount: 8, seriesId: "s1" },
+  { id: "rm4", mark: "BAL 100", category: "Motor Car", reservePrice: 50000, currentBid: 67500, bidsCount: 12, seriesId: "s1" },
+  { id: "rm5", mark: "BAL 111", category: "Motor Car", reservePrice: 60000, currentBid: 85000, bidsCount: 15, seriesId: "s1" },
+  { id: "rm6", mark: "BEL 001", category: "Motor Cycle", reservePrice: 5000, bidsCount: 2, seriesId: "s2" },
+  { id: "rm7", mark: "BEL 010", category: "Motor Cycle", reservePrice: 8000, currentBid: 11500, bidsCount: 6, seriesId: "s2" },
+  { id: "rm8", mark: "BEL 111", category: "Motor Cycle", reservePrice: 12000, currentBid: 18000, bidsCount: 10, seriesId: "s2" },
+  { id: "rm9", mark: "BAZ 001", category: "Commercial", reservePrice: 20000, bidsCount: 4, seriesId: "s3" },
+  { id: "rm10", mark: "BAZ 100", category: "Commercial", reservePrice: 35000, currentBid: 42000, bidsCount: 7, seriesId: "s3" },
+];
+
+export const vanityPlates: VanityPlate[] = [
+  { id: "vp1", plateNumber: "AB 0001/1", category: "Platinum",
+    auctionStartDate: "2026-05-20", auctionEndDate: "2026-06-05",
+    reservePrice: 500000, currentBid: 750000, status: "live" },
+  { id: "vp2", plateNumber: "AB 0123/2", category: "Gold",
+    auctionStartDate: "2026-05-20", auctionEndDate: "2026-06-05",
+    reservePrice: 250000, currentBid: 375000, status: "live" },
+  { id: "vp3", plateNumber: "QT 9999/3", category: "Platinum",
+    auctionStartDate: "2026-06-01", auctionEndDate: "2026-06-15",
+    reservePrice: 600000, status: "upcoming" },
+  { id: "vp4", plateNumber: "AB 0007/7", category: "Gold",
+    auctionStartDate: "2026-06-01", auctionEndDate: "2026-06-15",
+    reservePrice: 400000, status: "upcoming" },
+];
+
+export const advanceNumbers: AdvanceNumber[] = [
+  { id: "an1", registrationNumber: "BAL 567", category: "Motor Car", requestedBy: "42301-1234567-1",
+    approvedDate: "2026-05-10", psid: "PSID-2026-00001", psidExpiry: "2026-06-10",
+    paymentStatus: "paid", status: "active" },
+  { id: "an2", registrationNumber: "BEL 234", category: "Motor Cycle", requestedBy: "42301-1234567-1",
+    approvedDate: "2026-05-05", psid: "PSID-2026-00002", psidExpiry: "2026-06-05",
+    paymentStatus: "pending", status: "active" },
+];
+
+export const myApplications: UserApplication[] = [
+  { id: "app1", applicationId: "APP-2026-00001", type: "standard", category: "Motor Car",
+    registrationNumber: "BAL 789", seriesName: "Motor Car Series",
+    cnicNumber: "42301-1234567-1", submittedDate: "2026-05-15", status: "approved",
+    psid: "PSID-2026-00003", psidExpiry: "2026-06-15", paymentStatus: "paid" },
+  { id: "app2", applicationId: "APP-2026-00002", type: "vanity", category: "Gold",
+    registrationNumber: "NGC 456", cnicNumber: "42301-1234567-1",
+    submittedDate: "2026-05-10", status: "pending", paymentStatus: "pending" },
+  { id: "app3", applicationId: "APP-2026-00003", type: "advance", category: "Motor Cycle",
+    registrationNumber: "BEL 999", cnicNumber: "42301-1234567-1",
+    submittedDate: "2026-04-20", status: "approved",
+    psid: "PSID-2026-00004", psidExpiry: "2026-05-20", paymentStatus: "paid" },
+];
+
+export const winners: AuctionWinner[] = [
+  { id: "w1", seriesName: "Motor Car Series", seriesCode: "BAL", category: "Motor Car",
+    auctionStartDate: "2026-04-01", auctionEndDate: "2026-04-10",
+    registrationNumber: "BAL 234", reservePrice: 25000, highestBid: 45000,
+    winnerAin: "BAL-2026***7890-001", winnerName: "Muhammad Hassan" },
+  { id: "w2", seriesName: "Motor Cycle Series", seriesCode: "BEL", category: "Motor Cycle",
+    auctionStartDate: "2026-04-01", auctionEndDate: "2026-04-05",
+    registrationNumber: "BEL 567", reservePrice: 8000, highestBid: 15000,
+    winnerAin: "BEL-2026***4321-002", winnerName: "Fatima Khan" },
+  { id: "w3", seriesName: "Re-Auction Motor Car", seriesCode: "BLN", category: "Motor Car",
+    auctionStartDate: "2026-05-01", auctionEndDate: "2026-05-05",
+    registrationNumber: "BLN 100", reservePrice: 30000, highestBid: 52000,
+    winnerAin: "BLN-2026***1234-003", winnerName: "Ahmed Ali" },
+];
+
+export const schedules: SeriesSchedule[] = [
+  { id: "sch1", seriesCode: "BAL", seriesName: "Motor Car Series", category: "Motor Car",
+    type: "initial", registrationStartDate: "2026-06-01", registrationEndDate: "2026-06-15",
+    auctionStartDate: "2026-06-16", auctionEndDate: "2026-06-20" },
+  { id: "sch2", seriesCode: "BEL", seriesName: "Motor Cycle Series", category: "Motor Cycle",
+    type: "initial", registrationStartDate: "2026-05-20", registrationEndDate: "2026-06-05",
+    auctionStartDate: "2026-06-06", auctionEndDate: "2026-06-10" },
+  { id: "sch3", seriesCode: "BAZ", seriesName: "Commercial Vehicle Series", category: "Commercial",
+    type: "initial", registrationStartDate: "2026-05-15", registrationEndDate: "2026-05-30",
+    auctionStartDate: "2026-06-01", auctionEndDate: "2026-06-05" },
+  { id: "sch4", seriesCode: "BLN", seriesName: "Re-Auction Motor Car", category: "Motor Car",
+    type: "reauction", registrationStartDate: "2026-06-10", registrationEndDate: "2026-06-20",
+    auctionStartDate: "2026-06-21", auctionEndDate: "2026-06-25" },
+];
+
 export const notifications: AppNotification[] = [
-  { id: "n1", title: "You've been outbid", body: "2021 BMW M340i is now $54,200", time: "2m ago", read: false, type: "bid" },
-  { id: "n2", title: "Auction starting soon", body: "Dubai Premium Sale starts in 30 minutes", time: "30m ago", read: false, type: "auction" },
-  { id: "n3", title: "Offer accepted", body: "Your offer on 2022 Lexus RX 350 was accepted", time: "1h ago", read: false, type: "offer" },
-  { id: "n4", title: "Payment due", body: "Invoice #INV-1003 is due tomorrow", time: "3h ago", read: true, type: "payment" },
-  { id: "n5", title: "Welcome to BK Cars", body: "Your account has been verified", time: "Yesterday", read: true, type: "system" },
+  { id: "n1", title: "Application Approved",
+    message: "Your application for BAL 789 has been approved. Please complete payment.",
+    type: "application", timestamp: "2026-05-15T10:30:00Z", read: false },
+  { id: "n2", title: "Payment Reminder",
+    message: "Payment for PSID-2026-00001 is due by 2026-06-10.",
+    type: "payment", timestamp: "2026-05-14T09:00:00Z", read: false },
+  { id: "n3", title: "Auction Started",
+    message: "The Motor Car Series auction has started. You can now place bids.",
+    type: "auction", timestamp: "2026-05-13T08:00:00Z", read: true },
 ];
 
-// ---------- Cards / Payouts ----------
-export interface SavedCard {
-  id: string;
-  brand: "Visa" | "Mastercard" | "Amex";
-  last4: string;
-  exp: string;
-  holder: string;
-  default?: boolean;
+/* ========== UTILITY FUNCTIONS ========== */
+
+export function findSeriesByCode(code: string): AuctionSeries | undefined {
+  return auctionSeries.find((s) => s.code === code);
 }
-export const savedCards: SavedCard[] = [
-  { id: "c1", brand: "Visa", last4: "4242", exp: "08/27", holder: "Khalid Al Mansoori", default: true },
-  { id: "c2", brand: "Mastercard", last4: "8810", exp: "11/26", holder: "Khalid Al Mansoori" },
-];
+export function getMarksBySeriesId(seriesId: string): RegistrationMark[] {
+  return registrationMarks.filter((m) => m.seriesId === seriesId);
+}
+export function getSeriesByCategory(category: VehicleCategory): AuctionSeries[] {
+  return auctionSeries.filter((s) => s.category === category);
+}
+export function getVanityByCategory(category: VanityCategory): VanityPlate[] {
+  return vanityPlates.filter((v) => v.category === category);
+}
+export function getUnreadNotifications(): AppNotification[] {
+  return notifications.filter((n) => !n.read);
+}
+export function getAuctionById(id: string): Auction | undefined {
+  return auctions.find((a) => a.id === id);
+}
+export function getPlatesByAuctionId(auctionId: string): NumberPlate[] {
+  const auction = getAuctionById(auctionId);
+  if (!auction) return [];
+  return numberPlates.filter((p) => auction.plateIds.includes(p.id));
+}
+export function getLiveAuctions(): Auction[] {
+  return auctions.filter((a) => a.status === "live");
+}
+export function getUpcomingAuctions(): Auction[] {
+  return auctions.filter((a) => a.status === "upcoming");
+}
+/** All single-plate (1 plate per auction) auctions */
+export function getSinglePlateAuctions(): Auction[] {
+  return auctions.filter((a) => a.plateMode === "single" || a.plateIds.length === 1);
+}
+/** All multi-plate (2+ plates per auction) auctions */
+export function getMultiPlateAuctions(): Auction[] {
+  return auctions.filter((a) => a.plateMode === "multi" || (a.plateMode === undefined && a.plateIds.length > 1));
+}
+/** Detect whether an auction is a single-plate auction */
+export function isSinglePlateAuction(auction: Auction): boolean {
+  if (auction.plateMode === "single") return true;
+  if (auction.plateMode === "multi") return false;
+  return auction.plateIds.length === 1;
+}
+export function getAvailablePlates(): NumberPlate[] {
+  return numberPlates.filter((p) => p.status === "available" || p.status === "in-auction");
+}
+export function getBidsForPlate(plateId: string): Bid[] {
+  return bids.filter((b) => b.plateId === plateId).sort((a, b) => b.amount - a.amount);
+}
 
-// ---------- Dashboard stats ----------
-export const dashboardStats = {
-  buyer: [
-    { label: "Active Bids", value: 12, delta: "+3 this week", tone: "primary" },
-    { label: "Won Auctions", value: 7, delta: "+2", tone: "success" },
-    { label: "Watching", value: 24, delta: "Live now", tone: "live" },
-    { label: "Due Payments", value: "$4,250", delta: "1 overdue", tone: "warning" },
-  ],
-  seller: [
-    { label: "Listed Vehicles", value: 18, delta: "+4", tone: "primary" },
-    { label: "Sold This Month", value: 9, delta: "+1", tone: "success" },
-    { label: "Pending Approval", value: 6, delta: "Review needed", tone: "warning" },
-    { label: "Total Earnings", value: "$248,900", delta: "+12%", tone: "primary" },
-  ],
-};
+/**
+ * Live auction logic helpers
+ */
 
-export const chartActivity = Array.from({ length: 12 }, (_, i) => ({
-  month: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][i],
-  bids: num(i + 1, 8, 60),
-  wins: num(i + 2, 2, 22),
-  revenue: num(i + 3, 8000, 65000),
-}));
+// Check if a live auction has all plates sold (= auction is over)
+export function isLiveAuctionComplete(auction: Auction): boolean {
+  if (auction.type !== "live") return false;
+  const platesInAuction = numberPlates.filter((p) => auction.plateIds.includes(p.id));
+  return platesInAuction.length > 0 && platesInAuction.every((p) => p.status === "sold");
+}
+
+// Count sold plates in an auction
+export function getSoldPlatesCount(auction: Auction): number {
+  return numberPlates.filter(
+    (p) => auction.plateIds.includes(p.id) && p.status === "sold"
+  ).length;
+}
+
+// Get the currently active plate in a live auction
+export function getCurrentLivePlate(auction: Auction): NumberPlate | undefined {
+  if (auction.type !== "live") return undefined;
+  // Find the first plate that's still in-auction (not sold)
+  const idx = auction.currentPlateIndex ?? 0;
+  for (let i = idx; i < auction.plateIds.length; i++) {
+    const plate = numberPlates.find((p) => p.id === auction.plateIds[i]);
+    if (plate && plate.status !== "sold") return plate;
+  }
+  return undefined;
+}
+
+// Effective auction status (live auctions become "ended" when all plates sold)
+export function getEffectiveAuctionStatus(auction: Auction): AuctionStatus {
+  if (auction.type === "live" && isLiveAuctionComplete(auction)) {
+    return "ended";
+  }
+  if (auction.type === "online" && auction.endTime) {
+    if (new Date(auction.endTime).getTime() <= Date.now()) {
+      return "ended";
+    }
+  }
+  return auction.status;
+}

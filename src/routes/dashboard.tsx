@@ -2,148 +2,163 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { Bar, BarChart, CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
-import { ArrowUpRight, Gavel, TrendingUp, Eye, Trophy, Wallet, Sparkles } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
-import { VehicleCard } from "@/components/vehicle-card";
+import {
+  Layers, Gem, FileText, BadgePlus, Gavel, Trophy, Calendar, HelpCircle,
+  LayoutGrid, Briefcase,
+} from "lucide-react";
 import { useAuth } from "@/lib/auth-store";
-import { dashboardStats, chartActivity, vehiclesByStatus, myBids, notifications } from "@/lib/dummy-data";
-import { money } from "@/lib/format";
-import { cn } from "@/lib/utils";
+import { auctionSeries, vanityPlates, getSeriesByCategory } from "@/lib/dummy-data";
+import { PlateDisplay } from "@/components/plate-display";
 
 export const Route = createFileRoute("/dashboard")({ component: Dashboard });
 
-const toneMap: Record<string, string> = {
-  primary: "from-primary/20 to-primary/5 text-primary",
-  success: "from-success/20 to-success/5 text-success",
-  warning: "from-warning/20 to-warning/5 text-warning",
-  live: "from-live/20 to-live/5 text-live",
-};
+const quickAccessCards = [
+  { title: "Series", icon: Layers, color: "bg-teal-100 text-teal-700", to: "/auction-series" },
+  { title: "Advance Number", icon: BadgePlus, color: "bg-orange-100 text-orange-700", to: "/advance-numbers" },
+  { title: "My Applications", icon: FileText, color: "bg-purple-100 text-purple-700", to: "/my-applications" },
+  { title: "Schedule", icon: Calendar, color: "bg-green-100 text-green-700", to: "/schedule" },
+  { title: "Bidding", icon: Gavel, color: "bg-red-100 text-red-700", to: "/bidding" },
+  { title: "Winners", icon: Trophy, color: "bg-blue-100 text-blue-700", to: "/winners" },
+];
+
+const SeriesCard = ({ series }: { series: typeof auctionSeries[0] }) => (
+  <Card className="overflow-hidden">
+    <CardContent className="p-4">
+      <div className="flex items-start justify-between mb-3">
+        <div>
+          <div className="text-sm font-semibold text-muted-foreground">{series.category}</div>
+          <div className="text-lg font-bold">{series.code}</div>
+        </div>
+        <Badge variant="outline">{series.reauction ? "Re-Auction" : "Active"}</Badge>
+      </div>
+      <div className="bg-blue-50 rounded p-2 mb-3 text-center">
+        <div className="text-xs text-muted-foreground">Available Numbers</div>
+        <div className="text-xl font-bold text-primary">{series.availableNumbers}</div>
+      </div>
+      <div className="grid grid-cols-2 gap-2 text-xs mb-3">
+        <div className="bg-gray-50 p-2 rounded">
+          <div className="text-muted-foreground">Reg Start</div>
+          <div className="font-semibold">{series.registrationStartDate}</div>
+        </div>
+        <div className="bg-gray-50 p-2 rounded">
+          <div className="text-muted-foreground">Auction Start</div>
+          <div className="font-semibold">{series.auctionStartDate}</div>
+        </div>
+      </div>
+      <Button asChild className="w-full" variant="outline" size="sm">
+        <Link to="/auction-series/$seriesId" params={{ seriesId: series.id }}>Select</Link>
+      </Button>
+    </CardContent>
+  </Card>
+);
+
+const VanityPlateCard = ({ plate }: { plate: typeof vanityPlates[0] }) => (
+  <Card className="overflow-hidden">
+    <CardContent className="p-4">
+      <div className="flex items-center justify-between mb-3">
+        <div className="text-xs font-semibold text-muted-foreground">{plate.category}</div>
+        <Badge variant={plate.status === "live" ? "default" : "secondary"}>{plate.status}</Badge>
+      </div>
+      <div className="flex justify-center mb-3">
+        <PlateDisplay plateNumber={plate.plateNumber} size="md" />
+      </div>
+      <div className="grid grid-cols-2 gap-2 text-xs mb-3">
+        <div>
+          <div className="text-muted-foreground">Reserve</div>
+          <div className="font-semibold">PKR {plate.reservePrice.toLocaleString()}</div>
+        </div>
+        <div>
+          <div className="text-muted-foreground">Current Bid</div>
+          <div className="font-semibold text-primary">{plate.currentBid ? `PKR ${plate.currentBid.toLocaleString()}` : "-"}</div>
+        </div>
+      </div>
+      <Button asChild className="w-full" variant="outline" size="sm">
+        <Link to="/vanity">Select</Link>
+      </Button>
+    </CardContent>
+  </Card>
+);
 
 function Dashboard() {
   const { user } = useAuth();
-  const mode = user?.currentMode ?? "buyer";
-  const stats = dashboardStats[mode];
-  const featured = mode === "buyer" ? vehiclesByStatus.live.slice(0, 4) : vehiclesByStatus.approved.slice(0, 4);
+  const motorCarSeries = getSeriesByCategory("Motor Car");
+  const vanityGold = vanityPlates.filter((v) => v.category === "Gold").slice(0, 3);
 
   return (
-    <div>
+    <div className="space-y-8">
+      {/* Header */}
       <PageHeader
-        title={`Welcome back, ${user?.firstName ?? "there"} 👋`}
-        subtitle={`Here's what's happening in your ${mode} account today.`}
-        actions={
-          <>
-            <Button asChild variant="outline"><Link to="/inventory">Browse inventory</Link></Button>
-            <Button asChild><Link to={mode === "seller" ? "/add-new-vehicles" : "/todays-auctions"}>{mode === "seller" ? "Add vehicle" : "Join auction"}</Link></Button>
-          </>
-        }
+        title={`Welcome, ${user?.firstName ?? "User"} 👋`}
+        subtitle="Excise E-Auction Portal"
       />
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {stats.map((s) => (
-          <Card key={s.label} className="overflow-hidden border-border/60">
-            <CardContent className={cn("relative bg-gradient-to-br p-5", toneMap[s.tone])}>
-              <div className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{s.label}</div>
-              <div className="mt-2 font-display text-3xl font-bold text-foreground">{s.value}</div>
-              <div className="mt-1 flex items-center text-xs font-medium">
-                <ArrowUpRight className="mr-1 h-3 w-3" />{s.delta}
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+      {/* Hero Banner */}
+      <div className="rounded-lg bg-hero-dark text-white p-8 md:p-12">
+        <h2 className="text-4xl font-bold mb-4">E-AUCTION</h2>
+        <p className="max-w-2xl text-white/80">
+          Unlock Prestige and Personalization, Join Our Exclusive E-Auction for Unique Automobile Registration Numbers. Bid Now to Secure the Perfect Plate for Your Vehicle!
+        </p>
       </div>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-3">
-        <Card className="lg:col-span-2">
-          <CardHeader className="flex flex-row items-center justify-between">
-            <div>
-              <CardTitle className="font-display">{mode === "buyer" ? "Bid activity" : "Sales activity"}</CardTitle>
-              <p className="text-sm text-muted-foreground">Last 12 months</p>
-            </div>
-            <Badge variant="secondary"><TrendingUp className="mr-1 h-3 w-3" /> +18%</Badge>
-          </CardHeader>
-          <CardContent>
-            <ChartContainer config={{ bids: { label: "Bids", color: "var(--color-primary)" }, wins: { label: "Wins", color: "var(--color-success)" } }} className="h-[260px] w-full">
-              <BarChart data={chartActivity}>
-                <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" />
-                <XAxis dataKey="month" stroke="var(--color-muted-foreground)" fontSize={12} />
-                <YAxis stroke="var(--color-muted-foreground)" fontSize={12} />
-                <ChartTooltip content={<ChartTooltipContent />} />
-                <Bar dataKey="bids" fill="var(--color-primary)" radius={[6, 6, 0, 0]} />
-                <Bar dataKey="wins" fill="var(--color-success)" radius={[6, 6, 0, 0]} />
-              </BarChart>
-            </ChartContainer>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader><CardTitle className="font-display">Revenue trend</CardTitle></CardHeader>
-          <CardContent>
-            <ChartContainer config={{ revenue: { label: "Revenue", color: "var(--color-primary)" } }} className="h-[260px] w-full">
-              <LineChart data={chartActivity}>
-                <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" />
-                <XAxis dataKey="month" stroke="var(--color-muted-foreground)" fontSize={12} />
-                <ChartTooltip content={<ChartTooltipContent />} />
-                <Line type="monotone" dataKey="revenue" stroke="var(--color-primary)" strokeWidth={2.5} dot={false} />
-              </LineChart>
-            </ChartContainer>
-          </CardContent>
-        </Card>
-      </div>
-
-      <div className="mt-6 grid gap-6 lg:grid-cols-3">
-        <Card className="lg:col-span-2">
-          <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle className="font-display">{mode === "buyer" ? "Recent bids" : "Featured listings"}</CardTitle>
-            <Button asChild size="sm" variant="ghost"><Link to={mode === "buyer" ? "/current-bids" : "/approved-vehicles"}>View all</Link></Button>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              {(mode === "buyer" ? myBids.slice(0, 5) : featured.map((v) => ({ id: v.id, vehicle: v, yourBid: v.currentBid, highestBid: v.currentBid, status: "winning" as const }))).map((b) => (
-                <Link key={b.id} to="/vehicle-details/$id" params={{ id: b.vehicle.id }} className="flex items-center gap-3 rounded-xl border bg-secondary/30 p-3 transition-colors hover:bg-secondary">
-                  <img src={b.vehicle.image} alt="" className="h-14 w-20 rounded-lg object-cover" />
-                  <div className="min-w-0 flex-1">
-                    <div className="truncate font-semibold">{b.vehicle.title}</div>
-                    <div className="text-xs text-muted-foreground">{b.vehicle.location} · {b.vehicle.bidsCount} bids</div>
+      {/* Quick Access Cards */}
+      <div>
+        <h3 className="mb-4 text-lg font-bold">Quick Access</h3>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
+          {quickAccessCards.map((card) => (
+            <Link key={card.title} to={card.to} className="block">
+              <Card className="overflow-hidden cursor-pointer hover:shadow-md transition-shadow h-full">
+                <CardContent className="p-4 h-32 flex flex-col items-center justify-center text-center">
+                  <div className={`p-3 rounded-lg mb-2 ${card.color}`}>
+                    <card.icon className="h-5 w-5" />
                   </div>
-                  <div className="text-right">
-                    <div className="font-display text-lg font-bold text-primary">{money(b.highestBid)}</div>
-                    <Badge variant={b.status === "winning" || b.status === "won" ? "default" : "secondary"} className="text-[10px] uppercase">{b.status}</Badge>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader><CardTitle className="font-display flex items-center gap-2"><Sparkles className="h-4 w-4 text-primary" /> Notifications</CardTitle></CardHeader>
-          <CardContent className="space-y-3">
-            {notifications.slice(0, 5).map((n) => (
-              <div key={n.id} className="flex items-start gap-3 rounded-lg border bg-secondary/30 p-3">
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary">
-                  {n.type === "bid" ? <Gavel className="h-4 w-4" /> : n.type === "auction" ? <Eye className="h-4 w-4" /> : n.type === "offer" ? <Trophy className="h-4 w-4" /> : <Wallet className="h-4 w-4" />}
-                </div>
-                <div className="min-w-0 flex-1 text-sm">
-                  <div className="font-medium">{n.title}</div>
-                  <div className="text-xs text-muted-foreground">{n.body}</div>
-                </div>
-                <span className="text-[10px] text-muted-foreground">{n.time}</span>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
-      </div>
-
-      <div className="mt-6">
-        <div className="mb-4 flex items-center justify-between">
-          <h2 className="font-display text-xl font-semibold">Trending now</h2>
-          <Button asChild size="sm" variant="ghost"><Link to="/inventory">Browse all</Link></Button>
+                  <span className="text-xs font-semibold text-foreground">{card.title}</span>
+                </CardContent>
+              </Card>
+            </Link>
+          ))}
         </div>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {featured.map((v) => <VehicleCard key={v.id} vehicle={v} />)}
+      </div>
+
+      {/* Vanity Auction Section */}
+      <div>
+        <div className="mb-4 flex items-center justify-between">
+          <h3 className="text-lg font-bold">Vanity Auction</h3>
+          <Button asChild variant="ghost" size="sm">
+            <Link to="/vanity">View All →</Link>
+          </Button>
+        </div>
+        <div className="grid gap-4 md:grid-cols-3">
+          {vanityGold.map((plate) => (
+            <VanityPlateCard key={plate.id} plate={plate} />
+          ))}
+        </div>
+      </div>
+
+      {/* Available Series Section */}
+      <div>
+        <div className="mb-4 flex items-center justify-between">
+          <h3 className="text-lg font-bold">Available Series for Auctions</h3>
+          <Button asChild variant="ghost" size="sm">
+            <Link to="/auction-series">View All →</Link>
+          </Button>
+        </div>
+        <div className="grid gap-4 md:grid-cols-3">
+          {motorCarSeries.slice(0, 3).map((series) => (
+            <SeriesCard key={series.id} series={series} />
+          ))}
+        </div>
+      </div>
+
+      {/* Re-Auction Section */}
+      <div>
+        <div className="mb-4">
+          <h3 className="text-lg font-bold">Available Series for Re-Auction</h3>
+        </div>
+        <div className="grid gap-4 md:grid-cols-3">
+          {auctionSeries.filter((s) => s.reauction).map((series) => (
+            <SeriesCard key={series.id} series={series} />
+          ))}
         </div>
       </div>
     </div>

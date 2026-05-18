@@ -1,32 +1,44 @@
-// Minimal frontend-only auth + theme + role state (localStorage backed).
+// Minimal frontend-only auth + theme state (localStorage backed). CNIC-based for E-Auction.
 import { useEffect, useState } from "react";
 
-type Role = "buyer" | "seller";
-type SellerType = "individual" | "organization";
+export type AppUserRole = "admin" | "buyer" | "user" | "viewer";
 
 export interface AppUser {
   id: string;
   firstName: string;
   lastName: string;
+  cnic: string; // Format: "42301-1234567-1"
+  phone: string; // Format: "+92312345678"
   email: string;
-  avatar: string;
-  roles: Role[];
-  currentMode: Role;
-  sellerType: SellerType;
+  ntn?: string;
+  companyName?: string;
+  avatar?: string;
+  role: AppUserRole;
 }
 
-const KEY = "bkcars-auth";
-const THEME_KEY = "bkcars-theme";
+const KEY = "eauction-auth";
+const THEME_KEY = "eauction-theme";
 
 const DEFAULT_USER: AppUser = {
   id: "user-1",
-  firstName: "Khalid",
-  lastName: "Al Mansoori",
-  email: "khalid@bkcars.com",
-  avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80",
-  roles: ["buyer", "seller"],
-  currentMode: "buyer",
-  sellerType: "organization",
+  firstName: "Muhammad",
+  lastName: "Hassan",
+  cnic: "42301-1234567-1",
+  phone: "+923001234567",
+  email: "hassan@example.pk",
+  avatar: undefined,
+  role: "buyer",
+};
+
+const ADMIN_USER: AppUser = {
+  id: "admin-1",
+  firstName: "Admin",
+  lastName: "Super",
+  cnic: "11111-1111111-1",
+  phone: "+923001111111",
+  email: "admin@eauction.gov.pk",
+  avatar: undefined,
+  role: "admin",
 };
 
 type Listener = () => void;
@@ -45,12 +57,17 @@ function write(u: AppUser | null) {
   listeners.forEach((l) => l());
 }
 
-export function login() { write(DEFAULT_USER); }
-export function logout() { write(null); }
-export function setMode(mode: Role) {
-  const u = read() ?? DEFAULT_USER;
-  write({ ...u, currentMode: mode });
+export function login(credentials?: Partial<AppUser>) {
+  // Check if admin CNIC
+  const cnic = credentials?.cnic ?? "";
+  if (cnic === "11111-1111111-1" || cnic === "admin") {
+    write({ ...ADMIN_USER, ...credentials, role: "admin" });
+    return;
+  }
+  write(credentials ? { ...DEFAULT_USER, ...credentials } : DEFAULT_USER);
 }
+export function loginAsAdmin() { write(ADMIN_USER); }
+export function logout() { write(null); }
 export function updateUser(patch: Partial<AppUser>) {
   const u = read() ?? DEFAULT_USER;
   write({ ...u, ...patch });
@@ -63,14 +80,22 @@ export function useAuth() {
     listeners.add(l);
     return () => { listeners.delete(l); };
   }, []);
-  return { user, isAuthed: !!user, login, logout, setMode };
+  return {
+    user,
+    isAuthed: !!user,
+    isAdmin: user?.role === "admin",
+    isBuyer: user?.role === "buyer",
+    login,
+    logout,
+    updateUser,
+  };
 }
 
 // ----- theme -----
 export function useTheme() {
   const [theme, setThemeState] = useState<"light" | "dark">(() => {
-    if (typeof window === "undefined") return "dark";
-    return (localStorage.getItem(THEME_KEY) as "light" | "dark") ?? "dark";
+    if (typeof window === "undefined") return "light";
+    return (localStorage.getItem(THEME_KEY) as "light" | "dark") ?? "light";
   });
   useEffect(() => {
     const root = document.documentElement;

@@ -9,109 +9,63 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as WhyChooseUsRouteImport } from './routes/why-choose-us'
-import { Route as VerifyOtpRouteImport } from './routes/verify-otp'
-import { Route as UpcomingAuctionsRouteImport } from './routes/upcoming-auctions'
-import { Route as TodaysAuctionsRouteImport } from './routes/todays-auctions'
-import { Route as TermsAndConditionsRouteImport } from './routes/terms-and-conditions'
-import { Route as SoldVehiclesRouteImport } from './routes/sold-vehicles'
-import { Route as SettledInvoicesRouteImport } from './routes/settled-invoices'
-import { Route as SelectSellerTypeRouteImport } from './routes/select-seller-type'
-import { Route as SelectRoleRouteImport } from './routes/select-role'
-import { Route as SavedVehiclesRouteImport } from './routes/saved-vehicles'
-import { Route as ResetPasswordRouteImport } from './routes/reset-password'
-import { Route as RejectedVehiclesRouteImport } from './routes/rejected-vehicles'
-import { Route as RegisterOrganizationRouteImport } from './routes/register-organization'
+import { Route as WinnersRouteImport } from './routes/winners'
+import { Route as VanityCreateRouteImport } from './routes/vanity-create'
+import { Route as VanityCorporateRouteImport } from './routes/vanity-corporate'
+import { Route as VanityRouteImport } from './routes/vanity'
+import { Route as ScheduleRouteImport } from './routes/schedule'
 import { Route as RegisterRouteImport } from './routes/register'
-import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
-import { Route as PendingVehiclesRouteImport } from './routes/pending-vehicles'
-import { Route as PendingInvoicesRouteImport } from './routes/pending-invoices'
-import { Route as PaidPaymentsRouteImport } from './routes/paid-payments'
-import { Route as OnlineJoinedAuctionsRouteImport } from './routes/online-joined-auctions'
-import { Route as OffersWonRouteImport } from './routes/offers-won'
-import { Route as OffersLostRouteImport } from './routes/offers-lost'
-import { Route as OffersExpiredRouteImport } from './routes/offers-expired'
-import { Route as MyOffersRouteImport } from './routes/my-offers'
-import { Route as MaintenanceRouteImport } from './routes/maintenance'
+import { Route as MyApplicationsRouteImport } from './routes/my-applications'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as InventoryRouteImport } from './routes/inventory'
+import { Route as HowToAuctionRouteImport } from './routes/how-to-auction'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
-import { Route as DuePaymentsRouteImport } from './routes/due-payments'
 import { Route as DashboardRouteImport } from './routes/dashboard'
-import { Route as CurrentOffersRouteImport } from './routes/current-offers'
-import { Route as CurrentBidsRouteImport } from './routes/current-bids'
-import { Route as ContactUsRouteImport } from './routes/contact-us'
-import { Route as CanceledVehiclesRouteImport } from './routes/canceled-vehicles'
-import { Route as BidsWonRouteImport } from './routes/bids-won'
-import { Route as BidsLostRouteImport } from './routes/bids-lost'
-import { Route as ApprovedVehiclesRouteImport } from './routes/approved-vehicles'
-import { Route as AboutUsRouteImport } from './routes/about-us'
+import { Route as ChangePasswordRouteImport } from './routes/change-password'
+import { Route as BuyAdvanceNumbersRouteImport } from './routes/buy-advance-numbers'
+import { Route as BiddingRouteImport } from './routes/bidding'
+import { Route as AuctionsRouteImport } from './routes/auctions'
+import { Route as AuctionSeriesRouteImport } from './routes/auction-series'
+import { Route as AdvanceNumbersRouteImport } from './routes/advance-numbers'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as VehicleDetailsIdRouteImport } from './routes/vehicle-details.$id'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as PlatesIdRouteImport } from './routes/plates.$id'
+import { Route as JoinAuctionIdRouteImport } from './routes/join-auction.$id'
+import { Route as AuctionsIdRouteImport } from './routes/auctions.$id'
+import { Route as AuctionSeriesSeriesIdRouteImport } from './routes/auction-series.$seriesId'
+import { Route as AdminWinnersRouteImport } from './routes/admin.winners'
+import { Route as AdminUsersRouteImport } from './routes/admin.users'
+import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
+import { Route as AdminRolesRouteImport } from './routes/admin.roles'
+import { Route as AdminPlatesRouteImport } from './routes/admin.plates'
+import { Route as AdminMembersRouteImport } from './routes/admin.members'
+import { Route as AdminAuctionsRouteImport } from './routes/admin.auctions'
+import { Route as AdminApplicationsRouteImport } from './routes/admin.applications'
+import { Route as AdminAnalyticsRouteImport } from './routes/admin.analytics'
 
-const WhyChooseUsRoute = WhyChooseUsRouteImport.update({
-  id: '/why-choose-us',
-  path: '/why-choose-us',
+const WinnersRoute = WinnersRouteImport.update({
+  id: '/winners',
+  path: '/winners',
   getParentRoute: () => rootRouteImport,
 } as any)
-const VerifyOtpRoute = VerifyOtpRouteImport.update({
-  id: '/verify-otp',
-  path: '/verify-otp',
+const VanityCreateRoute = VanityCreateRouteImport.update({
+  id: '/vanity-create',
+  path: '/vanity-create',
   getParentRoute: () => rootRouteImport,
 } as any)
-const UpcomingAuctionsRoute = UpcomingAuctionsRouteImport.update({
-  id: '/upcoming-auctions',
-  path: '/upcoming-auctions',
+const VanityCorporateRoute = VanityCorporateRouteImport.update({
+  id: '/vanity-corporate',
+  path: '/vanity-corporate',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TodaysAuctionsRoute = TodaysAuctionsRouteImport.update({
-  id: '/todays-auctions',
-  path: '/todays-auctions',
+const VanityRoute = VanityRouteImport.update({
+  id: '/vanity',
+  path: '/vanity',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TermsAndConditionsRoute = TermsAndConditionsRouteImport.update({
-  id: '/terms-and-conditions',
-  path: '/terms-and-conditions',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SoldVehiclesRoute = SoldVehiclesRouteImport.update({
-  id: '/sold-vehicles',
-  path: '/sold-vehicles',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SettledInvoicesRoute = SettledInvoicesRouteImport.update({
-  id: '/settled-invoices',
-  path: '/settled-invoices',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SelectSellerTypeRoute = SelectSellerTypeRouteImport.update({
-  id: '/select-seller-type',
-  path: '/select-seller-type',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SelectRoleRoute = SelectRoleRouteImport.update({
-  id: '/select-role',
-  path: '/select-role',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SavedVehiclesRoute = SavedVehiclesRouteImport.update({
-  id: '/saved-vehicles',
-  path: '/saved-vehicles',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ResetPasswordRoute = ResetPasswordRouteImport.update({
-  id: '/reset-password',
-  path: '/reset-password',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RejectedVehiclesRoute = RejectedVehiclesRouteImport.update({
-  id: '/rejected-vehicles',
-  path: '/rejected-vehicles',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RegisterOrganizationRoute = RegisterOrganizationRouteImport.update({
-  id: '/register-organization',
-  path: '/register-organization',
+const ScheduleRoute = ScheduleRouteImport.update({
+  id: '/schedule',
+  path: '/schedule',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RegisterRoute = RegisterRouteImport.update({
@@ -119,54 +73,9 @@ const RegisterRoute = RegisterRouteImport.update({
   path: '/register',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
-  id: '/privacy-policy',
-  path: '/privacy-policy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PendingVehiclesRoute = PendingVehiclesRouteImport.update({
-  id: '/pending-vehicles',
-  path: '/pending-vehicles',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PendingInvoicesRoute = PendingInvoicesRouteImport.update({
-  id: '/pending-invoices',
-  path: '/pending-invoices',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PaidPaymentsRoute = PaidPaymentsRouteImport.update({
-  id: '/paid-payments',
-  path: '/paid-payments',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OnlineJoinedAuctionsRoute = OnlineJoinedAuctionsRouteImport.update({
-  id: '/online-joined-auctions',
-  path: '/online-joined-auctions',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OffersWonRoute = OffersWonRouteImport.update({
-  id: '/offers-won',
-  path: '/offers-won',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OffersLostRoute = OffersLostRouteImport.update({
-  id: '/offers-lost',
-  path: '/offers-lost',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OffersExpiredRoute = OffersExpiredRouteImport.update({
-  id: '/offers-expired',
-  path: '/offers-expired',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MyOffersRoute = MyOffersRouteImport.update({
-  id: '/my-offers',
-  path: '/my-offers',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MaintenanceRoute = MaintenanceRouteImport.update({
-  id: '/maintenance',
-  path: '/maintenance',
+const MyApplicationsRoute = MyApplicationsRouteImport.update({
+  id: '/my-applications',
+  path: '/my-applications',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -179,14 +88,14 @@ const InventoryRoute = InventoryRouteImport.update({
   path: '/inventory',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HowToAuctionRoute = HowToAuctionRouteImport.update({
+  id: '/how-to-auction',
+  path: '/how-to-auction',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
   id: '/forgot-password',
   path: '/forgot-password',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DuePaymentsRoute = DuePaymentsRouteImport.update({
-  id: '/due-payments',
-  path: '/due-payments',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -194,44 +103,34 @@ const DashboardRoute = DashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CurrentOffersRoute = CurrentOffersRouteImport.update({
-  id: '/current-offers',
-  path: '/current-offers',
+const ChangePasswordRoute = ChangePasswordRouteImport.update({
+  id: '/change-password',
+  path: '/change-password',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CurrentBidsRoute = CurrentBidsRouteImport.update({
-  id: '/current-bids',
-  path: '/current-bids',
+const BuyAdvanceNumbersRoute = BuyAdvanceNumbersRouteImport.update({
+  id: '/buy-advance-numbers',
+  path: '/buy-advance-numbers',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ContactUsRoute = ContactUsRouteImport.update({
-  id: '/contact-us',
-  path: '/contact-us',
+const BiddingRoute = BiddingRouteImport.update({
+  id: '/bidding',
+  path: '/bidding',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CanceledVehiclesRoute = CanceledVehiclesRouteImport.update({
-  id: '/canceled-vehicles',
-  path: '/canceled-vehicles',
+const AuctionsRoute = AuctionsRouteImport.update({
+  id: '/auctions',
+  path: '/auctions',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BidsWonRoute = BidsWonRouteImport.update({
-  id: '/bids-won',
-  path: '/bids-won',
+const AuctionSeriesRoute = AuctionSeriesRouteImport.update({
+  id: '/auction-series',
+  path: '/auction-series',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BidsLostRoute = BidsLostRouteImport.update({
-  id: '/bids-lost',
-  path: '/bids-lost',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApprovedVehiclesRoute = ApprovedVehiclesRouteImport.update({
-  id: '/approved-vehicles',
-  path: '/approved-vehicles',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutUsRoute = AboutUsRouteImport.update({
-  id: '/about-us',
-  path: '/about-us',
+const AdvanceNumbersRoute = AdvanceNumbersRouteImport.update({
+  id: '/advance-numbers',
+  path: '/advance-numbers',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -239,395 +138,360 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const VehicleDetailsIdRoute = VehicleDetailsIdRouteImport.update({
-  id: '/vehicle-details/$id',
-  path: '/vehicle-details/$id',
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlatesIdRoute = PlatesIdRouteImport.update({
+  id: '/plates/$id',
+  path: '/plates/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JoinAuctionIdRoute = JoinAuctionIdRouteImport.update({
+  id: '/join-auction/$id',
+  path: '/join-auction/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuctionsIdRoute = AuctionsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AuctionsRoute,
+} as any)
+const AuctionSeriesSeriesIdRoute = AuctionSeriesSeriesIdRouteImport.update({
+  id: '/$seriesId',
+  path: '/$seriesId',
+  getParentRoute: () => AuctionSeriesRoute,
+} as any)
+const AdminWinnersRoute = AdminWinnersRouteImport.update({
+  id: '/admin/winners',
+  path: '/admin/winners',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminUsersRoute = AdminUsersRouteImport.update({
+  id: '/admin/users',
+  path: '/admin/users',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminSettingsRoute = AdminSettingsRouteImport.update({
+  id: '/admin/settings',
+  path: '/admin/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRolesRoute = AdminRolesRouteImport.update({
+  id: '/admin/roles',
+  path: '/admin/roles',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminPlatesRoute = AdminPlatesRouteImport.update({
+  id: '/admin/plates',
+  path: '/admin/plates',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminMembersRoute = AdminMembersRouteImport.update({
+  id: '/admin/members',
+  path: '/admin/members',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminAuctionsRoute = AdminAuctionsRouteImport.update({
+  id: '/admin/auctions',
+  path: '/admin/auctions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminApplicationsRoute = AdminApplicationsRouteImport.update({
+  id: '/admin/applications',
+  path: '/admin/applications',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminAnalyticsRoute = AdminAnalyticsRouteImport.update({
+  id: '/admin/analytics',
+  path: '/admin/analytics',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/about-us': typeof AboutUsRoute
-  '/approved-vehicles': typeof ApprovedVehiclesRoute
-  '/bids-lost': typeof BidsLostRoute
-  '/bids-won': typeof BidsWonRoute
-  '/canceled-vehicles': typeof CanceledVehiclesRoute
-  '/contact-us': typeof ContactUsRoute
-  '/current-bids': typeof CurrentBidsRoute
-  '/current-offers': typeof CurrentOffersRoute
+  '/advance-numbers': typeof AdvanceNumbersRoute
+  '/auction-series': typeof AuctionSeriesRouteWithChildren
+  '/auctions': typeof AuctionsRouteWithChildren
+  '/bidding': typeof BiddingRoute
+  '/buy-advance-numbers': typeof BuyAdvanceNumbersRoute
+  '/change-password': typeof ChangePasswordRoute
   '/dashboard': typeof DashboardRoute
-  '/due-payments': typeof DuePaymentsRoute
   '/forgot-password': typeof ForgotPasswordRoute
+  '/how-to-auction': typeof HowToAuctionRoute
   '/inventory': typeof InventoryRoute
   '/login': typeof LoginRoute
-  '/maintenance': typeof MaintenanceRoute
-  '/my-offers': typeof MyOffersRoute
-  '/offers-expired': typeof OffersExpiredRoute
-  '/offers-lost': typeof OffersLostRoute
-  '/offers-won': typeof OffersWonRoute
-  '/online-joined-auctions': typeof OnlineJoinedAuctionsRoute
-  '/paid-payments': typeof PaidPaymentsRoute
-  '/pending-invoices': typeof PendingInvoicesRoute
-  '/pending-vehicles': typeof PendingVehiclesRoute
-  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/my-applications': typeof MyApplicationsRoute
   '/register': typeof RegisterRoute
-  '/register-organization': typeof RegisterOrganizationRoute
-  '/rejected-vehicles': typeof RejectedVehiclesRoute
-  '/reset-password': typeof ResetPasswordRoute
-  '/saved-vehicles': typeof SavedVehiclesRoute
-  '/select-role': typeof SelectRoleRoute
-  '/select-seller-type': typeof SelectSellerTypeRoute
-  '/settled-invoices': typeof SettledInvoicesRoute
-  '/sold-vehicles': typeof SoldVehiclesRoute
-  '/terms-and-conditions': typeof TermsAndConditionsRoute
-  '/todays-auctions': typeof TodaysAuctionsRoute
-  '/upcoming-auctions': typeof UpcomingAuctionsRoute
-  '/verify-otp': typeof VerifyOtpRoute
-  '/why-choose-us': typeof WhyChooseUsRoute
-  '/vehicle-details/$id': typeof VehicleDetailsIdRoute
+  '/schedule': typeof ScheduleRoute
+  '/vanity': typeof VanityRoute
+  '/vanity-corporate': typeof VanityCorporateRoute
+  '/vanity-create': typeof VanityCreateRoute
+  '/winners': typeof WinnersRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/applications': typeof AdminApplicationsRoute
+  '/admin/auctions': typeof AdminAuctionsRoute
+  '/admin/members': typeof AdminMembersRoute
+  '/admin/plates': typeof AdminPlatesRoute
+  '/admin/roles': typeof AdminRolesRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/admin/users': typeof AdminUsersRoute
+  '/admin/winners': typeof AdminWinnersRoute
+  '/auction-series/$seriesId': typeof AuctionSeriesSeriesIdRoute
+  '/auctions/$id': typeof AuctionsIdRoute
+  '/join-auction/$id': typeof JoinAuctionIdRoute
+  '/plates/$id': typeof PlatesIdRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/about-us': typeof AboutUsRoute
-  '/approved-vehicles': typeof ApprovedVehiclesRoute
-  '/bids-lost': typeof BidsLostRoute
-  '/bids-won': typeof BidsWonRoute
-  '/canceled-vehicles': typeof CanceledVehiclesRoute
-  '/contact-us': typeof ContactUsRoute
-  '/current-bids': typeof CurrentBidsRoute
-  '/current-offers': typeof CurrentOffersRoute
+  '/advance-numbers': typeof AdvanceNumbersRoute
+  '/auction-series': typeof AuctionSeriesRouteWithChildren
+  '/auctions': typeof AuctionsRouteWithChildren
+  '/bidding': typeof BiddingRoute
+  '/buy-advance-numbers': typeof BuyAdvanceNumbersRoute
+  '/change-password': typeof ChangePasswordRoute
   '/dashboard': typeof DashboardRoute
-  '/due-payments': typeof DuePaymentsRoute
   '/forgot-password': typeof ForgotPasswordRoute
+  '/how-to-auction': typeof HowToAuctionRoute
   '/inventory': typeof InventoryRoute
   '/login': typeof LoginRoute
-  '/maintenance': typeof MaintenanceRoute
-  '/my-offers': typeof MyOffersRoute
-  '/offers-expired': typeof OffersExpiredRoute
-  '/offers-lost': typeof OffersLostRoute
-  '/offers-won': typeof OffersWonRoute
-  '/online-joined-auctions': typeof OnlineJoinedAuctionsRoute
-  '/paid-payments': typeof PaidPaymentsRoute
-  '/pending-invoices': typeof PendingInvoicesRoute
-  '/pending-vehicles': typeof PendingVehiclesRoute
-  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/my-applications': typeof MyApplicationsRoute
   '/register': typeof RegisterRoute
-  '/register-organization': typeof RegisterOrganizationRoute
-  '/rejected-vehicles': typeof RejectedVehiclesRoute
-  '/reset-password': typeof ResetPasswordRoute
-  '/saved-vehicles': typeof SavedVehiclesRoute
-  '/select-role': typeof SelectRoleRoute
-  '/select-seller-type': typeof SelectSellerTypeRoute
-  '/settled-invoices': typeof SettledInvoicesRoute
-  '/sold-vehicles': typeof SoldVehiclesRoute
-  '/terms-and-conditions': typeof TermsAndConditionsRoute
-  '/todays-auctions': typeof TodaysAuctionsRoute
-  '/upcoming-auctions': typeof UpcomingAuctionsRoute
-  '/verify-otp': typeof VerifyOtpRoute
-  '/why-choose-us': typeof WhyChooseUsRoute
-  '/vehicle-details/$id': typeof VehicleDetailsIdRoute
+  '/schedule': typeof ScheduleRoute
+  '/vanity': typeof VanityRoute
+  '/vanity-corporate': typeof VanityCorporateRoute
+  '/vanity-create': typeof VanityCreateRoute
+  '/winners': typeof WinnersRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/applications': typeof AdminApplicationsRoute
+  '/admin/auctions': typeof AdminAuctionsRoute
+  '/admin/members': typeof AdminMembersRoute
+  '/admin/plates': typeof AdminPlatesRoute
+  '/admin/roles': typeof AdminRolesRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/admin/users': typeof AdminUsersRoute
+  '/admin/winners': typeof AdminWinnersRoute
+  '/auction-series/$seriesId': typeof AuctionSeriesSeriesIdRoute
+  '/auctions/$id': typeof AuctionsIdRoute
+  '/join-auction/$id': typeof JoinAuctionIdRoute
+  '/plates/$id': typeof PlatesIdRoute
+  '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/about-us': typeof AboutUsRoute
-  '/approved-vehicles': typeof ApprovedVehiclesRoute
-  '/bids-lost': typeof BidsLostRoute
-  '/bids-won': typeof BidsWonRoute
-  '/canceled-vehicles': typeof CanceledVehiclesRoute
-  '/contact-us': typeof ContactUsRoute
-  '/current-bids': typeof CurrentBidsRoute
-  '/current-offers': typeof CurrentOffersRoute
+  '/advance-numbers': typeof AdvanceNumbersRoute
+  '/auction-series': typeof AuctionSeriesRouteWithChildren
+  '/auctions': typeof AuctionsRouteWithChildren
+  '/bidding': typeof BiddingRoute
+  '/buy-advance-numbers': typeof BuyAdvanceNumbersRoute
+  '/change-password': typeof ChangePasswordRoute
   '/dashboard': typeof DashboardRoute
-  '/due-payments': typeof DuePaymentsRoute
   '/forgot-password': typeof ForgotPasswordRoute
+  '/how-to-auction': typeof HowToAuctionRoute
   '/inventory': typeof InventoryRoute
   '/login': typeof LoginRoute
-  '/maintenance': typeof MaintenanceRoute
-  '/my-offers': typeof MyOffersRoute
-  '/offers-expired': typeof OffersExpiredRoute
-  '/offers-lost': typeof OffersLostRoute
-  '/offers-won': typeof OffersWonRoute
-  '/online-joined-auctions': typeof OnlineJoinedAuctionsRoute
-  '/paid-payments': typeof PaidPaymentsRoute
-  '/pending-invoices': typeof PendingInvoicesRoute
-  '/pending-vehicles': typeof PendingVehiclesRoute
-  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/my-applications': typeof MyApplicationsRoute
   '/register': typeof RegisterRoute
-  '/register-organization': typeof RegisterOrganizationRoute
-  '/rejected-vehicles': typeof RejectedVehiclesRoute
-  '/reset-password': typeof ResetPasswordRoute
-  '/saved-vehicles': typeof SavedVehiclesRoute
-  '/select-role': typeof SelectRoleRoute
-  '/select-seller-type': typeof SelectSellerTypeRoute
-  '/settled-invoices': typeof SettledInvoicesRoute
-  '/sold-vehicles': typeof SoldVehiclesRoute
-  '/terms-and-conditions': typeof TermsAndConditionsRoute
-  '/todays-auctions': typeof TodaysAuctionsRoute
-  '/upcoming-auctions': typeof UpcomingAuctionsRoute
-  '/verify-otp': typeof VerifyOtpRoute
-  '/why-choose-us': typeof WhyChooseUsRoute
-  '/vehicle-details/$id': typeof VehicleDetailsIdRoute
+  '/schedule': typeof ScheduleRoute
+  '/vanity': typeof VanityRoute
+  '/vanity-corporate': typeof VanityCorporateRoute
+  '/vanity-create': typeof VanityCreateRoute
+  '/winners': typeof WinnersRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/applications': typeof AdminApplicationsRoute
+  '/admin/auctions': typeof AdminAuctionsRoute
+  '/admin/members': typeof AdminMembersRoute
+  '/admin/plates': typeof AdminPlatesRoute
+  '/admin/roles': typeof AdminRolesRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/admin/users': typeof AdminUsersRoute
+  '/admin/winners': typeof AdminWinnersRoute
+  '/auction-series/$seriesId': typeof AuctionSeriesSeriesIdRoute
+  '/auctions/$id': typeof AuctionsIdRoute
+  '/join-auction/$id': typeof JoinAuctionIdRoute
+  '/plates/$id': typeof PlatesIdRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/about-us'
-    | '/approved-vehicles'
-    | '/bids-lost'
-    | '/bids-won'
-    | '/canceled-vehicles'
-    | '/contact-us'
-    | '/current-bids'
-    | '/current-offers'
+    | '/advance-numbers'
+    | '/auction-series'
+    | '/auctions'
+    | '/bidding'
+    | '/buy-advance-numbers'
+    | '/change-password'
     | '/dashboard'
-    | '/due-payments'
     | '/forgot-password'
+    | '/how-to-auction'
     | '/inventory'
     | '/login'
-    | '/maintenance'
-    | '/my-offers'
-    | '/offers-expired'
-    | '/offers-lost'
-    | '/offers-won'
-    | '/online-joined-auctions'
-    | '/paid-payments'
-    | '/pending-invoices'
-    | '/pending-vehicles'
-    | '/privacy-policy'
+    | '/my-applications'
     | '/register'
-    | '/register-organization'
-    | '/rejected-vehicles'
-    | '/reset-password'
-    | '/saved-vehicles'
-    | '/select-role'
-    | '/select-seller-type'
-    | '/settled-invoices'
-    | '/sold-vehicles'
-    | '/terms-and-conditions'
-    | '/todays-auctions'
-    | '/upcoming-auctions'
-    | '/verify-otp'
-    | '/why-choose-us'
-    | '/vehicle-details/$id'
+    | '/schedule'
+    | '/vanity'
+    | '/vanity-corporate'
+    | '/vanity-create'
+    | '/winners'
+    | '/admin/analytics'
+    | '/admin/applications'
+    | '/admin/auctions'
+    | '/admin/members'
+    | '/admin/plates'
+    | '/admin/roles'
+    | '/admin/settings'
+    | '/admin/users'
+    | '/admin/winners'
+    | '/auction-series/$seriesId'
+    | '/auctions/$id'
+    | '/join-auction/$id'
+    | '/plates/$id'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/about-us'
-    | '/approved-vehicles'
-    | '/bids-lost'
-    | '/bids-won'
-    | '/canceled-vehicles'
-    | '/contact-us'
-    | '/current-bids'
-    | '/current-offers'
+    | '/advance-numbers'
+    | '/auction-series'
+    | '/auctions'
+    | '/bidding'
+    | '/buy-advance-numbers'
+    | '/change-password'
     | '/dashboard'
-    | '/due-payments'
     | '/forgot-password'
+    | '/how-to-auction'
     | '/inventory'
     | '/login'
-    | '/maintenance'
-    | '/my-offers'
-    | '/offers-expired'
-    | '/offers-lost'
-    | '/offers-won'
-    | '/online-joined-auctions'
-    | '/paid-payments'
-    | '/pending-invoices'
-    | '/pending-vehicles'
-    | '/privacy-policy'
+    | '/my-applications'
     | '/register'
-    | '/register-organization'
-    | '/rejected-vehicles'
-    | '/reset-password'
-    | '/saved-vehicles'
-    | '/select-role'
-    | '/select-seller-type'
-    | '/settled-invoices'
-    | '/sold-vehicles'
-    | '/terms-and-conditions'
-    | '/todays-auctions'
-    | '/upcoming-auctions'
-    | '/verify-otp'
-    | '/why-choose-us'
-    | '/vehicle-details/$id'
+    | '/schedule'
+    | '/vanity'
+    | '/vanity-corporate'
+    | '/vanity-create'
+    | '/winners'
+    | '/admin/analytics'
+    | '/admin/applications'
+    | '/admin/auctions'
+    | '/admin/members'
+    | '/admin/plates'
+    | '/admin/roles'
+    | '/admin/settings'
+    | '/admin/users'
+    | '/admin/winners'
+    | '/auction-series/$seriesId'
+    | '/auctions/$id'
+    | '/join-auction/$id'
+    | '/plates/$id'
+    | '/admin'
   id:
     | '__root__'
     | '/'
-    | '/about-us'
-    | '/approved-vehicles'
-    | '/bids-lost'
-    | '/bids-won'
-    | '/canceled-vehicles'
-    | '/contact-us'
-    | '/current-bids'
-    | '/current-offers'
+    | '/advance-numbers'
+    | '/auction-series'
+    | '/auctions'
+    | '/bidding'
+    | '/buy-advance-numbers'
+    | '/change-password'
     | '/dashboard'
-    | '/due-payments'
     | '/forgot-password'
+    | '/how-to-auction'
     | '/inventory'
     | '/login'
-    | '/maintenance'
-    | '/my-offers'
-    | '/offers-expired'
-    | '/offers-lost'
-    | '/offers-won'
-    | '/online-joined-auctions'
-    | '/paid-payments'
-    | '/pending-invoices'
-    | '/pending-vehicles'
-    | '/privacy-policy'
+    | '/my-applications'
     | '/register'
-    | '/register-organization'
-    | '/rejected-vehicles'
-    | '/reset-password'
-    | '/saved-vehicles'
-    | '/select-role'
-    | '/select-seller-type'
-    | '/settled-invoices'
-    | '/sold-vehicles'
-    | '/terms-and-conditions'
-    | '/todays-auctions'
-    | '/upcoming-auctions'
-    | '/verify-otp'
-    | '/why-choose-us'
-    | '/vehicle-details/$id'
+    | '/schedule'
+    | '/vanity'
+    | '/vanity-corporate'
+    | '/vanity-create'
+    | '/winners'
+    | '/admin/analytics'
+    | '/admin/applications'
+    | '/admin/auctions'
+    | '/admin/members'
+    | '/admin/plates'
+    | '/admin/roles'
+    | '/admin/settings'
+    | '/admin/users'
+    | '/admin/winners'
+    | '/auction-series/$seriesId'
+    | '/auctions/$id'
+    | '/join-auction/$id'
+    | '/plates/$id'
+    | '/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AboutUsRoute: typeof AboutUsRoute
-  ApprovedVehiclesRoute: typeof ApprovedVehiclesRoute
-  BidsLostRoute: typeof BidsLostRoute
-  BidsWonRoute: typeof BidsWonRoute
-  CanceledVehiclesRoute: typeof CanceledVehiclesRoute
-  ContactUsRoute: typeof ContactUsRoute
-  CurrentBidsRoute: typeof CurrentBidsRoute
-  CurrentOffersRoute: typeof CurrentOffersRoute
+  AdvanceNumbersRoute: typeof AdvanceNumbersRoute
+  AuctionSeriesRoute: typeof AuctionSeriesRouteWithChildren
+  AuctionsRoute: typeof AuctionsRouteWithChildren
+  BiddingRoute: typeof BiddingRoute
+  BuyAdvanceNumbersRoute: typeof BuyAdvanceNumbersRoute
+  ChangePasswordRoute: typeof ChangePasswordRoute
   DashboardRoute: typeof DashboardRoute
-  DuePaymentsRoute: typeof DuePaymentsRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
+  HowToAuctionRoute: typeof HowToAuctionRoute
   InventoryRoute: typeof InventoryRoute
   LoginRoute: typeof LoginRoute
-  MaintenanceRoute: typeof MaintenanceRoute
-  MyOffersRoute: typeof MyOffersRoute
-  OffersExpiredRoute: typeof OffersExpiredRoute
-  OffersLostRoute: typeof OffersLostRoute
-  OffersWonRoute: typeof OffersWonRoute
-  OnlineJoinedAuctionsRoute: typeof OnlineJoinedAuctionsRoute
-  PaidPaymentsRoute: typeof PaidPaymentsRoute
-  PendingInvoicesRoute: typeof PendingInvoicesRoute
-  PendingVehiclesRoute: typeof PendingVehiclesRoute
-  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
+  MyApplicationsRoute: typeof MyApplicationsRoute
   RegisterRoute: typeof RegisterRoute
-  RegisterOrganizationRoute: typeof RegisterOrganizationRoute
-  RejectedVehiclesRoute: typeof RejectedVehiclesRoute
-  ResetPasswordRoute: typeof ResetPasswordRoute
-  SavedVehiclesRoute: typeof SavedVehiclesRoute
-  SelectRoleRoute: typeof SelectRoleRoute
-  SelectSellerTypeRoute: typeof SelectSellerTypeRoute
-  SettledInvoicesRoute: typeof SettledInvoicesRoute
-  SoldVehiclesRoute: typeof SoldVehiclesRoute
-  TermsAndConditionsRoute: typeof TermsAndConditionsRoute
-  TodaysAuctionsRoute: typeof TodaysAuctionsRoute
-  UpcomingAuctionsRoute: typeof UpcomingAuctionsRoute
-  VerifyOtpRoute: typeof VerifyOtpRoute
-  WhyChooseUsRoute: typeof WhyChooseUsRoute
-  VehicleDetailsIdRoute: typeof VehicleDetailsIdRoute
+  ScheduleRoute: typeof ScheduleRoute
+  VanityRoute: typeof VanityRoute
+  VanityCorporateRoute: typeof VanityCorporateRoute
+  VanityCreateRoute: typeof VanityCreateRoute
+  WinnersRoute: typeof WinnersRoute
+  AdminAnalyticsRoute: typeof AdminAnalyticsRoute
+  AdminApplicationsRoute: typeof AdminApplicationsRoute
+  AdminAuctionsRoute: typeof AdminAuctionsRoute
+  AdminMembersRoute: typeof AdminMembersRoute
+  AdminPlatesRoute: typeof AdminPlatesRoute
+  AdminRolesRoute: typeof AdminRolesRoute
+  AdminSettingsRoute: typeof AdminSettingsRoute
+  AdminUsersRoute: typeof AdminUsersRoute
+  AdminWinnersRoute: typeof AdminWinnersRoute
+  JoinAuctionIdRoute: typeof JoinAuctionIdRoute
+  PlatesIdRoute: typeof PlatesIdRoute
+  AdminIndexRoute: typeof AdminIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/why-choose-us': {
-      id: '/why-choose-us'
-      path: '/why-choose-us'
-      fullPath: '/why-choose-us'
-      preLoaderRoute: typeof WhyChooseUsRouteImport
+    '/winners': {
+      id: '/winners'
+      path: '/winners'
+      fullPath: '/winners'
+      preLoaderRoute: typeof WinnersRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/verify-otp': {
-      id: '/verify-otp'
-      path: '/verify-otp'
-      fullPath: '/verify-otp'
-      preLoaderRoute: typeof VerifyOtpRouteImport
+    '/vanity-create': {
+      id: '/vanity-create'
+      path: '/vanity-create'
+      fullPath: '/vanity-create'
+      preLoaderRoute: typeof VanityCreateRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/upcoming-auctions': {
-      id: '/upcoming-auctions'
-      path: '/upcoming-auctions'
-      fullPath: '/upcoming-auctions'
-      preLoaderRoute: typeof UpcomingAuctionsRouteImport
+    '/vanity-corporate': {
+      id: '/vanity-corporate'
+      path: '/vanity-corporate'
+      fullPath: '/vanity-corporate'
+      preLoaderRoute: typeof VanityCorporateRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/todays-auctions': {
-      id: '/todays-auctions'
-      path: '/todays-auctions'
-      fullPath: '/todays-auctions'
-      preLoaderRoute: typeof TodaysAuctionsRouteImport
+    '/vanity': {
+      id: '/vanity'
+      path: '/vanity'
+      fullPath: '/vanity'
+      preLoaderRoute: typeof VanityRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/terms-and-conditions': {
-      id: '/terms-and-conditions'
-      path: '/terms-and-conditions'
-      fullPath: '/terms-and-conditions'
-      preLoaderRoute: typeof TermsAndConditionsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sold-vehicles': {
-      id: '/sold-vehicles'
-      path: '/sold-vehicles'
-      fullPath: '/sold-vehicles'
-      preLoaderRoute: typeof SoldVehiclesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/settled-invoices': {
-      id: '/settled-invoices'
-      path: '/settled-invoices'
-      fullPath: '/settled-invoices'
-      preLoaderRoute: typeof SettledInvoicesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/select-seller-type': {
-      id: '/select-seller-type'
-      path: '/select-seller-type'
-      fullPath: '/select-seller-type'
-      preLoaderRoute: typeof SelectSellerTypeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/select-role': {
-      id: '/select-role'
-      path: '/select-role'
-      fullPath: '/select-role'
-      preLoaderRoute: typeof SelectRoleRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/saved-vehicles': {
-      id: '/saved-vehicles'
-      path: '/saved-vehicles'
-      fullPath: '/saved-vehicles'
-      preLoaderRoute: typeof SavedVehiclesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/reset-password': {
-      id: '/reset-password'
-      path: '/reset-password'
-      fullPath: '/reset-password'
-      preLoaderRoute: typeof ResetPasswordRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/rejected-vehicles': {
-      id: '/rejected-vehicles'
-      path: '/rejected-vehicles'
-      fullPath: '/rejected-vehicles'
-      preLoaderRoute: typeof RejectedVehiclesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/register-organization': {
-      id: '/register-organization'
-      path: '/register-organization'
-      fullPath: '/register-organization'
-      preLoaderRoute: typeof RegisterOrganizationRouteImport
+    '/schedule': {
+      id: '/schedule'
+      path: '/schedule'
+      fullPath: '/schedule'
+      preLoaderRoute: typeof ScheduleRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/register': {
@@ -637,74 +501,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RegisterRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/privacy-policy': {
-      id: '/privacy-policy'
-      path: '/privacy-policy'
-      fullPath: '/privacy-policy'
-      preLoaderRoute: typeof PrivacyPolicyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/pending-vehicles': {
-      id: '/pending-vehicles'
-      path: '/pending-vehicles'
-      fullPath: '/pending-vehicles'
-      preLoaderRoute: typeof PendingVehiclesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/pending-invoices': {
-      id: '/pending-invoices'
-      path: '/pending-invoices'
-      fullPath: '/pending-invoices'
-      preLoaderRoute: typeof PendingInvoicesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/paid-payments': {
-      id: '/paid-payments'
-      path: '/paid-payments'
-      fullPath: '/paid-payments'
-      preLoaderRoute: typeof PaidPaymentsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/online-joined-auctions': {
-      id: '/online-joined-auctions'
-      path: '/online-joined-auctions'
-      fullPath: '/online-joined-auctions'
-      preLoaderRoute: typeof OnlineJoinedAuctionsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/offers-won': {
-      id: '/offers-won'
-      path: '/offers-won'
-      fullPath: '/offers-won'
-      preLoaderRoute: typeof OffersWonRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/offers-lost': {
-      id: '/offers-lost'
-      path: '/offers-lost'
-      fullPath: '/offers-lost'
-      preLoaderRoute: typeof OffersLostRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/offers-expired': {
-      id: '/offers-expired'
-      path: '/offers-expired'
-      fullPath: '/offers-expired'
-      preLoaderRoute: typeof OffersExpiredRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/my-offers': {
-      id: '/my-offers'
-      path: '/my-offers'
-      fullPath: '/my-offers'
-      preLoaderRoute: typeof MyOffersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/maintenance': {
-      id: '/maintenance'
-      path: '/maintenance'
-      fullPath: '/maintenance'
-      preLoaderRoute: typeof MaintenanceRouteImport
+    '/my-applications': {
+      id: '/my-applications'
+      path: '/my-applications'
+      fullPath: '/my-applications'
+      preLoaderRoute: typeof MyApplicationsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -721,18 +522,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InventoryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/how-to-auction': {
+      id: '/how-to-auction'
+      path: '/how-to-auction'
+      fullPath: '/how-to-auction'
+      preLoaderRoute: typeof HowToAuctionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/forgot-password': {
       id: '/forgot-password'
       path: '/forgot-password'
       fullPath: '/forgot-password'
       preLoaderRoute: typeof ForgotPasswordRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/due-payments': {
-      id: '/due-payments'
-      path: '/due-payments'
-      fullPath: '/due-payments'
-      preLoaderRoute: typeof DuePaymentsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -742,60 +543,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/current-offers': {
-      id: '/current-offers'
-      path: '/current-offers'
-      fullPath: '/current-offers'
-      preLoaderRoute: typeof CurrentOffersRouteImport
+    '/change-password': {
+      id: '/change-password'
+      path: '/change-password'
+      fullPath: '/change-password'
+      preLoaderRoute: typeof ChangePasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/current-bids': {
-      id: '/current-bids'
-      path: '/current-bids'
-      fullPath: '/current-bids'
-      preLoaderRoute: typeof CurrentBidsRouteImport
+    '/buy-advance-numbers': {
+      id: '/buy-advance-numbers'
+      path: '/buy-advance-numbers'
+      fullPath: '/buy-advance-numbers'
+      preLoaderRoute: typeof BuyAdvanceNumbersRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/contact-us': {
-      id: '/contact-us'
-      path: '/contact-us'
-      fullPath: '/contact-us'
-      preLoaderRoute: typeof ContactUsRouteImport
+    '/bidding': {
+      id: '/bidding'
+      path: '/bidding'
+      fullPath: '/bidding'
+      preLoaderRoute: typeof BiddingRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/canceled-vehicles': {
-      id: '/canceled-vehicles'
-      path: '/canceled-vehicles'
-      fullPath: '/canceled-vehicles'
-      preLoaderRoute: typeof CanceledVehiclesRouteImport
+    '/auctions': {
+      id: '/auctions'
+      path: '/auctions'
+      fullPath: '/auctions'
+      preLoaderRoute: typeof AuctionsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/bids-won': {
-      id: '/bids-won'
-      path: '/bids-won'
-      fullPath: '/bids-won'
-      preLoaderRoute: typeof BidsWonRouteImport
+    '/auction-series': {
+      id: '/auction-series'
+      path: '/auction-series'
+      fullPath: '/auction-series'
+      preLoaderRoute: typeof AuctionSeriesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/bids-lost': {
-      id: '/bids-lost'
-      path: '/bids-lost'
-      fullPath: '/bids-lost'
-      preLoaderRoute: typeof BidsLostRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/approved-vehicles': {
-      id: '/approved-vehicles'
-      path: '/approved-vehicles'
-      fullPath: '/approved-vehicles'
-      preLoaderRoute: typeof ApprovedVehiclesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about-us': {
-      id: '/about-us'
-      path: '/about-us'
-      fullPath: '/about-us'
-      preLoaderRoute: typeof AboutUsRouteImport
+    '/advance-numbers': {
+      id: '/advance-numbers'
+      path: '/advance-numbers'
+      fullPath: '/advance-numbers'
+      preLoaderRoute: typeof AdvanceNumbersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -805,57 +592,174 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/vehicle-details/$id': {
-      id: '/vehicle-details/$id'
-      path: '/vehicle-details/$id'
-      fullPath: '/vehicle-details/$id'
-      preLoaderRoute: typeof VehicleDetailsIdRouteImport
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/plates/$id': {
+      id: '/plates/$id'
+      path: '/plates/$id'
+      fullPath: '/plates/$id'
+      preLoaderRoute: typeof PlatesIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/join-auction/$id': {
+      id: '/join-auction/$id'
+      path: '/join-auction/$id'
+      fullPath: '/join-auction/$id'
+      preLoaderRoute: typeof JoinAuctionIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auctions/$id': {
+      id: '/auctions/$id'
+      path: '/$id'
+      fullPath: '/auctions/$id'
+      preLoaderRoute: typeof AuctionsIdRouteImport
+      parentRoute: typeof AuctionsRoute
+    }
+    '/auction-series/$seriesId': {
+      id: '/auction-series/$seriesId'
+      path: '/$seriesId'
+      fullPath: '/auction-series/$seriesId'
+      preLoaderRoute: typeof AuctionSeriesSeriesIdRouteImport
+      parentRoute: typeof AuctionSeriesRoute
+    }
+    '/admin/winners': {
+      id: '/admin/winners'
+      path: '/admin/winners'
+      fullPath: '/admin/winners'
+      preLoaderRoute: typeof AdminWinnersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/users': {
+      id: '/admin/users'
+      path: '/admin/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AdminUsersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/settings': {
+      id: '/admin/settings'
+      path: '/admin/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AdminSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/roles': {
+      id: '/admin/roles'
+      path: '/admin/roles'
+      fullPath: '/admin/roles'
+      preLoaderRoute: typeof AdminRolesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/plates': {
+      id: '/admin/plates'
+      path: '/admin/plates'
+      fullPath: '/admin/plates'
+      preLoaderRoute: typeof AdminPlatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/members': {
+      id: '/admin/members'
+      path: '/admin/members'
+      fullPath: '/admin/members'
+      preLoaderRoute: typeof AdminMembersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/auctions': {
+      id: '/admin/auctions'
+      path: '/admin/auctions'
+      fullPath: '/admin/auctions'
+      preLoaderRoute: typeof AdminAuctionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/applications': {
+      id: '/admin/applications'
+      path: '/admin/applications'
+      fullPath: '/admin/applications'
+      preLoaderRoute: typeof AdminApplicationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/analytics': {
+      id: '/admin/analytics'
+      path: '/admin/analytics'
+      fullPath: '/admin/analytics'
+      preLoaderRoute: typeof AdminAnalyticsRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
 }
 
+interface AuctionSeriesRouteChildren {
+  AuctionSeriesSeriesIdRoute: typeof AuctionSeriesSeriesIdRoute
+}
+
+const AuctionSeriesRouteChildren: AuctionSeriesRouteChildren = {
+  AuctionSeriesSeriesIdRoute: AuctionSeriesSeriesIdRoute,
+}
+
+const AuctionSeriesRouteWithChildren = AuctionSeriesRoute._addFileChildren(
+  AuctionSeriesRouteChildren,
+)
+
+interface AuctionsRouteChildren {
+  AuctionsIdRoute: typeof AuctionsIdRoute
+}
+
+const AuctionsRouteChildren: AuctionsRouteChildren = {
+  AuctionsIdRoute: AuctionsIdRoute,
+}
+
+const AuctionsRouteWithChildren = AuctionsRoute._addFileChildren(
+  AuctionsRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AboutUsRoute: AboutUsRoute,
-  ApprovedVehiclesRoute: ApprovedVehiclesRoute,
-  BidsLostRoute: BidsLostRoute,
-  BidsWonRoute: BidsWonRoute,
-  CanceledVehiclesRoute: CanceledVehiclesRoute,
-  ContactUsRoute: ContactUsRoute,
-  CurrentBidsRoute: CurrentBidsRoute,
-  CurrentOffersRoute: CurrentOffersRoute,
+  AdvanceNumbersRoute: AdvanceNumbersRoute,
+  AuctionSeriesRoute: AuctionSeriesRouteWithChildren,
+  AuctionsRoute: AuctionsRouteWithChildren,
+  BiddingRoute: BiddingRoute,
+  BuyAdvanceNumbersRoute: BuyAdvanceNumbersRoute,
+  ChangePasswordRoute: ChangePasswordRoute,
   DashboardRoute: DashboardRoute,
-  DuePaymentsRoute: DuePaymentsRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,
+  HowToAuctionRoute: HowToAuctionRoute,
   InventoryRoute: InventoryRoute,
   LoginRoute: LoginRoute,
-  MaintenanceRoute: MaintenanceRoute,
-  MyOffersRoute: MyOffersRoute,
-  OffersExpiredRoute: OffersExpiredRoute,
-  OffersLostRoute: OffersLostRoute,
-  OffersWonRoute: OffersWonRoute,
-  OnlineJoinedAuctionsRoute: OnlineJoinedAuctionsRoute,
-  PaidPaymentsRoute: PaidPaymentsRoute,
-  PendingInvoicesRoute: PendingInvoicesRoute,
-  PendingVehiclesRoute: PendingVehiclesRoute,
-  PrivacyPolicyRoute: PrivacyPolicyRoute,
+  MyApplicationsRoute: MyApplicationsRoute,
   RegisterRoute: RegisterRoute,
-  RegisterOrganizationRoute: RegisterOrganizationRoute,
-  RejectedVehiclesRoute: RejectedVehiclesRoute,
-  ResetPasswordRoute: ResetPasswordRoute,
-  SavedVehiclesRoute: SavedVehiclesRoute,
-  SelectRoleRoute: SelectRoleRoute,
-  SelectSellerTypeRoute: SelectSellerTypeRoute,
-  SettledInvoicesRoute: SettledInvoicesRoute,
-  SoldVehiclesRoute: SoldVehiclesRoute,
-  TermsAndConditionsRoute: TermsAndConditionsRoute,
-  TodaysAuctionsRoute: TodaysAuctionsRoute,
-  UpcomingAuctionsRoute: UpcomingAuctionsRoute,
-  VerifyOtpRoute: VerifyOtpRoute,
-  WhyChooseUsRoute: WhyChooseUsRoute,
-  VehicleDetailsIdRoute: VehicleDetailsIdRoute,
+  ScheduleRoute: ScheduleRoute,
+  VanityRoute: VanityRoute,
+  VanityCorporateRoute: VanityCorporateRoute,
+  VanityCreateRoute: VanityCreateRoute,
+  WinnersRoute: WinnersRoute,
+  AdminAnalyticsRoute: AdminAnalyticsRoute,
+  AdminApplicationsRoute: AdminApplicationsRoute,
+  AdminAuctionsRoute: AdminAuctionsRoute,
+  AdminMembersRoute: AdminMembersRoute,
+  AdminPlatesRoute: AdminPlatesRoute,
+  AdminRolesRoute: AdminRolesRoute,
+  AdminSettingsRoute: AdminSettingsRoute,
+  AdminUsersRoute: AdminUsersRoute,
+  AdminWinnersRoute: AdminWinnersRoute,
+  JoinAuctionIdRoute: JoinAuctionIdRoute,
+  PlatesIdRoute: PlatesIdRoute,
+  AdminIndexRoute: AdminIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

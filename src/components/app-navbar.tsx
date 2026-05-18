@@ -1,139 +1,175 @@
-import { Link, useNavigate } from "@tanstack/react-router";
-import { Bell, ChevronDown, LogOut, Moon, Sun, User2, Gavel, LogIn } from "lucide-react";
+import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
+import {
+  ChevronDown, Lock, LogOut, LogIn, Shield, Hash, Gavel, Home, LayoutDashboard, Menu,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import {
   DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
   DropdownMenuSeparator, DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
-import { Switch } from "@/components/ui/switch";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { useAuth, useTheme, setMode, logout } from "@/lib/auth-store";
-import { notifications } from "@/lib/dummy-data";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useAuth, logout as authLogout } from "@/lib/auth-store";
 import { cn } from "@/lib/utils";
 
-const navLinks = [
-  { to: "/", label: "Home" },
-  { to: "/inventory", label: "Inventory" },
-  { to: "/todays-auctions", label: "Today" },
-  { to: "/upcoming-auctions", label: "Upcoming" },
-  { to: "/locations", label: "Locations" },
-  { to: "/deposit-plans", label: "Plans" },
-  { to: "/about-us", label: "About" },
-  { to: "/contact-us", label: "Contact" },
-];
-
 export function AppNavbar() {
-  const { user, isAuthed } = useAuth();
-  const { theme, toggle } = useTheme();
+  const { user, isAuthed, isAdmin } = useAuth();
   const navigate = useNavigate();
-  const unread = notifications.filter((n) => !n.read).length;
+  const path = useRouterState({ select: (s) => s.location.pathname });
+
+  const isLandingArea =
+    path === "/" ||
+    path === "/inventory" ||
+    path === "/auctions" ||
+    path.startsWith("/auctions/") ||
+    path.startsWith("/plates/") ||
+    path.startsWith("/join-auction/");
+  const isAdminArea = path.startsWith("/admin");
+  const showSidebarTrigger = isAuthed && !isLandingArea;
+
+  const handleLogout = async () => {
+    authLogout();
+    await navigate({ to: "/login" });
+  };
+
+  const publicLinks = [
+    { to: "/", label: "Home", icon: Home },
+    { to: "/inventory", label: "Inventory", icon: Hash },
+    { to: "/auctions", label: "Auctions", icon: Gavel },
+  ];
 
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center gap-3 border-b bg-background/85 px-3 backdrop-blur supports-[backdrop-filter]:bg-background/70 md:px-6">
-      {isAuthed && <SidebarTrigger className="md:hidden" />}
-      <Link to="/" className="flex items-center gap-2 md:hidden">
-        <div className="flex h-8 w-8 items-center justify-center rounded-md gradient-gold">
-          <Gavel className="h-4 w-4 text-primary-foreground" />
+    <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-4 md:px-6">
+      {showSidebarTrigger && (
+        <SidebarTrigger className="text-foreground hover:bg-accent hover:text-accent-foreground" />
+      )}
+
+      {/* Left: Brand */}
+      <Link to="/" className="flex items-center gap-2.5 shrink-0">
+        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary/80 text-primary-foreground font-bold text-lg shadow-md">
+          ب
+        </div>
+        <div className="hidden sm:flex flex-col leading-tight">
+          <div className="text-sm font-bold text-foreground">E-Auction</div>
+          <div className="text-[10px] text-muted-foreground">Balochistan Excise</div>
         </div>
       </Link>
 
-      <nav className="hidden flex-1 items-center gap-1 md:flex">
-        {navLinks.map((l) => (
-          <Link
-            key={l.to}
-            to={l.to}
-            activeOptions={{ exact: l.to === "/" }}
-            className="rounded-md px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground data-[status=active]:text-primary"
-          >
-            {l.label}
-          </Link>
-        ))}
-      </nav>
+      {/* Center: Public Navigation (only on landing) */}
+      {isLandingArea && (
+        <nav className="hidden lg:flex items-center gap-1 ml-6">
+          {publicLinks.map((link) => {
+            const active = path === link.to || (link.to !== "/" && path.startsWith(link.to));
+            return (
+              <Link
+                key={link.to}
+                to={link.to}
+                className={cn(
+                  "px-4 py-2 rounded-md text-sm font-medium transition-colors",
+                  active
+                    ? "bg-primary/10 text-primary"
+                    : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                )}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
+        </nav>
+      )}
 
+      {/* Right Side */}
       <div className="ml-auto flex items-center gap-2">
-        {isAuthed && user && (
-          <div className="hidden items-center gap-2 rounded-full border bg-secondary px-3 py-1 text-xs font-medium md:flex">
-            <span className={cn("uppercase tracking-wider", user.currentMode === "buyer" ? "text-primary" : "text-muted-foreground")}>Buyer</span>
-            <Switch
-              checked={user.currentMode === "seller"}
-              onCheckedChange={(v) => setMode(v ? "seller" : "buyer")}
-            />
-            <span className={cn("uppercase tracking-wider", user.currentMode === "seller" ? "text-primary" : "text-muted-foreground")}>Seller</span>
-          </div>
-        )}
-
-        <Button size="icon" variant="ghost" onClick={toggle} aria-label="Toggle theme">
-          {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-        </Button>
-
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button size="icon" variant="ghost" className="relative">
-              <Bell className="h-4 w-4" />
-              {unread > 0 && (
-                <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-live px-1 text-[10px] font-bold text-live-foreground">
-                  {unread}
-                </span>
-              )}
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent align="end" className="w-80 p-0">
-            <div className="flex items-center justify-between border-b px-4 py-3">
-              <span className="font-semibold">Notifications</span>
-              <Badge variant="secondary">{unread} new</Badge>
-            </div>
-            <ScrollArea className="h-80">
-              <ul className="divide-y">
-                {notifications.map((n) => (
-                  <li key={n.id} className={cn("px-4 py-3 text-sm", !n.read && "bg-secondary/50")}>
-                    <div className="flex items-start justify-between gap-2">
-                      <p className="font-medium">{n.title}</p>
-                      <span className="shrink-0 text-xs text-muted-foreground">{n.time}</span>
-                    </div>
-                    <p className="mt-0.5 text-xs text-muted-foreground">{n.body}</p>
-                  </li>
-                ))}
-              </ul>
-            </ScrollArea>
-          </PopoverContent>
-        </Popover>
-
-        {isAuthed && user ? (
+        {/* Mobile Menu (for landing) */}
+        {isLandingArea && (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-9 gap-2 px-2">
-                <Avatar className="h-7 w-7"><AvatarImage src={user.avatar} /><AvatarFallback>{user.firstName[0]}</AvatarFallback></Avatar>
-                <span className="hidden text-sm font-medium md:inline">{user.firstName}</span>
-                <ChevronDown className="h-4 w-4 text-muted-foreground" />
+              <Button variant="ghost" size="icon" className="lg:hidden">
+                <Menu className="h-5 w-5" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56">
-              <DropdownMenuLabel>
-                <div className="text-sm font-semibold">{user.firstName} {user.lastName}</div>
-                <div className="text-xs font-normal text-muted-foreground">{user.email}</div>
-              </DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => navigate({ to: "/dashboard" })}>Dashboard</DropdownMenuItem>
-              <DropdownMenuItem onClick={() => navigate({ to: "/profile" })}>My Profile</DropdownMenuItem>
-              <DropdownMenuItem onClick={() => navigate({ to: "/deposit-plans" })}>Current Plan</DropdownMenuItem>
-              <DropdownMenuItem onClick={() => navigate({ to: "/switch-to-organization" })}>Switch to Organization</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => { logout(); navigate({ to: "/" }); }} className="text-destructive">
-                <LogOut className="mr-2 h-4 w-4" /> Logout
-              </DropdownMenuItem>
+            <DropdownMenuContent align="end" className="w-48 lg:hidden">
+              {publicLinks.map((link) => (
+                <DropdownMenuItem key={link.to} onClick={() => navigate({ to: link.to })}>
+                  <link.icon className="h-4 w-4 mr-2" />
+                  {link.label}
+                </DropdownMenuItem>
+              ))}
             </DropdownMenuContent>
           </DropdownMenu>
+        )}
+
+        {isAuthed && user ? (
+          <>
+            {/* Admin Badge/Link (visible when admin and not in admin area) */}
+            {isAdmin && !isAdminArea && (
+              <Button asChild variant="outline" size="sm" className="hidden md:inline-flex border-red-200 text-red-700 hover:bg-red-50">
+                <Link to="/admin">
+                  <Shield className="h-3.5 w-3.5 mr-1" />
+                  Admin Panel
+                </Link>
+              </Button>
+            )}
+
+            {/* Dashboard link (for non-landing) */}
+            {isLandingArea && (
+              <Button asChild variant="outline" size="sm" className="hidden md:inline-flex">
+                <Link to="/dashboard">
+                  <LayoutDashboard className="h-3.5 w-3.5 mr-1" />
+                  Dashboard
+                </Link>
+              </Button>
+            )}
+
+            {/* User Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="h-9 gap-2 px-2">
+                  <Avatar className="h-7 w-7">
+                    <AvatarFallback className="bg-primary text-primary-foreground text-xs font-bold">
+                      {user.firstName[0]}
+                    </AvatarFallback>
+                  </Avatar>
+                  <span className="hidden text-sm font-medium md:inline">{user.firstName}</span>
+                  <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuLabel>
+                  <div className="text-sm font-semibold">{user.firstName} {user.lastName}</div>
+                  <div className="text-xs font-normal text-muted-foreground">{user.cnic}</div>
+                  <div className="text-xs font-normal text-primary capitalize mt-1">{user.role}</div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => navigate({ to: "/dashboard" })}>
+                  <LayoutDashboard className="mr-2 h-4 w-4" />
+                  Dashboard
+                </DropdownMenuItem>
+                {isAdmin && (
+                  <DropdownMenuItem onClick={() => navigate({ to: "/admin" })}>
+                    <Shield className="mr-2 h-4 w-4 text-red-600" />
+                    <span className="text-red-600">Admin Panel</span>
+                  </DropdownMenuItem>
+                )}
+                <DropdownMenuItem onClick={() => navigate({ to: "/change-password" })}>
+                  <Lock className="mr-2 h-4 w-4" />
+                  Change Password
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={handleLogout} className="text-destructive">
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Logout
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </>
         ) : (
           <>
             <Button variant="ghost" size="sm" onClick={() => navigate({ to: "/login" })}>
               <LogIn className="mr-2 h-4 w-4" /> Login
             </Button>
-            <Button size="sm" className="hidden md:inline-flex" onClick={() => navigate({ to: "/register" })}>
-              Get Started
+            <Button size="sm" className="hidden sm:inline-flex" onClick={() => navigate({ to: "/register" })}>
+              Register
             </Button>
           </>
         )}

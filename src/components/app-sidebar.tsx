@@ -1,183 +1,98 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import {
-  LayoutDashboard, Gavel, Car, Heart, Tag, Wallet, CreditCard, Settings,
-  Building2, MapPin, BadgeCheck, ClipboardList, Coins, FileText, ShoppingBag,
-  Trophy, XCircle, Clock, Hourglass, Banknote, ReceiptText, RefreshCcw, Repeat2,
-  PackagePlus, ChevronDown,
+  LayoutDashboard, Layers, Gem, Briefcase, FileText, BadgePlus, Gavel, Trophy,
+  Calendar, HelpCircle, Lock, LogOut,
 } from "lucide-react";
 import {
-  Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel,
+  Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent,
   SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar,
+  SidebarFooter, SidebarSeparator,
 } from "@/components/ui/sidebar";
 import { useAuth } from "@/lib/auth-store";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Button } from "@/components/ui/button";
 
 type Item = { title: string; url: string; icon: any };
-type Group = { label: string; items: Item[] };
 
-const buyerGroups: Group[] = [
-  {
-    label: "Overview",
-    items: [
-      { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
-      { title: "Saved Vehicles", url: "/saved-vehicles", icon: Heart },
-    ],
-  },
-  {
-    label: "Auctions",
-    items: [
-      { title: "Today's Auctions", url: "/todays-auctions", icon: Gavel },
-      { title: "Upcoming", url: "/upcoming-auctions", icon: Clock },
-      { title: "Live Joined", url: "/live-joined-auctions", icon: BadgeCheck },
-      { title: "Online Joined", url: "/online-joined-auctions", icon: ClipboardList },
-      { title: "Inventory", url: "/inventory", icon: Car },
-    ],
-  },
-  {
-    label: "Bids",
-    items: [
-      { title: "Current Bids", url: "/current-bids", icon: Tag },
-      { title: "Bids Won", url: "/bids-won", icon: Trophy },
-      { title: "Bids Lost", url: "/bids-lost", icon: XCircle },
-    ],
-  },
-  {
-    label: "Offers",
-    items: [
-      { title: "My Offers", url: "/my-offers", icon: Tag },
-      { title: "Current Offers", url: "/current-offers", icon: Hourglass },
-      { title: "Offers Won", url: "/offers-won", icon: Trophy },
-      { title: "Offers Lost", url: "/offers-lost", icon: XCircle },
-      { title: "Offers Expired", url: "/offers-expired", icon: Clock },
-    ],
-  },
-  {
-    label: "Payments",
-    items: [
-      { title: "Due Payments", url: "/due-payments", icon: Banknote },
-      { title: "Paid Payments", url: "/paid-payments", icon: ReceiptText },
-    ],
-  },
-];
-
-const sellerGroups: Group[] = [
-  {
-    label: "Overview",
-    items: [{ title: "Dashboard", url: "/dashboard", icon: LayoutDashboard }],
-  },
-  {
-    label: "Inventory",
-    items: [
-      { title: "Add Vehicle", url: "/add-new-vehicles", icon: PackagePlus },
-      { title: "Pending", url: "/pending-vehicles", icon: Hourglass },
-      { title: "Approved", url: "/approved-vehicles", icon: BadgeCheck },
-      { title: "Sold", url: "/sold-vehicles", icon: Trophy },
-      { title: "Rejected", url: "/rejected-vehicles", icon: XCircle },
-      { title: "Cancelled", url: "/canceled-vehicles", icon: XCircle },
-    ],
-  },
-  {
-    label: "Invoices",
-    items: [
-      { title: "Pending Invoices", url: "/pending-invoices", icon: FileText },
-      { title: "Settled Invoices", url: "/settled-invoices", icon: ReceiptText },
-    ],
-  },
-];
-
-const sharedGroups: Group[] = [
-  {
-    label: "Deposit & Plans",
-    items: [
-      { title: "Deposit Plans", url: "/deposit-plans", icon: Coins },
-      { title: "Deposit Invoices", url: "/security-deposit/deposit-invoices", icon: Wallet },
-      { title: "Refund Invoices", url: "/security-deposit/refund-invoices", icon: RefreshCcw },
-      { title: "Deposit History", url: "/deposit-history", icon: ClipboardList },
-    ],
-  },
-  {
-    label: "Account",
-    items: [
-      { title: "Profile", url: "/profile", icon: Settings },
-      { title: "Billing Address", url: "/billing-address", icon: MapPin },
-      { title: "Payout Address", url: "/payout-address", icon: MapPin },
-      { title: "Payment Methods", url: "/payment-methods", icon: CreditCard },
-      { title: "Cards", url: "/cards-management", icon: CreditCard },
-      { title: "Payout Details", url: "/payout-details", icon: Banknote },
-      { title: "Pickup Locations", url: "/cash-pickup-locations", icon: Building2 },
-      { title: "Update Password", url: "/update-password", icon: Settings },
-    ],
-  },
-  {
-    label: "Switch Role",
-    items: [
-      { title: "To Buyer", url: "/switch-to-buyer", icon: Repeat2 },
-      { title: "To Seller", url: "/switch-from-only-buyer-to-seller", icon: Repeat2 },
-      { title: "To Organization", url: "/switch-to-organization", icon: Building2 },
-      { title: "To Individual", url: "/switch-to-individual-seller", icon: Repeat2 },
-    ],
-  },
+const menuItems: Item[] = [
+  { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
+  { title: "Series", url: "/auction-series", icon: Layers },
+  { title: "Vanity", url: "/vanity", icon: Gem },
+  { title: "Corporate Vanity", url: "/vanity-corporate", icon: Briefcase },
+  { title: "My Applications", url: "/my-applications", icon: FileText },
+  { title: "Advance Numbers", url: "/advance-numbers", icon: BadgePlus },
+  { title: "Bidding", url: "/bidding", icon: Gavel },
+  { title: "Winners", url: "/winners", icon: Trophy },
+  { title: "Schedule", url: "/schedule", icon: Calendar },
+  { title: "How to E-Auction", url: "/how-to-auction", icon: HelpCircle },
+  { title: "Change Password", url: "/change-password", icon: Lock },
 ];
 
 export function AppSidebar() {
-  const { user } = useAuth();
   const path = useRouterState({ select: (s) => s.location.pathname });
   const { state } = useSidebar();
+  const { logout } = useAuth();
+  const navigate = useNavigate();
   const collapsed = state === "collapsed";
-  const groups = (user?.currentMode === "seller" ? sellerGroups : buyerGroups).concat(sharedGroups);
+
+  const handleLogout = async () => {
+    logout();
+    await navigate({ to: "/login" });
+  };
 
   return (
-    <Sidebar collapsible="icon" className="border-r">
+    <Sidebar collapsible="icon" className="border-r border-sidebar-border">
       <SidebarHeader className="border-b border-sidebar-border px-3 py-4">
-        <Link to="/" className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg gradient-gold text-sidebar-primary-foreground shadow-lg">
-            <Gavel className="h-5 w-5" />
+        <Link to="/dashboard" className="flex items-center gap-3">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-yellow-400 to-yellow-500 text-primary font-bold text-base shadow-md">
+            E
           </div>
           {!collapsed && (
-            <div className="flex flex-col leading-tight">
-              <span className="font-display text-base font-bold tracking-tight text-sidebar-foreground">BK Cars</span>
-              <span className="text-[10px] uppercase tracking-widest text-sidebar-foreground/60">Auctions</span>
+            <div className="flex flex-col leading-tight overflow-hidden">
+              <span className="font-display text-sm font-bold text-sidebar-foreground whitespace-nowrap">E-Auction</span>
+              <span className="text-[10px] text-sidebar-foreground/60 whitespace-nowrap">Balochistan</span>
             </div>
           )}
         </Link>
       </SidebarHeader>
 
-      <SidebarContent className="px-1">
-        {groups.map((g) => {
-          const hasActive = g.items.some((i) => path === i.url);
-          return (
-            <Collapsible key={g.label} defaultOpen={hasActive || g.label === "Overview"}>
-              <SidebarGroup>
-                <CollapsibleTrigger asChild>
-                  <SidebarGroupLabel className="group/label flex w-full cursor-pointer items-center justify-between text-[10px] font-semibold uppercase tracking-widest text-sidebar-foreground/60 hover:text-sidebar-foreground">
-                    {g.label}
-                    <ChevronDown className="h-3.5 w-3.5 transition-transform group-data-[state=closed]/label:-rotate-90" />
-                  </SidebarGroupLabel>
-                </CollapsibleTrigger>
-                <CollapsibleContent>
-                  <SidebarGroupContent>
-                    <SidebarMenu>
-                      {g.items.map((item) => {
-                        const active = path === item.url;
-                        return (
-                          <SidebarMenuItem key={item.url}>
-                            <SidebarMenuButton asChild isActive={active} tooltip={item.title}>
-                              <Link to={item.url} className="flex items-center gap-3">
-                                <item.icon className="h-4 w-4 shrink-0" />
-                                <span>{item.title}</span>
-                              </Link>
-                            </SidebarMenuButton>
-                          </SidebarMenuItem>
-                        );
-                      })}
-                    </SidebarMenu>
-                  </SidebarGroupContent>
-                </CollapsibleContent>
-              </SidebarGroup>
-            </Collapsible>
-          );
-        })}
+      <SidebarContent className="px-2 py-3">
+        <SidebarGroup>
+          <SidebarGroupContent>
+            <SidebarMenu className="gap-1">
+              {menuItems.map((item) => {
+                const active = path === item.url;
+                return (
+                  <SidebarMenuItem key={item.url}>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={active}
+                      tooltip={item.title}
+                      className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground data-[active=true]:bg-yellow-400 data-[active=true]:text-primary data-[active=true]:font-semibold transition-all"
+                    >
+                      <Link to={item.url} className="flex items-center gap-3">
+                        <item.icon className="h-4 w-4 shrink-0" />
+                        <span>{item.title}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
       </SidebarContent>
+
+      <SidebarFooter className="border-t border-sidebar-border p-3">
+        <Button
+          variant="ghost"
+          size="sm"
+          className="w-full justify-start gap-2 text-red-200 hover:bg-red-500/20 hover:text-red-100"
+          onClick={handleLogout}
+        >
+          <LogOut className="h-4 w-4 shrink-0" />
+          {!collapsed && <span>Logout</span>}
+        </Button>
+      </SidebarFooter>
     </Sidebar>
   );
 }
