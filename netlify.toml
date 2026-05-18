@@ -7,18 +7,15 @@
   # The build command — runs `vite build`
   command = "npm run build"
 
-  # Where the build output lives. TanStack Start typically outputs to `dist`.
+  # Where the build output lives (Vite outputs the client bundle here)
   publish = "dist/client"
-
-  # Where the build runs from (the auction-house-hub project root)
-  base = "auction-house-hub"
 
 [build.environment]
   # Pin Node version so Netlify uses a compatible runtime
   NODE_VERSION = "20"
   NPM_VERSION = "10"
 
-  # Skip Cypress / Husky / etc.
+  # Skip Husky / Cypress / etc. in CI
   HUSKY = "0"
 
 # -----------------------------------------------------------------------------
@@ -62,17 +59,17 @@
     Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
-  for = "*.js"
+  for = "/*.js"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
-  for = "*.css"
+  for = "/*.css"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
-  for = "*.woff2"
+  for = "/*.woff2"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
@@ -85,24 +82,17 @@
 # -----------------------------------------------------------------------------
 # Deploy contexts (per-branch overrides)
 # -----------------------------------------------------------------------------
-[context.production]
-  command = "npm run build"
-  [context.production.environment]
-    NODE_ENV = "production"
+[context.production.environment]
+  NODE_ENV = "production"
 
 [context.deploy-preview]
   command = "npm run build:dev"
-  [context.deploy-preview.environment]
-    NODE_ENV = "development"
+
+[context.deploy-preview.environment]
+  NODE_ENV = "development"
 
 [context.branch-deploy]
   command = "npm run build:dev"
-  [context.branch-deploy.environment]
-    NODE_ENV = "development"
 
-# -----------------------------------------------------------------------------
-# Plugins
-# -----------------------------------------------------------------------------
-# Uncomment if you want a Lighthouse audit on every deploy
-# [[plugins]]
-#   package = "@netlify/plugin-lighthouse"
+[context.branch-deploy.environment]
+  NODE_ENV = "development"
