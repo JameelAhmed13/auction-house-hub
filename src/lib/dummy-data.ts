@@ -210,6 +210,72 @@ export interface AppNotification {
   read: boolean;
 }
 
+/* ========== WIN / CHALLAN / INVOICE TYPES ========== */
+
+export type ChallanStatus = "pending" | "paid" | "overdue" | "refunded" | "expired";
+
+export interface Challan {
+  id: string;
+  challanNumber: string; // e.g., "CHN-2026-00001"
+  psid: string; // Payment Serial ID for bank/1-Bill
+  winnerCnic: string;
+  winnerName: string;
+  plateId: string;
+  plateNumber: string;
+  auctionId: string;
+  auctionTitle: string;
+  winningBid: number;
+  registrationFee: number;
+  processingFee: number;
+  tax: number;
+  totalAmount: number;
+  generatedAt: string; // ISO datetime
+  dueDate: string; // ISO datetime
+  paidAt?: string;
+  status: ChallanStatus;
+  paymentMethod?: string;
+}
+
+export interface Invoice {
+  id: string;
+  invoiceNumber: string; // e.g., "INV-2026-00001"
+  challanId: string;
+  challanNumber: string;
+  cnic: string;
+  customerName: string;
+  plateNumber: string;
+  items: InvoiceItem[];
+  subtotal: number;
+  tax: number;
+  total: number;
+  issuedAt: string;
+  paidAt: string;
+  paymentMethod: string;
+  transactionId: string;
+}
+
+export interface InvoiceItem {
+  description: string;
+  amount: number;
+}
+
+export interface WinRecord {
+  id: string;
+  userId: string;
+  userCnic: string;
+  plateId: string;
+  plateNumber: string;
+  category: string;
+  auctionId: string;
+  auctionTitle: string;
+  winningBid: number;
+  wonAt: string; // ISO datetime
+  challanId?: string;
+  invoiceId?: string;
+  /** Effective status from user perspective */
+  status: "pending-payment" | "paid" | "registered" | "expired" | "refunded";
+}
+
 /* ========== USERS DATA ========== */
 
 export const users: UserAccount[] = [
@@ -869,15 +935,194 @@ export const schedules: SeriesSchedule[] = [
 ];
 
 export const notifications: AppNotification[] = [
-  { id: "n1", title: "Application Approved",
+  { id: "n1", title: "🏆 Auction Won!",
+    message: "Congratulations! You won AB 0786. Please complete payment within 7 days.",
+    type: "auction", timestamp: "2026-05-15T16:45:00Z", read: false },
+  { id: "n2", title: "Application Approved",
     message: "Your application for BAL 789 has been approved. Please complete payment.",
     type: "application", timestamp: "2026-05-15T10:30:00Z", read: false },
-  { id: "n2", title: "Payment Reminder",
+  { id: "n3", title: "💳 Challan Generated",
+    message: "Challan CHN-2026-00001 for PKR 1,575,000 is ready. Pay within 7 days.",
+    type: "payment", timestamp: "2026-05-15T16:46:00Z", read: false },
+  { id: "n4", title: "Payment Reminder",
     message: "Payment for PSID-2026-00001 is due by 2026-06-10.",
     type: "payment", timestamp: "2026-05-14T09:00:00Z", read: false },
-  { id: "n3", title: "Auction Started",
+  { id: "n5", title: "Auction Started",
     message: "The Motor Car Series auction has started. You can now place bids.",
     type: "auction", timestamp: "2026-05-13T08:00:00Z", read: true },
+];
+
+/* ========== WINS / CHALLANS / INVOICES DATA ========== */
+
+const futureISO = (days: number) =>
+  new Date(now.getTime() + days * 86_400_000).toISOString();
+const pastISO = (days: number) =>
+  new Date(now.getTime() - days * 86_400_000).toISOString();
+
+export const challans: Challan[] = [
+  {
+    id: "ch1",
+    challanNumber: "CHN-2026-00001",
+    psid: "PSID-2026-A4F2X9",
+    winnerCnic: "42301-1234567-1",
+    winnerName: "Muhammad Hassan",
+    plateId: "p13",
+    plateNumber: "AB 0786",
+    auctionId: "sp1",
+    auctionTitle: "Solo: AB 0786 — Sacred Number",
+    winningBid: 1450000,
+    registrationFee: 10000,
+    processingFee: 5000,
+    tax: 110000,
+    totalAmount: 1575000,
+    generatedAt: pastISO(1),
+    dueDate: futureISO(6),
+    status: "pending",
+  },
+  {
+    id: "ch2",
+    challanNumber: "CHN-2026-00002",
+    psid: "PSID-2026-B7K1M3",
+    winnerCnic: "42301-1234567-1",
+    winnerName: "Muhammad Hassan",
+    plateId: "rm4",
+    plateNumber: "BAL 100",
+    auctionId: "a1",
+    auctionTitle: "Premium Platinum & Gold",
+    winningBid: 67500,
+    registrationFee: 1500,
+    processingFee: 500,
+    tax: 5400,
+    totalAmount: 74900,
+    generatedAt: pastISO(3),
+    dueDate: futureISO(4),
+    status: "pending",
+  },
+  {
+    id: "ch3",
+    challanNumber: "CHN-2026-00003",
+    psid: "PSID-2026-C9M3P5",
+    winnerCnic: "42301-1234567-1",
+    winnerName: "Muhammad Hassan",
+    plateId: "w1-plate",
+    plateNumber: "BAL 234",
+    auctionId: "past-1",
+    auctionTitle: "Past Motor Car Auction",
+    winningBid: 45000,
+    registrationFee: 1500,
+    processingFee: 500,
+    tax: 3600,
+    totalAmount: 50600,
+    generatedAt: pastISO(20),
+    dueDate: pastISO(13),
+    paidAt: pastISO(15),
+    status: "paid",
+    paymentMethod: "1-Bill",
+  },
+  {
+    id: "ch4",
+    challanNumber: "CHN-2026-00004",
+    psid: "PSID-2026-D5N7Q1",
+    winnerCnic: "42301-1234567-1",
+    winnerName: "Muhammad Hassan",
+    plateId: "old-1",
+    plateNumber: "BEL 567",
+    auctionId: "past-2",
+    auctionTitle: "Past Motor Cycle Auction",
+    winningBid: 15000,
+    registrationFee: 1000,
+    processingFee: 500,
+    tax: 1200,
+    totalAmount: 17700,
+    generatedAt: pastISO(40),
+    dueDate: pastISO(33),
+    status: "expired",
+  },
+];
+
+export const invoices: Invoice[] = [
+  {
+    id: "inv1",
+    invoiceNumber: "INV-2026-00001",
+    challanId: "ch3",
+    challanNumber: "CHN-2026-00003",
+    cnic: "42301-1234567-1",
+    customerName: "Muhammad Hassan",
+    plateNumber: "BAL 234",
+    items: [
+      { description: "Winning Bid Amount", amount: 45000 },
+      { description: "Registration Fee", amount: 1500 },
+      { description: "Processing Fee", amount: 500 },
+      { description: "GST (8%)", amount: 3600 },
+    ],
+    subtotal: 47000,
+    tax: 3600,
+    total: 50600,
+    issuedAt: pastISO(15),
+    paidAt: pastISO(15),
+    paymentMethod: "1-Bill",
+    transactionId: "TXN-2026-MAY-001",
+  },
+];
+
+export const myWins: WinRecord[] = [
+  {
+    id: "win1",
+    userId: "u2",
+    userCnic: "42301-1234567-1",
+    plateId: "p13",
+    plateNumber: "AB 0786",
+    category: "Platinum",
+    auctionId: "sp1",
+    auctionTitle: "Solo: AB 0786 — Sacred Number",
+    winningBid: 1450000,
+    wonAt: pastISO(1),
+    challanId: "ch1",
+    status: "pending-payment",
+  },
+  {
+    id: "win2",
+    userId: "u2",
+    userCnic: "42301-1234567-1",
+    plateId: "rm4",
+    plateNumber: "BAL 100",
+    category: "Motor Car",
+    auctionId: "a1",
+    auctionTitle: "Premium Platinum & Gold",
+    winningBid: 67500,
+    wonAt: pastISO(3),
+    challanId: "ch2",
+    status: "pending-payment",
+  },
+  {
+    id: "win3",
+    userId: "u2",
+    userCnic: "42301-1234567-1",
+    plateId: "w1-plate",
+    plateNumber: "BAL 234",
+    category: "Motor Car",
+    auctionId: "past-1",
+    auctionTitle: "Past Motor Car Auction",
+    winningBid: 45000,
+    wonAt: pastISO(15),
+    challanId: "ch3",
+    invoiceId: "inv1",
+    status: "registered",
+  },
+  {
+    id: "win4",
+    userId: "u2",
+    userCnic: "42301-1234567-1",
+    plateId: "old-1",
+    plateNumber: "BEL 567",
+    category: "Motor Cycle",
+    auctionId: "past-2",
+    auctionTitle: "Past Motor Cycle Auction",
+    winningBid: 15000,
+    wonAt: pastISO(40),
+    challanId: "ch4",
+    status: "expired",
+  },
 ];
 
 /* ========== UTILITY FUNCTIONS ========== */
@@ -924,6 +1169,34 @@ export function isSinglePlateAuction(auction: Auction): boolean {
   if (auction.plateMode === "single") return true;
   if (auction.plateMode === "multi") return false;
   return auction.plateIds.length === 1;
+}
+
+/* ========== WINS / CHALLAN / INVOICE HELPERS ========== */
+
+export function getChallanById(id: string): Challan | undefined {
+  return challans.find((c) => c.id === id);
+}
+export function getChallanByNumber(num: string): Challan | undefined {
+  return challans.find((c) => c.challanNumber === num);
+}
+export function getInvoiceById(id: string): Invoice | undefined {
+  return invoices.find((i) => i.id === id);
+}
+export function getInvoiceByChallanId(challanId: string): Invoice | undefined {
+  return invoices.find((i) => i.challanId === challanId);
+}
+export function getMyWins(userCnic?: string): WinRecord[] {
+  if (!userCnic) return myWins;
+  return myWins.filter((w) => w.userCnic === userCnic);
+}
+export function getChallansByCnic(cnic: string): Challan[] {
+  return challans.filter((c) => c.winnerCnic === cnic);
+}
+export function getInvoicesByCnic(cnic: string): Invoice[] {
+  return invoices.filter((i) => i.cnic === cnic);
+}
+export function getPendingChallans(cnic: string): Challan[] {
+  return challans.filter((c) => c.winnerCnic === cnic && c.status === "pending");
 }
 export function getAvailablePlates(): NumberPlate[] {
   return numberPlates.filter((p) => p.status === "available" || p.status === "in-auction");

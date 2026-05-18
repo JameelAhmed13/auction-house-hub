@@ -1,0 +1,108 @@
+# =============================================================================
+# Netlify Configuration — Balochistan E-Auction
+# https://docs.netlify.com/configure-builds/file-based-configuration/
+# =============================================================================
+
+[build]
+  # The build command — runs `vite build`
+  command = "npm run build"
+
+  # Where the build output lives. TanStack Start typically outputs to `dist`.
+  publish = "dist/client"
+
+  # Where the build runs from (the auction-house-hub project root)
+  base = "auction-house-hub"
+
+[build.environment]
+  # Pin Node version so Netlify uses a compatible runtime
+  NODE_VERSION = "20"
+  NPM_VERSION = "10"
+
+  # Skip Cypress / Husky / etc.
+  HUSKY = "0"
+
+# -----------------------------------------------------------------------------
+# Dev server config — for `netlify dev`
+# -----------------------------------------------------------------------------
+[dev]
+  command = "npm run dev"
+  port = 8888
+  targetPort = 8080
+  framework = "vite"
+
+# -----------------------------------------------------------------------------
+# SPA Routing
+# Required so client-side routes (e.g. /plates/p1, /admin/users) load index.html
+# instead of 404 on direct visit / refresh.
+# -----------------------------------------------------------------------------
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false
+
+# -----------------------------------------------------------------------------
+# Security Headers
+# -----------------------------------------------------------------------------
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+    X-XSS-Protection = "1; mode=block"
+
+# -----------------------------------------------------------------------------
+# Long-term cache for hashed static assets
+# -----------------------------------------------------------------------------
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "*.woff2"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Don't cache HTML — always serve fresh shell
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# -----------------------------------------------------------------------------
+# Deploy contexts (per-branch overrides)
+# -----------------------------------------------------------------------------
+[context.production]
+  command = "npm run build"
+  [context.production.environment]
+    NODE_ENV = "production"
+
+[context.deploy-preview]
+  command = "npm run build:dev"
+  [context.deploy-preview.environment]
+    NODE_ENV = "development"
+
+[context.branch-deploy]
+  command = "npm run build:dev"
+  [context.branch-deploy.environment]
+    NODE_ENV = "development"
+
+# -----------------------------------------------------------------------------
+# Plugins
+# -----------------------------------------------------------------------------
+# Uncomment if you want a Lighthouse audit on every deploy
+# [[plugins]]
+#   package = "@netlify/plugin-lighthouse"

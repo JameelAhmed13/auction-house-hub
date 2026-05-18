@@ -13,24 +13,36 @@ import { Route as WinnersRouteImport } from './routes/winners'
 import { Route as VanityCreateRouteImport } from './routes/vanity-create'
 import { Route as VanityCorporateRouteImport } from './routes/vanity-corporate'
 import { Route as VanityRouteImport } from './routes/vanity'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ScheduleRouteImport } from './routes/schedule'
 import { Route as RegisterRouteImport } from './routes/register'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as NotificationsRouteImport } from './routes/notifications'
+import { Route as MyWinsRouteImport } from './routes/my-wins'
+import { Route as MyBidsRouteImport } from './routes/my-bids'
 import { Route as MyApplicationsRouteImport } from './routes/my-applications'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as InvoicesRouteImport } from './routes/invoices'
 import { Route as InventoryRouteImport } from './routes/inventory'
 import { Route as HowToAuctionRouteImport } from './routes/how-to-auction'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ChangePasswordRouteImport } from './routes/change-password'
+import { Route as ChallansRouteImport } from './routes/challans'
 import { Route as BuyAdvanceNumbersRouteImport } from './routes/buy-advance-numbers'
 import { Route as BiddingRouteImport } from './routes/bidding'
 import { Route as AuctionsRouteImport } from './routes/auctions'
 import { Route as AuctionSeriesRouteImport } from './routes/auction-series'
 import { Route as AdvanceNumbersRouteImport } from './routes/advance-numbers'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as PlatesIdRouteImport } from './routes/plates.$id'
 import { Route as JoinAuctionIdRouteImport } from './routes/join-auction.$id'
+import { Route as InvoicesIdRouteImport } from './routes/invoices.$id'
+import { Route as ChallansIdRouteImport } from './routes/challans.$id'
 import { Route as AuctionsIdRouteImport } from './routes/auctions.$id'
 import { Route as AuctionSeriesSeriesIdRouteImport } from './routes/auction-series.$seriesId'
 import { Route as AdminWinnersRouteImport } from './routes/admin.winners'
@@ -63,6 +75,11 @@ const VanityRoute = VanityRouteImport.update({
   path: '/vanity',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ScheduleRoute = ScheduleRouteImport.update({
   id: '/schedule',
   path: '/schedule',
@@ -73,6 +90,31 @@ const RegisterRoute = RegisterRouteImport.update({
   path: '/register',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NotificationsRoute = NotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MyWinsRoute = MyWinsRouteImport.update({
+  id: '/my-wins',
+  path: '/my-wins',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MyBidsRoute = MyBidsRouteImport.update({
+  id: '/my-bids',
+  path: '/my-bids',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MyApplicationsRoute = MyApplicationsRouteImport.update({
   id: '/my-applications',
   path: '/my-applications',
@@ -81,6 +123,11 @@ const MyApplicationsRoute = MyApplicationsRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InvoicesRoute = InvoicesRouteImport.update({
+  id: '/invoices',
+  path: '/invoices',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InventoryRoute = InventoryRouteImport.update({
@@ -103,9 +150,19 @@ const DashboardRoute = DashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ChangePasswordRoute = ChangePasswordRouteImport.update({
   id: '/change-password',
   path: '/change-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChallansRoute = ChallansRouteImport.update({
+  id: '/challans',
+  path: '/challans',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BuyAdvanceNumbersRoute = BuyAdvanceNumbersRouteImport.update({
@@ -133,6 +190,11 @@ const AdvanceNumbersRoute = AdvanceNumbersRouteImport.update({
   path: '/advance-numbers',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -152,6 +214,16 @@ const JoinAuctionIdRoute = JoinAuctionIdRouteImport.update({
   id: '/join-auction/$id',
   path: '/join-auction/$id',
   getParentRoute: () => rootRouteImport,
+} as any)
+const InvoicesIdRoute = InvoicesIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => InvoicesRoute,
+} as any)
+const ChallansIdRoute = ChallansIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => ChallansRoute,
 } as any)
 const AuctionsIdRoute = AuctionsIdRouteImport.update({
   id: '/$id',
@@ -211,20 +283,30 @@ const AdminAnalyticsRoute = AdminAnalyticsRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/advance-numbers': typeof AdvanceNumbersRoute
   '/auction-series': typeof AuctionSeriesRouteWithChildren
   '/auctions': typeof AuctionsRouteWithChildren
   '/bidding': typeof BiddingRoute
   '/buy-advance-numbers': typeof BuyAdvanceNumbersRoute
+  '/challans': typeof ChallansRouteWithChildren
   '/change-password': typeof ChangePasswordRoute
+  '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/how-to-auction': typeof HowToAuctionRoute
   '/inventory': typeof InventoryRoute
+  '/invoices': typeof InvoicesRouteWithChildren
   '/login': typeof LoginRoute
   '/my-applications': typeof MyApplicationsRoute
+  '/my-bids': typeof MyBidsRoute
+  '/my-wins': typeof MyWinsRoute
+  '/notifications': typeof NotificationsRoute
+  '/privacy': typeof PrivacyRoute
+  '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
   '/schedule': typeof ScheduleRoute
+  '/terms': typeof TermsRoute
   '/vanity': typeof VanityRoute
   '/vanity-corporate': typeof VanityCorporateRoute
   '/vanity-create': typeof VanityCreateRoute
@@ -240,26 +322,38 @@ export interface FileRoutesByFullPath {
   '/admin/winners': typeof AdminWinnersRoute
   '/auction-series/$seriesId': typeof AuctionSeriesSeriesIdRoute
   '/auctions/$id': typeof AuctionsIdRoute
+  '/challans/$id': typeof ChallansIdRoute
+  '/invoices/$id': typeof InvoicesIdRoute
   '/join-auction/$id': typeof JoinAuctionIdRoute
   '/plates/$id': typeof PlatesIdRoute
   '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/advance-numbers': typeof AdvanceNumbersRoute
   '/auction-series': typeof AuctionSeriesRouteWithChildren
   '/auctions': typeof AuctionsRouteWithChildren
   '/bidding': typeof BiddingRoute
   '/buy-advance-numbers': typeof BuyAdvanceNumbersRoute
+  '/challans': typeof ChallansRouteWithChildren
   '/change-password': typeof ChangePasswordRoute
+  '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/how-to-auction': typeof HowToAuctionRoute
   '/inventory': typeof InventoryRoute
+  '/invoices': typeof InvoicesRouteWithChildren
   '/login': typeof LoginRoute
   '/my-applications': typeof MyApplicationsRoute
+  '/my-bids': typeof MyBidsRoute
+  '/my-wins': typeof MyWinsRoute
+  '/notifications': typeof NotificationsRoute
+  '/privacy': typeof PrivacyRoute
+  '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
   '/schedule': typeof ScheduleRoute
+  '/terms': typeof TermsRoute
   '/vanity': typeof VanityRoute
   '/vanity-corporate': typeof VanityCorporateRoute
   '/vanity-create': typeof VanityCreateRoute
@@ -275,6 +369,8 @@ export interface FileRoutesByTo {
   '/admin/winners': typeof AdminWinnersRoute
   '/auction-series/$seriesId': typeof AuctionSeriesSeriesIdRoute
   '/auctions/$id': typeof AuctionsIdRoute
+  '/challans/$id': typeof ChallansIdRoute
+  '/invoices/$id': typeof InvoicesIdRoute
   '/join-auction/$id': typeof JoinAuctionIdRoute
   '/plates/$id': typeof PlatesIdRoute
   '/admin': typeof AdminIndexRoute
@@ -282,20 +378,30 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/advance-numbers': typeof AdvanceNumbersRoute
   '/auction-series': typeof AuctionSeriesRouteWithChildren
   '/auctions': typeof AuctionsRouteWithChildren
   '/bidding': typeof BiddingRoute
   '/buy-advance-numbers': typeof BuyAdvanceNumbersRoute
+  '/challans': typeof ChallansRouteWithChildren
   '/change-password': typeof ChangePasswordRoute
+  '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/how-to-auction': typeof HowToAuctionRoute
   '/inventory': typeof InventoryRoute
+  '/invoices': typeof InvoicesRouteWithChildren
   '/login': typeof LoginRoute
   '/my-applications': typeof MyApplicationsRoute
+  '/my-bids': typeof MyBidsRoute
+  '/my-wins': typeof MyWinsRoute
+  '/notifications': typeof NotificationsRoute
+  '/privacy': typeof PrivacyRoute
+  '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
   '/schedule': typeof ScheduleRoute
+  '/terms': typeof TermsRoute
   '/vanity': typeof VanityRoute
   '/vanity-corporate': typeof VanityCorporateRoute
   '/vanity-create': typeof VanityCreateRoute
@@ -311,6 +417,8 @@ export interface FileRoutesById {
   '/admin/winners': typeof AdminWinnersRoute
   '/auction-series/$seriesId': typeof AuctionSeriesSeriesIdRoute
   '/auctions/$id': typeof AuctionsIdRoute
+  '/challans/$id': typeof ChallansIdRoute
+  '/invoices/$id': typeof InvoicesIdRoute
   '/join-auction/$id': typeof JoinAuctionIdRoute
   '/plates/$id': typeof PlatesIdRoute
   '/admin/': typeof AdminIndexRoute
@@ -319,20 +427,30 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/advance-numbers'
     | '/auction-series'
     | '/auctions'
     | '/bidding'
     | '/buy-advance-numbers'
+    | '/challans'
     | '/change-password'
+    | '/contact'
     | '/dashboard'
     | '/forgot-password'
     | '/how-to-auction'
     | '/inventory'
+    | '/invoices'
     | '/login'
     | '/my-applications'
+    | '/my-bids'
+    | '/my-wins'
+    | '/notifications'
+    | '/privacy'
+    | '/profile'
     | '/register'
     | '/schedule'
+    | '/terms'
     | '/vanity'
     | '/vanity-corporate'
     | '/vanity-create'
@@ -348,26 +466,38 @@ export interface FileRouteTypes {
     | '/admin/winners'
     | '/auction-series/$seriesId'
     | '/auctions/$id'
+    | '/challans/$id'
+    | '/invoices/$id'
     | '/join-auction/$id'
     | '/plates/$id'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/advance-numbers'
     | '/auction-series'
     | '/auctions'
     | '/bidding'
     | '/buy-advance-numbers'
+    | '/challans'
     | '/change-password'
+    | '/contact'
     | '/dashboard'
     | '/forgot-password'
     | '/how-to-auction'
     | '/inventory'
+    | '/invoices'
     | '/login'
     | '/my-applications'
+    | '/my-bids'
+    | '/my-wins'
+    | '/notifications'
+    | '/privacy'
+    | '/profile'
     | '/register'
     | '/schedule'
+    | '/terms'
     | '/vanity'
     | '/vanity-corporate'
     | '/vanity-create'
@@ -383,26 +513,38 @@ export interface FileRouteTypes {
     | '/admin/winners'
     | '/auction-series/$seriesId'
     | '/auctions/$id'
+    | '/challans/$id'
+    | '/invoices/$id'
     | '/join-auction/$id'
     | '/plates/$id'
     | '/admin'
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/advance-numbers'
     | '/auction-series'
     | '/auctions'
     | '/bidding'
     | '/buy-advance-numbers'
+    | '/challans'
     | '/change-password'
+    | '/contact'
     | '/dashboard'
     | '/forgot-password'
     | '/how-to-auction'
     | '/inventory'
+    | '/invoices'
     | '/login'
     | '/my-applications'
+    | '/my-bids'
+    | '/my-wins'
+    | '/notifications'
+    | '/privacy'
+    | '/profile'
     | '/register'
     | '/schedule'
+    | '/terms'
     | '/vanity'
     | '/vanity-corporate'
     | '/vanity-create'
@@ -418,6 +560,8 @@ export interface FileRouteTypes {
     | '/admin/winners'
     | '/auction-series/$seriesId'
     | '/auctions/$id'
+    | '/challans/$id'
+    | '/invoices/$id'
     | '/join-auction/$id'
     | '/plates/$id'
     | '/admin/'
@@ -425,20 +569,30 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   AdvanceNumbersRoute: typeof AdvanceNumbersRoute
   AuctionSeriesRoute: typeof AuctionSeriesRouteWithChildren
   AuctionsRoute: typeof AuctionsRouteWithChildren
   BiddingRoute: typeof BiddingRoute
   BuyAdvanceNumbersRoute: typeof BuyAdvanceNumbersRoute
+  ChallansRoute: typeof ChallansRouteWithChildren
   ChangePasswordRoute: typeof ChangePasswordRoute
+  ContactRoute: typeof ContactRoute
   DashboardRoute: typeof DashboardRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   HowToAuctionRoute: typeof HowToAuctionRoute
   InventoryRoute: typeof InventoryRoute
+  InvoicesRoute: typeof InvoicesRouteWithChildren
   LoginRoute: typeof LoginRoute
   MyApplicationsRoute: typeof MyApplicationsRoute
+  MyBidsRoute: typeof MyBidsRoute
+  MyWinsRoute: typeof MyWinsRoute
+  NotificationsRoute: typeof NotificationsRoute
+  PrivacyRoute: typeof PrivacyRoute
+  ProfileRoute: typeof ProfileRoute
   RegisterRoute: typeof RegisterRoute
   ScheduleRoute: typeof ScheduleRoute
+  TermsRoute: typeof TermsRoute
   VanityRoute: typeof VanityRoute
   VanityCorporateRoute: typeof VanityCorporateRoute
   VanityCreateRoute: typeof VanityCreateRoute
@@ -487,6 +641,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VanityRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/schedule': {
       id: '/schedule'
       path: '/schedule'
@@ -501,6 +662,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RegisterRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/notifications': {
+      id: '/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof NotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/my-wins': {
+      id: '/my-wins'
+      path: '/my-wins'
+      fullPath: '/my-wins'
+      preLoaderRoute: typeof MyWinsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/my-bids': {
+      id: '/my-bids'
+      path: '/my-bids'
+      fullPath: '/my-bids'
+      preLoaderRoute: typeof MyBidsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/my-applications': {
       id: '/my-applications'
       path: '/my-applications'
@@ -513,6 +709,13 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/invoices': {
+      id: '/invoices'
+      path: '/invoices'
+      fullPath: '/invoices'
+      preLoaderRoute: typeof InvoicesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/inventory': {
@@ -543,11 +746,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/change-password': {
       id: '/change-password'
       path: '/change-password'
       fullPath: '/change-password'
       preLoaderRoute: typeof ChangePasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/challans': {
+      id: '/challans'
+      path: '/challans'
+      fullPath: '/challans'
+      preLoaderRoute: typeof ChallansRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/buy-advance-numbers': {
@@ -585,6 +802,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdvanceNumbersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -612,6 +836,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/join-auction/$id'
       preLoaderRoute: typeof JoinAuctionIdRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/invoices/$id': {
+      id: '/invoices/$id'
+      path: '/$id'
+      fullPath: '/invoices/$id'
+      preLoaderRoute: typeof InvoicesIdRouteImport
+      parentRoute: typeof InvoicesRoute
+    }
+    '/challans/$id': {
+      id: '/challans/$id'
+      path: '/$id'
+      fullPath: '/challans/$id'
+      preLoaderRoute: typeof ChallansIdRouteImport
+      parentRoute: typeof ChallansRoute
     }
     '/auctions/$id': {
       id: '/auctions/$id'
@@ -717,22 +955,56 @@ const AuctionsRouteWithChildren = AuctionsRoute._addFileChildren(
   AuctionsRouteChildren,
 )
 
+interface ChallansRouteChildren {
+  ChallansIdRoute: typeof ChallansIdRoute
+}
+
+const ChallansRouteChildren: ChallansRouteChildren = {
+  ChallansIdRoute: ChallansIdRoute,
+}
+
+const ChallansRouteWithChildren = ChallansRoute._addFileChildren(
+  ChallansRouteChildren,
+)
+
+interface InvoicesRouteChildren {
+  InvoicesIdRoute: typeof InvoicesIdRoute
+}
+
+const InvoicesRouteChildren: InvoicesRouteChildren = {
+  InvoicesIdRoute: InvoicesIdRoute,
+}
+
+const InvoicesRouteWithChildren = InvoicesRoute._addFileChildren(
+  InvoicesRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   AdvanceNumbersRoute: AdvanceNumbersRoute,
   AuctionSeriesRoute: AuctionSeriesRouteWithChildren,
   AuctionsRoute: AuctionsRouteWithChildren,
   BiddingRoute: BiddingRoute,
   BuyAdvanceNumbersRoute: BuyAdvanceNumbersRoute,
+  ChallansRoute: ChallansRouteWithChildren,
   ChangePasswordRoute: ChangePasswordRoute,
+  ContactRoute: ContactRoute,
   DashboardRoute: DashboardRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,
   HowToAuctionRoute: HowToAuctionRoute,
   InventoryRoute: InventoryRoute,
+  InvoicesRoute: InvoicesRouteWithChildren,
   LoginRoute: LoginRoute,
   MyApplicationsRoute: MyApplicationsRoute,
+  MyBidsRoute: MyBidsRoute,
+  MyWinsRoute: MyWinsRoute,
+  NotificationsRoute: NotificationsRoute,
+  PrivacyRoute: PrivacyRoute,
+  ProfileRoute: ProfileRoute,
   RegisterRoute: RegisterRoute,
   ScheduleRoute: ScheduleRoute,
+  TermsRoute: TermsRoute,
   VanityRoute: VanityRoute,
   VanityCorporateRoute: VanityCorporateRoute,
   VanityCreateRoute: VanityCreateRoute,

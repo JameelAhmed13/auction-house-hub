@@ -4,12 +4,15 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { PageHeader } from "@/components/page-header";
 import {
-  Layers, Gem, FileText, BadgePlus, Gavel, Trophy, Calendar, HelpCircle,
-  LayoutGrid, Briefcase,
+  Layers, Gem, FileText, BadgePlus, Gavel, Trophy, Calendar,
+  AlertCircle, CreditCard, ArrowRight, Activity, Receipt,
 } from "lucide-react";
 import { useAuth } from "@/lib/auth-store";
-import { auctionSeries, vanityPlates, getSeriesByCategory } from "@/lib/dummy-data";
+import {
+  auctionSeries, vanityPlates, getSeriesByCategory, getPendingChallans, getMyWins,
+} from "@/lib/dummy-data";
 import { PlateDisplay } from "@/components/plate-display";
+import { CountdownTimer } from "@/components/countdown-timer";
 
 export const Route = createFileRoute("/dashboard")({ component: Dashboard });
 
@@ -85,6 +88,10 @@ function Dashboard() {
   const motorCarSeries = getSeriesByCategory("Motor Car");
   const vanityGold = vanityPlates.filter((v) => v.category === "Gold").slice(0, 3);
 
+  const pendingChallans = user ? getPendingChallans(user.cnic) : [];
+  const myWinsList = user ? getMyWins(user.cnic) : [];
+  const totalDue = pendingChallans.reduce((sum, c) => sum + c.totalAmount, 0);
+
   return (
     <div className="space-y-8">
       {/* Header */}
@@ -93,12 +100,124 @@ function Dashboard() {
         subtitle="Excise E-Auction Portal"
       />
 
+      {/* Urgent Payment Alert */}
+      {pendingChallans.length > 0 && (
+        <Card className="border-2 border-orange-300 bg-gradient-to-r from-orange-50 to-amber-50 overflow-hidden">
+          <CardContent className="p-5">
+            <div className="flex items-start gap-4 flex-wrap md:flex-nowrap">
+              <div className="h-14 w-14 rounded-full bg-orange-500 text-white flex items-center justify-center shrink-0 animate-pulse">
+                <AlertCircle className="h-7 w-7" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h3 className="text-lg font-bold text-orange-900 mb-1">
+                  🏆 Payment Required for {pendingChallans.length} Won Plate{pendingChallans.length > 1 ? "s" : ""}
+                </h3>
+                <p className="text-sm text-orange-800 mb-3">
+                  Total amount due: <strong>PKR {totalDue.toLocaleString()}</strong>.
+                  Pay before deadline to avoid forfeiture.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {pendingChallans.slice(0, 3).map((c) => (
+                    <Link
+                      key={c.id}
+                      to="/challans/$id"
+                      params={{ id: c.id }}
+                      className="inline-flex items-center gap-2 bg-white border border-orange-300 hover:border-orange-400 hover:shadow-sm rounded-md px-3 py-1.5 text-xs font-semibold transition-all"
+                    >
+                      <span className="font-mono">{c.plateNumber}</span>
+                      <span className="text-muted-foreground">·</span>
+                      <span className="text-orange-700">PKR {c.totalAmount.toLocaleString()}</span>
+                      <span className="text-muted-foreground">·</span>
+                      <CountdownTimer
+                        targetDate={c.dueDate}
+                        variant="inline"
+                        className="text-[10px] text-red-600"
+                      />
+                    </Link>
+                  ))}
+                </div>
+              </div>
+              <Button asChild className="bg-orange-500 hover:bg-orange-600 shadow-md shrink-0">
+                <Link to="/challans">
+                  <CreditCard className="h-4 w-4 mr-2" />
+                  View All Challans
+                </Link>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Hero Banner */}
       <div className="rounded-lg bg-hero-dark text-white p-8 md:p-12">
         <h2 className="text-4xl font-bold mb-4">E-AUCTION</h2>
         <p className="max-w-2xl text-white/80">
           Unlock Prestige and Personalization, Join Our Exclusive E-Auction for Unique Automobile Registration Numbers. Bid Now to Secure the Perfect Plate for Your Vehicle!
         </p>
+      </div>
+
+      {/* Quick Stats - User Activity */}
+      <div className="grid gap-4 md:grid-cols-4">
+        <Link to="/my-bids" className="block">
+          <Card className="hover:shadow-md transition-all hover:-translate-y-0.5 cursor-pointer h-full">
+            <CardContent className="p-5">
+              <div className="flex items-center gap-3">
+                <div className="h-10 w-10 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center">
+                  <Activity className="h-5 w-5" />
+                </div>
+                <div>
+                  <div className="text-2xl font-bold">3</div>
+                  <div className="text-xs text-muted-foreground">Active Bids</div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </Link>
+        <Link to="/my-wins" className="block">
+          <Card className="hover:shadow-md transition-all hover:-translate-y-0.5 cursor-pointer h-full">
+            <CardContent className="p-5">
+              <div className="flex items-center gap-3">
+                <div className="h-10 w-10 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center">
+                  <Trophy className="h-5 w-5" />
+                </div>
+                <div>
+                  <div className="text-2xl font-bold">{myWinsList.length}</div>
+                  <div className="text-xs text-muted-foreground">Total Wins</div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </Link>
+        <Link to="/challans" className="block">
+          <Card className="hover:shadow-md transition-all hover:-translate-y-0.5 cursor-pointer h-full">
+            <CardContent className="p-5">
+              <div className="flex items-center gap-3">
+                <div className="h-10 w-10 rounded-lg bg-orange-100 text-orange-700 flex items-center justify-center">
+                  <CreditCard className="h-5 w-5" />
+                </div>
+                <div>
+                  <div className="text-2xl font-bold">{pendingChallans.length}</div>
+                  <div className="text-xs text-muted-foreground">Pending Challans</div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </Link>
+        <Link to="/invoices" className="block">
+          <Card className="hover:shadow-md transition-all hover:-translate-y-0.5 cursor-pointer h-full">
+            <CardContent className="p-5">
+              <div className="flex items-center gap-3">
+                <div className="h-10 w-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center">
+                  <Receipt className="h-5 w-5" />
+                </div>
+                <div>
+                  <div className="text-2xl font-bold">1</div>
+                  <div className="text-xs text-muted-foreground">Paid Invoices</div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </Link>
       </div>
 
       {/* Quick Access Cards */}

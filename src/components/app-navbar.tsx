@@ -1,6 +1,7 @@
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import {
   ChevronDown, Lock, LogOut, LogIn, Shield, Hash, Gavel, Home, LayoutDashboard, Menu,
+  Bell, User as UserIcon, Trophy, Receipt, CreditCard,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SidebarTrigger } from "@/components/ui/sidebar";
@@ -10,6 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useAuth, logout as authLogout } from "@/lib/auth-store";
+import { getUnreadNotifications } from "@/lib/dummy-data";
 import { cn } from "@/lib/utils";
 
 export function AppNavbar() {
@@ -21,6 +23,10 @@ export function AppNavbar() {
     path === "/" ||
     path === "/inventory" ||
     path === "/auctions" ||
+    path === "/about" ||
+    path === "/contact" ||
+    path === "/terms" ||
+    path === "/privacy" ||
     path.startsWith("/auctions/") ||
     path.startsWith("/plates/") ||
     path.startsWith("/join-auction/");
@@ -121,6 +127,16 @@ export function AppNavbar() {
               </Button>
             )}
 
+            {/* Notifications */}
+            <Button asChild variant="ghost" size="icon" className="relative">
+              <Link to="/notifications" aria-label="Notifications">
+                <Bell className="h-5 w-5" />
+                {getUnreadNotifications().length > 0 && (
+                  <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-red-500 ring-2 ring-background animate-pulse" />
+                )}
+              </Link>
+            </Button>
+
             {/* User Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -144,6 +160,26 @@ export function AppNavbar() {
                 <DropdownMenuItem onClick={() => navigate({ to: "/dashboard" })}>
                   <LayoutDashboard className="mr-2 h-4 w-4" />
                   Dashboard
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate({ to: "/profile" })}>
+                  <UserIcon className="mr-2 h-4 w-4" />
+                  My Profile
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate({ to: "/my-wins" })}>
+                  <Trophy className="mr-2 h-4 w-4 text-amber-600" />
+                  My Wins
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate({ to: "/challans" })}>
+                  <CreditCard className="mr-2 h-4 w-4 text-orange-600" />
+                  Challans
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate({ to: "/invoices" })}>
+                  <Receipt className="mr-2 h-4 w-4 text-emerald-600" />
+                  Invoices
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate({ to: "/notifications" })}>
+                  <Bell className="mr-2 h-4 w-4" />
+                  Notifications
                 </DropdownMenuItem>
                 {isAdmin && (
                   <DropdownMenuItem onClick={() => navigate({ to: "/admin" })}>

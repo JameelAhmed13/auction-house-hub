@@ -17,6 +17,10 @@ export function AppShell() {
     path === "/" ||
     path === "/inventory" ||
     path === "/auctions" ||
+    path === "/about" ||
+    path === "/contact" ||
+    path === "/terms" ||
+    path === "/privacy" ||
     path.startsWith("/auctions/") ||
     path.startsWith("/plates/") ||
     path.startsWith("/join-auction/");
