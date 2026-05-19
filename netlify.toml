@@ -15,6 +15,10 @@
   NODE_VERSION = "20"
   NPM_VERSION = "10"
 
+  # Force npm to install devDependencies (build tools like vite/plugin-react live there).
+  # Netlify sets NODE_ENV=production by default, which would otherwise skip them.
+  NPM_FLAGS = "--include=dev"
+
   # Skip Husky / Cypress / etc. in CI
   HUSKY = "0"
 
@@ -81,18 +85,12 @@
 
 # -----------------------------------------------------------------------------
 # Deploy contexts (per-branch overrides)
+# Note: We don't override NODE_ENV here because setting it to "production"
+# makes npm skip devDependencies, breaking the build. NPM_FLAGS above handles
+# the production install.
 # -----------------------------------------------------------------------------
-[context.production.environment]
-  NODE_ENV = "production"
-
 [context.deploy-preview]
   command = "npm run build:dev"
 
-[context.deploy-preview.environment]
-  NODE_ENV = "development"
-
 [context.branch-deploy]
   command = "npm run build:dev"
-
-[context.branch-deploy.environment]
-  NODE_ENV = "development"
