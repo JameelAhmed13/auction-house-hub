@@ -25,18 +25,8 @@ export default defineConfig({
   build: {
     outDir: "dist",
     sourcemap: false,
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (id.includes("node_modules")) {
-            if (id.includes("react") || id.includes("@tanstack")) return "vendor-react";
-            if (id.includes("@radix-ui")) return "vendor-radix";
-            if (id.includes("recharts") || id.includes("d3")) return "vendor-charts";
-            return "vendor";
-          }
-        },
-      },
-    },
+    // No manualChunks: route-level code splitting from TanStack Router is enough.
+    // Custom manualChunks caused circular vendor chunks → "Activity undefined" at runtime.
   },
   server: {
     port: 8080,
